@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="cs" data-root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Základy informačních technologií · F7PBPZIT · FBMI ČVUT</title>
+  <meta name="description" content="Web kurzu F7PBPZIT Základy informačních technologií pro studenty programu Bezpečnost a ochrana obyvatelstva na FBMI ČVUT. Cvičení, materiály, harmonogram, pravidla práce s AI.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/course-data.js"></script>
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="./"><span class="logo"></span><span>Základy IT<small>F7PBPZIT · FBMI ČVUT</small></span></a>
+  <button class="nav-toggle" data-nav-toggle type="button" aria-expanded="false" aria-label="Otevřít menu">☰</button>
+  <nav class="site-nav" aria-label="Hlavní navigace">
+    <a href="./">Domů</a>
+    <a href="lectures/">Cvičení</a>
+    <a href="harmonogram.html">Harmonogram</a>
+    <a href="nastroje.html">Nástroje</a>
+    <a href="pravidla-ai.html">Pravidla AI</a>
+    <a href="hodnoceni.html">Hodnocení</a>
+    <button class="icon-btn" data-theme-toggle type="button" aria-label="Přepnout tmavý režim">☾</button>
+  </nav>
+</div></header>
+
+<main>
+  <section class="hero"><div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">
+        <span class="badge badge-info">F7PBPZIT</span>
+        <span class="badge">Zimní semestr <span data-zit="year"></span></span>
+        <span class="badge badge-accent">BOO · FBMI ČVUT · Kladno</span>
+      </div>
+      <h1>Základy informačních technologií</h1>
+      <p class="lead">Sedm praktických cvičení. Na každém dostaneš balíček informací z vymyšlené krizové situace a úkol, jaký by dostal člen podpůrného týmu krizového štábu. Naučíš se soubory, dokumenty, tabulky a práci s AI tak, aby se na výsledek dalo spolehnout.</p>
+      <div class="flex" style="margin:1.2rem 0 1.6rem">
+        <span class="small muted">Tvoje paralelka:</span>
+        <div data-zit="group-picker"></div>
+      </div>
+      <div data-zit="next"></div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <ol class="flow">
+        <li><span class="n">1</span> Přijmi informaci</li>
+        <li><span class="n">2</span> Utřiď ji</li>
+        <li><span class="n">3</span> Posuď, komu smí do rukou</li>
+        <li><span class="n">4</span> Použij správný nástroj, klidně AI</li>
+        <li><span class="n">5</span> Ověř výsledek, teprve pak ho pošli dál</li>
+      </ol>
+    </div>
+  </div></section>
+
+  <section class="wrap" id="cviceni">
+    <div class="flex between" style="margin:2rem 0 1rem">
+      <h2 class="mt-0 mb-0">Cvičení v semestru</h2>
+      <a class="btn btn-sm" href="harmonogram.html">Celý harmonogram →</a>
+    </div>
+    <ol data-zit="timeline"></ol>
+  </section>
+
+  <section class="wrap">
+    <h2>Tři pravidla, která platí celý semestr</h2>
+    <div class="rules">
+      <div class="rule"><span class="n">1</span><strong>Utřiď.</strong><span>Nejdřív pořádek v informacích, pak práce s nimi. Soubor s názvem final2_opravdu.docx pořádek není.</span></div>
+      <div class="rule"><span class="n">2</span><strong>Posuď.</strong><span>Než něco nahraješ nebo nasdílíš, věz, co to je za data a komu smějí do rukou.</span></div>
+      <div class="rule"><span class="n">3</span><strong>Ověř.</strong><span>Odpověď AI je koncept. Plynulá věta není důkaz. Za výsledek odpovídáš ty.</span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="grid grid-3">
+      <a class="card card-link" href="nastroje.html"><h3>🛠 Nástroje a účty</h3><p class="muted mb-0">Školní účet, Copilot, Copilot Studio, OneDrive. Jak se přihlásit a co si nastavit v počítači.</p></a>
+      <a class="card card-link" href="pravidla-ai.html"><h3>🚦 Pravidla práce s AI</h3><p class="muted mb-0">Co smíš, co musíš přiznat a co do AI nikdy nepatří.</p></a>
+      <a class="card card-link" href="hodnoceni.html"><h3>🎓 Hodnocení a odevzdávání</h3><p class="muted mb-0">Zápočet, checkpoint, závěrečná simulace a jak posílat práci e-mailem.</p></a>
+    </div>
+  </section>
+
+  <section class="wrap" style="margin-top:2.5rem">
+    <h2>Časté otázky</h2>
+    <details class="faq"><summary>Musím umět programovat nebo něco instalovat?</summary><p class="mb-0">Ne. Stačí školní účet ČVUT, prohlížeč a Office, klidně ve webové verzi.</p></details>
+    <details class="faq"><summary>Jaký účet používám pro AI?</summary><p class="mb-0">Školní účet ČVUT. Jiné AI služby se v kurzu objeví jen pro srovnání a nikdy do nich nepatří školní ani skutečná data. Víc na stránce <a href="nastroje.html">Nástroje</a>.</p></details>
+    <details class="faq"><summary>Sleduje tenhle web, co dělám?</summary><p class="mb-0">Ne. Web nemá žádný server ani přihlašování. Zaškrtnuté bloky, vybraná paralelka nebo rozepsaný prompt se ukládají jen v tvém prohlížeči a vyučující je nevidí.</p></details>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div><h4>F7PBPZIT · Základy informačních technologií</h4><p>Fakulta biomedicínského inženýrství ČVUT v Praze<br>Studijní program Bezpečnost a ochrana obyvatelstva<br>Zimní semestr <span data-zit="year"></span></p></div>
+  <div><h4>Vyučující</h4><p><span data-zit="teacher"></span><br><a data-zit="email" href="#"></a></p></div>
+  <div><h4>Cvičná data</h4><p>Všechna data na tomto webu jsou smyšlená. Skutečné osobní, interní ani citlivé informace do AI nepatří.</p></div>
+</div></footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

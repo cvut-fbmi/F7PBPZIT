@@ -1,0 +1,23 @@
+# --- Neveřejné / učitelské materiály (NIKDY necommitovat) ---
+docs/
+plans/
+teacher/
+
+# --- Lokální nastavení a nástroje ---
+.claude/settings.local.json
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# --- Systémové soubory ---
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+*.tmp
+
+# --- Dočasné / pracovní ---
+.scratch/
+*.log
