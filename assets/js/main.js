@@ -34,22 +34,21 @@
     return w === 1 ? "za týden" : (w < 5 ? `za ${w} týdny` : `za ${w} týdnů`);
   };
 
-  /* ---------- téma ---------- */
+  /* ---------- téma: výchozí světlé, tmavé jen na vyžádání ---------- */
   function applyTheme(t) {
-    if (t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme");
-    const dark = t === "dark" || (!t && matchMedia("(prefers-color-scheme: dark)").matches);
+    const dark = t === "dark";
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
     document.querySelectorAll("[data-theme-toggle]").forEach(b => {
       b.textContent = dark ? "☀" : "☾";
       b.setAttribute("aria-label", dark ? "Přepnout na světlý režim" : "Přepnout na tmavý režim");
       b.title = b.getAttribute("aria-label");
     });
   }
-  applyTheme(LS.get("zit.theme", null));
+  applyTheme(LS.get("zit.theme", "light"));
   document.addEventListener("click", e => {
     if (!e.target.closest("[data-theme-toggle]")) return;
-    const cur = document.documentElement.getAttribute("data-theme");
-    const dark = cur === "dark" || (!cur && matchMedia("(prefers-color-scheme: dark)").matches);
-    LS.set("zit.theme", dark ? "light" : "dark"); applyTheme(dark ? "light" : "dark");
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    LS.set("zit.theme", next); applyTheme(next);
   });
 
   /* ---------- aktivní položka menu ---------- */
@@ -106,7 +105,7 @@
       const inner = `
         <div class="big-n">${nxt.n}</div>
         <div>
-          <span class="badge badge-blue badge-live">Další cvičení · ${rel(d)}</span>
+          <span class="badge badge-blue">Další cvičení · ${rel(d)}</span>
           <h2>${esc(nxt.title)}</h2>
           <div class="meta">${esc(nxt.sub)}<br><b>${fmtLong(d)}</b>${g ? ` · ${C.groups[g].time} · ${C.groups[g].room}` : " · vyber paralelku pro přesný čas"}</div>
         </div>
@@ -124,7 +123,7 @@
         const when = g ? `<span>${whenText(l, g)}</span>`
           : (l.dates[2] === l.dates[3] ? `<span>Par. 1 · ${fmt(l.dates[1])}</span><span>Par. 2 a 3 · ${fmt(l.dates[2])}</span>` : [1, 2, 3].map(x => `<span>Par. ${x} · ${fmt(l.dates[x])}</span>`).join(""));
         const body = `
-          <div class="top"><span class="n"><span class="ico" aria-hidden="true">${l.icon || ""}</span> Cvičení ${l.n}</span>${status}</div>
+          <div class="top"><span class="n">Cvičení ${l.n}</span>${status}</div>
           <h3>${esc(l.title)}</h3>
           <p class="sub">${esc(l.sub)}</p>
           ${l.test ? `<span class="badge badge-warn" style="align-self:flex-start">${esc(l.test)}</span>` : ""}

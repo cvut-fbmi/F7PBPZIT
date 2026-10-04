@@ -9,7 +9,7 @@
 (function () {
   "use strict";
   const H = window.ZIT_helpers;
-  const { esc, LS, onVisible, sleep, reduced } = H;
+  const { esc, LS } = H;
 
   /* ---------- rentgen konceptu ---------- */
   const DRAFT = [
@@ -35,7 +35,7 @@
     connectedCallback() {
       if (this._i) return; this._i = true;
       H.shell(this, {
-        ico: "🩻", title: "Rentgen konceptu", kind: "jako tlačítko ¶ ve Wordu",
+        title: "Rentgen konceptu", kind: "jako tlačítko ¶ ve Wordu",
         body: `<div class="paper xray-paper" aria-live="polite"></div><div class="xray-found" hidden></div>`,
         foot: `<button type="button" class="btn btn-primary btn-sm" data-x>¶ Zobrazit značky</button><span class="small muted">Ve Wordu: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd></span>`
       });
@@ -80,7 +80,7 @@
     connectedCallback() {
       if (this._i) return; this._i = true;
       H.shell(this, {
-        ico: "🎨", title: "Změň vzhled všech nadpisů", kind: "vyzkoušej",
+        title: "Změň vzhled všech nadpisů", kind: "vyzkoušej",
         body: `<div class="seg" role="group" aria-label="Způsob formátování">
             <button type="button" data-m="manual" aria-pressed="true">Ručně (tučně + větší)</button>
             <button type="button" data-m="styles" aria-pressed="false">Stylem Nadpis 1</button>
@@ -90,7 +90,7 @@
             <div class="paper sd-paper"></div>
           </div>
           <p class="sd-msg small"></p>`,
-        foot: `<button type="button" class="btn btn-primary btn-sm" data-change>🎨 Změnit vzhled nadpisu</button><button type="button" class="btn btn-sm" data-reset>Znovu</button>`
+        foot: `<button type="button" class="btn btn-primary btn-sm" data-change>Změnit vzhled nadpisu</button><button type="button" class="btn btn-sm" data-reset>Znovu</button>`
       });
       this.mode = "manual"; this.reset();
       this.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => { this.mode = b.dataset.m; this.querySelectorAll("[data-m]").forEach(x => x.setAttribute("aria-pressed", x === b)); this.reset(); }));
@@ -142,7 +142,6 @@
       const src = s => s === "doplň" ? "badge-warn" : s === "odvodíš" ? "badge-warn" : s === "koncept" ? "badge" : "badge-blue";
       this.innerHTML = `<ol class="skel">${PARTS.map((p, i) => `
         <li style="--d:${i * 60}ms"><span class="sk-n">${i + 1}</span><div><b>${esc(p[0])}</b><span class="small muted">${esc(p[1])}</span></div><span class="badge ${src(p[2])}">${esc(p[2])}</span></li>`).join("")}</ol>`;
-      onVisible(this, () => this.classList.add("in"), .15);
     }
   }
 
@@ -165,13 +164,6 @@
           <span class="ty-why">${esc(t[3])}</span>
         </button>`).join("")}</div><p class="small muted" style="margin-top:.5rem">Klikni na kartu a uvidíš opravu.</p>`;
       this.querySelectorAll(".typo-card").forEach(b => b.addEventListener("click", () => { b.classList.toggle("fixed"); b.setAttribute("aria-pressed", b.classList.contains("fixed")); }));
-      if (!reduced()) onVisible(this, async () => {
-        const cards = [...this.querySelectorAll(".typo-card")];
-        await sleep(600);
-        for (const c of cards) { c.classList.add("fixed", "auto"); await sleep(380); }
-        await sleep(1600);
-        for (const c of cards) { if (c.classList.contains("auto")) c.classList.remove("fixed", "auto"); }
-      });
     }
   }
 

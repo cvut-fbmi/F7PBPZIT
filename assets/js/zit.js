@@ -6,11 +6,9 @@
      <section class="ms-step" id="krok-1" data-short="…" data-min="10"><h2>…</h2>…</section>
    <zit-done key="…" label="…">      zaškrtávátko „Hotovo“ (localStorage)
    <zit-reveal label="…">…           skrytý obsah na kliknutí
-   <zit-gif gif="<giphy id>" caption="…">
    <zit-ribbon> + JSON               maketa pásu karet Wordu se zvýrazněným tlačítkem
    <zit-compare start="40">          posuvník před/po: první dítě = před, druhé = po
    <zit-folder-story> + JSON         chaos ve složce → „Ukliď to“
-   <zit-typewriter> + JSON           špatný název → dobrý název
    <zit-sync-story>                  příběh: synchronizace není záloha
    <zit-ai-reveal> + JSON            odpověď AI se vypíše, pak se odhalí chyby
    <zit-prompt-builder key="…"> + JSON
@@ -26,7 +24,7 @@
   const readJSON = el => { const s = el.querySelector(":scope > script[type='application/json']"); if (!s) return {}; try { return JSON.parse(s.textContent); } catch (e) { console.error("zit: neplatný JSON v", el, e); return {}; } };
   const shell = (el, { ico, title, kind, body, foot }) => {
     el.classList.add("zit");
-    el.innerHTML = `<div class="zit-head"><span aria-hidden="true">${ico || ""}</span><span>${esc(title)}</span>${kind ? `<span class="kind">${esc(kind)}</span>` : ""}</div><div class="zit-body">${body}</div>${foot ? `<div class="zit-foot">${foot}</div>` : ""}`;
+    el.innerHTML = `<div class="zit-head"><span>${esc(title)}</span>${kind ? `<span class="kind">${esc(kind)}</span>` : ""}</div><div class="zit-body">${body}</div>${foot ? `<div class="zit-foot">${foot}</div>` : ""}`;
   };
   const sleep = ms => new Promise(r => setTimeout(r, ms));
   const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -160,16 +158,6 @@
     }
   }
 
-  /* ---------- zit-gif ---------- */
-  class ZitGif extends HTMLElement {
-    connectedCallback() {
-      if (this._init) return; this._init = true;
-      const id = this.getAttribute("gif"); if (!id) return;
-      const cap = this.getAttribute("caption") || "";
-      this.innerHTML = `<figure class="gif"><div class="gif-frame"><iframe src="https://giphy.com/embed/${esc(id)}" title="${esc(cap || "GIF")}" loading="lazy" referrerpolicy="no-referrer"></iframe></div>${cap ? `<figcaption>${cap} <a href="https://giphy.com/gifs/${esc(id)}" target="_blank" rel="noopener" class="gif-src">GIPHY</a></figcaption>` : ""}</figure>`;
-    }
-  }
-
   /* ---------- zit-ribbon (maketa Wordu) ---------- */
   const TABS = { word: ["Soubor", "Domů", "Vložení", "Návrh", "Rozložení", "Reference", "Korespondence", "Revize", "Zobrazení"], excel: ["Soubor", "Domů", "Vložení", "Rozložení stránky", "Vzorce", "Data", "Revize", "Zobrazení"] };
   class ZitRibbon extends HTMLElement {
@@ -210,9 +198,6 @@
       const set = v => { wrap.style.setProperty("--p", v / 100); b.style.setProperty("--pos", v + "%"); };
       range.addEventListener("input", () => set(range.value));
       set(start);
-      if (!reduced()) onVisible(this, async () => {
-        for (let v = 92; v >= start; v -= 2) { range.value = v; set(v); await sleep(12); }
-      });
     }
   }
 
@@ -256,32 +241,6 @@
     }
   }
 
-  /* ---------- zit-typewriter ---------- */
-  class ZitTypewriter extends HTMLElement {
-    connectedCallback() {
-      if (this._init) return; this._init = true;
-      const cfg = readJSON(this);
-      this.pairs = cfg.pairs || [];
-      this.innerHTML = `<div class="tw"><div class="tw-row"><span class="tw-tag bad">${esc(cfg.badLabel || "takhle ne")}</span><code class="tw-text tw-bad"></code></div><div class="tw-row"><span class="tw-tag ok">${esc(cfg.goodLabel || "takhle ano")}</span><code class="tw-text tw-good"></code></div></div>`;
-      if (this.pairs.length) this.loop();
-    }
-    async type(el, text) {
-      el.textContent = ""; el.classList.add("typing");
-      if (reduced()) { el.textContent = text; el.classList.remove("typing"); return; }
-      for (const ch of text) { el.textContent += ch; await sleep(28 + Math.random() * 30); }
-      el.classList.remove("typing");
-    }
-    async loop() {
-      const bad = this.querySelector(".tw-bad"), good = this.querySelector(".tw-good");
-      for (let i = 0; this.isConnected; i++) {
-        const [b, g] = this.pairs[i % this.pairs.length];
-        good.textContent = "";
-        await this.type(bad, b); await sleep(700);
-        await this.type(good, g); await sleep(2600);
-      }
-    }
-  }
-
   /* ---------- zit-sync-story ---------- */
   class ZitSyncStory extends HTMLElement {
     connectedCallback() {
@@ -320,23 +279,11 @@
       const nBad = this.s.filter(x => x.bad).length;
       const body = `<div class="chat">
           <div class="chat-row me"><span class="chat-who">Ty</span><div class="chat-bubble">${cfg.prompt || ""}</div></div>
-          <div class="chat-row ai"><span class="chat-who">AI</span><div class="chat-bubble ai-text"><span class="cursor"></span></div></div>
+          <div class="chat-row ai"><span class="chat-who">AI</span><div class="chat-bubble ai-text"></div></div>
         </div><div class="reasons" hidden></div>`;
       shell(this, { ico: "🤖", title: cfg.title || "Odpověď AI", body, foot: `<button type="button" class="btn btn-primary btn-sm" data-act="reveal">${esc(cfg.button || `Ukázat ${nBad} problémy`)}</button><span class="zit-result"></span>` });
-      onVisible(this, () => this.typeOut());
-      this.querySelector("[data-act=reveal]").addEventListener("click", () => { if (this.typed) this.reveal(); else { this.skip = true; if (!this.typing) this.typeOut(); } });
-    }
-    async typeOut() {
-      if (this.typing || this.typed) return; this.typing = true;
-      const box = this.querySelector(".ai-text"); box.innerHTML = "";
-      for (let i = 0; i < this.s.length; i++) {
-        const span = document.createElement("span"); span.className = "ai-s"; span.dataset.i = i; box.appendChild(span);
-        const t = this.s[i].t + " ";
-        if (reduced() || this.skip) span.textContent = t;
-        else for (let k = 0; k < t.length; k += 2) { if (this.skip) { span.textContent = t; break; } span.textContent += t.slice(k, k + 2); await sleep(14); }
-      }
-      this.typed = true; this.typing = false;
-      if (this.skip) this.reveal();
+      this.querySelector(".ai-text").innerHTML = this.s.map((x, i) => `<span class="ai-s" data-i="${i}">${esc(x.t)}</span> `).join("");
+      this.querySelector("[data-act=reveal]").addEventListener("click", () => this.reveal());
     }
     reveal() {
       const reasons = this.querySelector(".reasons"); reasons.innerHTML = ""; reasons.hidden = false;
@@ -431,8 +378,8 @@
     }
   }
 
-  const defs = { "zit-done": ZitDone, "zit-reveal": ZitReveal, "zit-gif": ZitGif, "zit-ribbon": ZitRibbon, "zit-compare": ZitCompare,
-    "zit-folder-story": ZitFolderStory, "zit-typewriter": ZitTypewriter, "zit-sync-story": ZitSyncStory, "zit-ai-reveal": ZitAiReveal,
+  const defs = { "zit-done": ZitDone, "zit-reveal": ZitReveal, "zit-ribbon": ZitRibbon, "zit-compare": ZitCompare,
+    "zit-folder-story": ZitFolderStory, "zit-sync-story": ZitSyncStory, "zit-ai-reveal": ZitAiReveal,
     "zit-prompt-builder": ZitPromptBuilder, "zit-exit-ticket": ZitExitTicket, "zit-mission": ZitMission };
   Object.entries(defs).forEach(([n, c]) => { if (!customElements.get(n)) customElements.define(n, c); });
   window.ZIT_helpers = { LS, esc, readJSON, shell, sleep, reduced, onVisible, slug };

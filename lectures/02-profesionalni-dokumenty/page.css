@@ -63,8 +63,6 @@ mark.x-bad { background: #fde2c4; color: #b45309; border-radius: 3px; padding: 0
 /* kostra SITREP */
 .skel { list-style: none; padding: 0; margin: 0 0 1.3rem; display: grid; gap: .4rem; counter-reset: none; }
 .skel li { display: grid; grid-template-columns: 34px 1fr auto; gap: .75rem; align-items: center; margin: 0; padding: .55rem .8rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); }
-c2-skeleton:not(.in) .skel li { opacity: 0; transform: translateX(-10px); }
-c2-skeleton.in .skel li { opacity: 1; transform: none; transition: opacity .35s ease var(--d), transform .35s ease var(--d); }
 .skel .sk-n { width: 30px; height: 30px; border-radius: 9px; background: var(--blue); color: #fff; display: grid; place-items: center; font: 700 .9rem var(--font-head); }
 .skel b { display: block; font-family: var(--font-head); color: var(--navy); }
 @media (max-width: 560px) { .skel li { grid-template-columns: 30px 1fr; } .skel li .badge { grid-column: 2; justify-self: start; } }
