@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="cs" data-root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Info o kurzu · Základy informačních technologií · ČVUT FBMI</title>
+  <meta name="description" content="Harmonogram, odevzdávání, pravidla práce s AI, hodnocení a zápočtové testy, účty a nástroje předmětu F7PBPZIT.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/course-data.js"></script>
+</head>
+<body data-page="info">
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="./"><span class="mark">ČVUT FBMI</span><span class="name">Základy informačních technologií<small>F7PBPZIT · Bezpečnost a ochrana obyvatelstva</small></span></a>
+  <nav class="site-nav" aria-label="Hlavní menu">
+    <a href="./" data-nav="hub">Cvičení</a>
+    <a href="info.html" data-nav="info">Info o kurzu</a>
+    <button class="icon-btn" data-theme-toggle type="button" aria-label="Přepnout tmavý režim">☾</button>
+  </nav>
+</div></header>
+
+<div class="wrap page-head">
+  <div class="kicker">Info o kurzu</div>
+  <h1>Všechno kolem cvičení</h1>
+  <p class="lead">Termíny, odevzdávání, pravidla pro AI a hodnocení na jednom místě. Na cvičení samotné se dostaneš z <a href="./">rozcestníku</a>.</p>
+</div>
+
+<nav class="subnav" aria-label="Sekce"><div class="wrap">
+  <a href="#harmonogram">📅 Harmonogram</a>
+  <a href="#odevzdavani">✉️ Odevzdávání</a>
+  <a href="#pravidla-ai">🚦 Pravidla AI</a>
+  <a href="#hodnoceni">🎓 Hodnocení</a>
+  <a href="#nastroje">🔑 Účty a nástroje</a>
+</div></nav>
+
+<main class="wrap">
+
+  <section class="info-sec" id="harmonogram">
+    <h2>📅 Harmonogram</h2>
+    <p>Každé téma se učí ve třech paralelkách. Paralelka 1 má cvičení vždy o týden dřív, paralelky 2 a 3 ve stejný den po sobě. Cvičení trvá dvě vyučovací hodiny. Vyučuje <span data-zit="teacher"></span>.</p>
+    <div class="picker-row" style="margin-bottom:.8rem"><span class="lbl">Moje paralelka:</span><div data-zit="group-picker"></div></div>
+    <div data-zit="schedule"></div>
+  </section>
+
+  <section class="info-sec" id="odevzdavani">
+    <h2>✉️ Odevzdávání</h2>
+    <p>Práci z cvičení posíláš <b>e-mailem vyučujícímu, nejpozději do konce dne</b>, kdy cvičení máš. Co přesně přiložit, říká vždy poslední krok cvičení. Tam je i tlačítko, které e-mail předvyplní.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Jak má e-mail vypadat</h3>
+        <p class="mb-0"><b>Komu:</b> <a data-zit="email" href="#"></a><br>
+        <b>Předmět:</b> <code>ZIT C2: Příjmení Jméno (par. X)</code><br>
+        <b>Přílohy:</b> pojmenované podle konvence, třeba <code>2026-10-05_sitrep-04_novakova_v01.pdf</code><br>
+        <b>Text:</b> odpovědi na tři krátké otázky z konce cvičení.</p>
+      </div>
+      <div class="card card-soft">
+        <h3>Proč tak přísně?</h3>
+        <p class="mb-0">Protože přesně tohle kurz učí. Předmět se dá vyfiltrovat, přílohy se řadí podle data a nikdo nemusí hádat, čí jsou. Soubor <code>final.docx</code> bez předmětu se vrací zpátky.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-sec" id="pravidla-ai">
+    <h2>🚦 Pravidla práce s AI</h2>
+    <p>AI v kurzu používáme rádi a často. Výchozí nástroj je Microsoft Copilot přes školní účet ČVUT. Za všechno, co odevzdáš, odpovídáš ty, i když to napsala AI.</p>
+    <div class="lights">
+      <div class="light"><h3>🟢 Běžně povoleno</h3><ul><li>vysvětlení pojmu nebo vzorce,</li><li>brainstorming, návrh struktury,</li><li>jazyková korektura tvého textu,</li><li>práce se smyšlenými cvičnými daty.</li></ul></div>
+      <div class="light y"><h3>🟠 Povoleno, ale uveď to</h3><ul><li>větší část odevzdávaného textu,</li><li>zkrácení nebo přepis zdroje,</li><li>analýza dat, návrh závěrů,</li><li>vygenerovaný graf nebo tabulka.</li></ul></div>
+      <div class="light r"><h3>🔴 Nikdy</h3><ul><li>skutečné osobní nebo citlivé údaje do AI,</li><li>hesla a ověřovací kódy,</li><li>vydávat práci AI za vlastní bez kontroly,</li><li>vymyšlené zdroje a čísla,</li><li>AI při testu, pokud ji zadání nepovolí.</li></ul></div>
+    </div>
+
+    <h3>Čtyři kategorie informací</h3>
+    <ol class="ladder">
+      <li><div><b>VEŘEJNÉ.</b> Tisková zpráva, veřejná výstraha, mapa uzavírek.</div><span class="badge badge-ok">může do AI</span></li>
+      <li><div><b>INTERNÍ.</b> Pracovní zápisy, provozní stav, interní SITREP.</div><span class="badge badge-blue">jen schválené prostředí</span></li>
+      <li><div><b>OSOBNÍ ÚDAJE.</b> Jméno s telefonem, adresa, cokoli o konkrétním člověku.</div><span class="badge badge-warn">anonymizuj</span></li>
+      <li><div><b>CITLIVÉ.</b> Hesla, kódy, seznamy evakuovaných, zdravotní údaje.</div><span class="badge badge-bad">nikdy do AI</span></li>
+    </ol>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Pět otázek před nahráním</h3>
+        <ol class="mb-0"><li>Co je to za data?</li><li>Smím je sdílet?</li><li>Potřebuji celý soubor, nebo stačí kousek?</li><li>Můžu je anonymizovat?</li><li>Používám určený účet a službu?</li></ol>
+      </div>
+      <div class="card">
+        <h3>Prohlášení o použití AI</h3>
+        <p>Na konec odevzdané práce přidej čtyři řádky:</p>
+        <pre><code>Použitý AI nástroj: Microsoft Copilot (školní účet)
+Účel použití: zkrácení odstavce v části 3
+Co bylo převzato: zkrácený text, ručně upravený
+Jak byl výstup ověřen: 5 údajů porovnáno s originálem</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-sec" id="hodnoceni">
+    <h2>🎓 Hodnocení a zápočtové testy</h2>
+    <p>Kurz je praktický a hodnocení taky: ukazuješ, že věci umíš udělat. Konečné podmínky zápočtu stanoví vyučující, níže je návrh.</p>
+    <div class="grid cols-3">
+      <div class="card">
+        <span class="badge badge-blue">Průběžně</span>
+        <h3>Účast a odevzdané úkoly</h3>
+        <p class="mb-0">Každé cvičení je jeden pracovní scénář. Výstup pošleš e-mailem ještě ten den. Omluvy a náhrady řeš předem s vyučujícím.</p>
+      </div>
+      <div class="card">
+        <span class="badge badge-warn">Cvičení 4</span>
+        <h3>Zápočtový test 1</h3>
+        <p class="mb-0">35 minut, 40 bodů. Soubory a organizace dat, Word, ověřování informací a kritická práce s AI, bezpečnost dat. Bez živé AI: dostaneš hotový výstup AI a máš ho posoudit.</p>
+      </div>
+      <div class="card">
+        <span class="badge badge-warn">Cvičení 7</span>
+        <h3>Zápočtový test 2</h3>
+        <p class="mb-0">Asi 50 minut, 50 bodů. Hlavně prakticky: Excel, graf a jeho výklad, podezřelý e-mail, chyby v SITREPu od AI, návrh promptu. Bez živé AI.</p>
+      </div>
+    </div>
+    <div class="box box-warn" style="margin-top:1rem"><span class="ico">📝</span><div><span class="title">Návrh podmínek zápočtu</span>
+      <p class="mb-0">Aktivní účast a odevzdané výstupy z cvičení, úspěšný test 1 a úspěšný test 2. Navrhovaná hranice úspěšnosti testu je 60 %. Konečná pravidla oznámí vyučující.</p></div></div>
+  </section>
+
+  <section class="info-sec" id="nastroje">
+    <h2>🔑 Účty a nástroje</h2>
+    <p>Nic se neinstaluje. Stačí školní účet ČVUT, prohlížeč a Microsoft Office (klidně webová verze).</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>🤖 Microsoft Copilot</h3>
+        <ol>
+          <li>Otevři <a href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener">m365.cloud.microsoft/chat</a>.</li>
+          <li>Přihlas se školním účtem ČVUT.</li>
+          <li>V rohu zkontroluj své jméno a školu. Když vidíš osobní účet, odhlas se a přihlas znovu.</li>
+        </ol>
+        <p class="small muted mb-0">Co Copilot umí a jak chrání data, závisí na aktuálním nastavení ČVUT. Copilot Studio (asistent na míru) ukážeme později v semestru.</p>
+      </div>
+      <div class="card">
+        <h3>📁 Nastav si počítač</h3>
+        <p><b>Přípony souborů:</b> Průzkumník → <span class="path"><span>Zobrazit</span><span>Zobrazit</span><span>Přípony názvů souborů</span></span></p>
+        <p><b>ZIP:</b> pravým tlačítkem na soubor → <b>Extrahovat vše</b>. Uvnitř nerozbaleného archivu nepracuj, změny by se ztratily.</p>
+        <p class="mb-0"><b>Office:</b> na učebně je nainstalovaný, doma stačí <a href="https://www.office.com" target="_blank" rel="noopener">office.com</a> se školním účtem.</p>
+      </div>
+    </div>
+    <div class="box box-info" style="margin-top:1rem"><span class="ico">📶</span><div><span class="title">Když AI nebo internet nejede</span>
+      <p class="mb-0">Každé cvičení jde dokončit i bez AI. U cvičení najdeš připravené odpovědi AI, se kterými se dá pracovat offline. Řekni vyučujícímu a pokračuj.</p></div></div>
+  </section>
+
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div><h4>F7PBPZIT · Základy informačních technologií</h4><p>Fakulta biomedicínského inženýrství ČVUT v Praze<br>Bezpečnost a ochrana obyvatelstva · <span data-zit="year"></span></p></div>
+  <div><h4>Vyučující</h4><p><span data-zit="teacher"></span><br><a data-zit="email" href="#"></a></p></div>
+  <div><h4>Cvičná data</h4><p>Všechna data ve cvičeních jsou smyšlená. Skutečné osobní, interní ani citlivé informace do AI nepatří.</p></div>
+</div></footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

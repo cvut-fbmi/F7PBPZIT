@@ -3,416 +3,205 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>1. Digitální minimum · Základy informačních technologií · FBMI ČVUT</title>
-  <meta name="description" content="Cvičení 1: soubory, složky, cloud, sdílení, posouzení informací, Microsoft Copilot, prompt a kontrola výstupu AI na scénáři povodně v modelovém regionu Alfa.">
+  <title>1. Digitální minimum · Základy informačních technologií · ČVUT FBMI</title>
+  <meta name="description" content="Cvičení 1: utřídit složku krizového štábu, pojmenovat soubory, posoudit data před nahráním do AI, napsat prompt pro Copilot a zkontrolovat odpověď AI.">
   <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/main.css">
   <script src="../../assets/js/course-data.js"></script>
 </head>
-<body data-lecture="1">
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="../../"><span class="logo"></span><span>Základy IT<small>F7PBPZIT · FBMI ČVUT</small></span></a>
-    <button class="nav-toggle" data-nav-toggle type="button" aria-expanded="false" aria-label="Otevřít menu">☰</button>
-    <nav class="site-nav" aria-label="Hlavní navigace">
-      <a href="../../">Domů</a>
-      <a href="../">Cvičení</a>
-      <a href="../../harmonogram.html">Harmonogram</a>
-      <a href="../../nastroje.html">Nástroje</a>
-      <a href="../../pravidla-ai.html">Pravidla AI</a>
-      <a href="../../hodnoceni.html">Hodnocení</a>
-      <button class="icon-btn" data-theme-toggle type="button" aria-label="Přepnout tmavý režim">☾</button>
-    </nav>
+<body data-page="exercise" data-lecture="1">
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../../"><span class="mark">ČVUT FBMI</span><span class="name">Základy informačních technologií<small>F7PBPZIT · Bezpečnost a ochrana obyvatelstva</small></span></a>
+  <nav class="site-nav" aria-label="Hlavní menu">
+    <a href="../../" data-nav="hub">Cvičení</a>
+    <a href="../../info.html" data-nav="info">Info o kurzu</a>
+    <button class="icon-btn" data-theme-toggle type="button" aria-label="Přepnout tmavý režim">☾</button>
+  </nav>
+</div></header>
+
+<div class="ex-head"><div class="wrap">
+  <div class="kicker"><span class="badge badge-solid">Cvičení 1</span><span class="badge">90 minut</span><span class="badge badge-blue">Soubory + Copilot</span></div>
+  <h1>Digitální minimum</h1>
+  <p class="lead">Den první u krizového štábu. Uděláš pořádek ve složce plné chaosu, rozhodneš, co smí do AI, a necháš Copilot shrnout zprávu. Pak ho přistihneš při vymýšlení.</p>
+  <p class="past-note" data-zit="past-note" hidden>✔ Cvičení už proběhlo. Materiály tu zůstávají.</p>
+  <div data-zit="dates"></div>
+  <div class="row">
+    <a class="btn btn-primary" href="../../materials/01/cviceni-01-student.zip" download>⬇ Stáhnout podklady (ZIP)</a>
+    <a class="btn" data-check="../../slides/01-digitalni-minimum.html" data-missing="Slidy doplníme" target="_blank" rel="noopener">🖥 <span class="lbl">Slidy</span></a>
+    <a class="btn" data-check="../../slides/01-digitalni-minimum.pdf" target="_blank" rel="noopener" hidden>📑 Slidy (PDF)</a>
+    <a class="btn" href="../../materials/01/tahak.pdf" target="_blank" rel="noopener">🧾 Tahák (PDF)</a>
   </div>
-  <div class="lecture-progress" aria-hidden="true"><span></span></div>
-</header>
+</div></div>
 
 <main class="wrap">
-  <div class="lecture-head">
-    <div class="kicker">
-      <span class="badge badge-accent">Cvičení 1</span>
-      <span class="badge">90 minut</span>
-      <span class="badge badge-info">Scénář: povodeň v regionu Alfa</span>
-    </div>
-    <h1>Digitální minimum</h1>
-    <p class="sub">Soubory, cloud, bezpečná práce, základy AI a ochrana dat. Dnes si osaháš postup, který budeme používat celý semestr: nejdřív informace utřiď, pak posuď, komu smějí do rukou, teprve potom pusť k práci nástroj (klidně AI) a nakonec výsledek ověř.</p>
-    <div data-zit="lecture-meta"></div>
-    <div class="lecture-actions">
-      <a class="btn btn-primary" href="../../materials/01/cviceni-01-student.zip" download><span class="ico">⬇</span> Stáhnout balíček (ZIP, 0,8 MB)</a>
-      <a class="btn" href="../../materials/01/zadani.pdf" target="_blank" rel="noopener">📄 Zadání (PDF)</a>
-      <a class="btn" data-check="../../slides/01-digitalni-minimum.html" data-missing="Slidy doplníme" target="_blank" rel="noopener">🖥 <span class="lbl">Slidy</span></a>
-      <a class="btn" data-check="../../slides/01-digitalni-minimum.pdf" target="_blank" rel="noopener" hidden>📑 Slidy (PDF)</a>
-      <a class="btn" href="../../materials/01/tahak.pdf" target="_blank" rel="noopener">🧾 Tahák (PDF)</a>
-    </div>
+  <div class="mission-card">
+    <div><div class="lbl">🎯 Mise</div><p>Udělej pořádek ve složce štábu a připrav bezpečné, ověřené shrnutí zprávy.</p></div>
+    <div><div class="lbl">📥 Dostaneš</div><p>Složku s 15 neuspořádanými soubory a pracovní listy.</p></div>
+    <div><div class="lbl">📤 Odevzdáš</div><p>Utříděnou složku jako ZIP e-mailem.</p></div>
   </div>
 
-  <div class="lecture-layout">
-    <aside class="lecture-toc">
-      <h4>Obsah</h4>
-      <ol data-zit="toc"></ol>
-      <p class="toc-progress" data-zit="progress-text"></p>
-      <h4>Ke stažení</h4>
-      <ul style="list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.3rem">
-        <li><a href="../../materials/01/cviceni-01-student.zip" download>📦 Celý balíček (ZIP)</a></li>
-        <li><a href="../../materials/01/zadani.pdf" target="_blank" rel="noopener">📄 Zadání</a></li>
-        <li><a href="../../materials/01/zprava.pdf" target="_blank" rel="noopener">📰 zprava.pdf (pro Copilot)</a></li>
-        <li><a href="../../materials/01/prompt-sablona.pdf" target="_blank" rel="noopener">🧩 Šablona promptu</a></li>
-        <li><a href="../../materials/01/klasifikace-informaci.pdf" target="_blank" rel="noopener">🗂 Klasifikace informací</a></li>
-        <li><a href="../../materials/01/audit-ai.xlsx" download>📊 Audit AI (Excel)</a></li>
-        <li><a href="../../materials/01/ai-odpoved-problematicka.txt" target="_blank" rel="noopener">⚠️ Problematická odpověď AI</a></li>
-        <li><a href="../../materials/01/ai-odpoved-dobra.txt" target="_blank" rel="noopener">✅ Vzorová odpověď AI</a></li>
-        <li><a href="../../materials/01/tahak.pdf" target="_blank" rel="noopener">🧾 Tahák</a></li>
-      </ul>
-      <h4>Odevzdání</h4>
-      <p class="small muted" style="margin:0">E-mailem do konce dne. Co a jak: <a href="#b8">kapitola 8</a>.</p>
-    </aside>
+  <zit-mission key="l1">
 
-    <div class="lecture-content">
+    <section class="ms-step" data-short="Co se stalo" data-min="5">
+      <h2>Co se stalo</h2>
+      <div class="story"><span class="clock">pondělí 14. 9. 2026, ráno</span>
+        Nastoupil/a jsi do podpůrného týmu krajského krizového štábu. Po vydatných deštích se v modelovém regionu Alfa rozvodnila řeka Bystrá. Kolega, který vedl dokumentaci, ti předal složku se všemi soubory a odjel do terénu. Bez struktury, bez vysvětlení.</div>
+      <ol class="timeline">
+        <li><time>so 12. 9. večer</time><span>Intenzivní déšť v povodí Bystré.</span></li>
+        <li class="alert"><time>ne 13. 9. 06:40</time><span>Bystrá v Mostkově dosáhla 3. stupně povodňové aktivity.</span></li>
+        <li class="alert"><time>ne 13. 9. 07:15</time><span>Uzavřena silnice II/305 mezi Mostkovem a Podlesím.</span></li>
+        <li class="alert"><time>ne 13. 9. 09:00</time><span>Preventivně uzavřen most přes Bystrou v Mostkově.</span></li>
+        <li><time>po 14. 9. 10:00</time><span>Krajský úřad vydal Informaci pro veřejnost č. 2. Tu dnes dáš Copilotu.</span></li>
+      </ol>
+      <ol class="todo">
+        <li><div>Stáhni <a href="../../materials/01/cviceni-01-student.zip" download>podklady (ZIP)</a> a <b>rozbal je</b> (pravým tlačítkem, Extrahovat vše) do své pracovní složky.</div></li>
+      </ol>
+      <div class="box box-bad"><span class="ico">🧪</span><div><span class="title">Všechno v balíčku je smyšlené</span><p class="mb-0">Cvičná data do AI nahrávat můžeš. Skutečná osobní, interní nebo citlivá data ne.</p></div></div>
+      <div class="done-when"><span class="t">máš balíček rozbalený ve své složce.</span><zit-done key="l1-s1"></zit-done></div>
+    </section>
 
-      <div class="grid grid-2 reveal" style="margin-bottom:1.5rem">
-        <div class="card">
-          <h3>🎒 Před cvičením</h3>
-          <ul class="mb-0">
-            <li>Znáš heslo ke <b>školnímu účtu ČVUT</b> (Microsoft 365).</li>
-            <li>Zkusil/a sis otevřít <a href="../../nastroje.html">Microsoft Copilot</a> školním účtem.</li>
-            <li>Nic neinstaluješ a nic nemusíš umět dopředu.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>🎯 Po cvičení budeš umět</h3>
-          <ul class="mb-0">
-            <li>udělat ve složce pořádek, který pochopí i cizí člověk,</li>
-            <li>pojmenovat soubor tak, aby název říkal co, kdy a jaká verze,</li>
-            <li>rozhodnout, co smí a co nesmí do AI,</li>
-            <li>zadat Copilotu pořádný úkol a jeho odpověď zkontrolovat.</li>
-          </ul>
-        </div>
+    <section class="ms-step" data-short="Utřiď" data-min="15">
+      <h2>Utřiď složku</h2>
+      <p>Patnáct souborů, tři „finální“ verze téže zprávy, fotky pojmenované fotoaparátem a poznámky, ve kterých je i heslo. Klikni na <b>Ukliď to</b> a podívej se, kam by soubory patřily.</p>
+      <div class="split">
+        <zit-folder-story><script type="application/json">
+          {"folders":["01_ZPRAVY","02_HLASENI","03_DATA","04_MAPY_FOTO","05_KONTAKTY","06_ZAPISY","07_POKYNY","08_VYSTUPY"],
+           "files":[{"n":"final.docx","ext":"docx","f":0},{"n":"IMG_0042.jpg","ext":"jpg","f":3},{"n":"seznam.xlsx","ext":"xlsx","f":2},{"n":"final2.docx","ext":"docx","f":0},{"n":"kontakty.xlsx","ext":"xlsx","f":4},{"n":"zprava.pdf","ext":"pdf","f":0},{"n":"hlaseni_z_terenu.txt","ext":"txt","f":1},{"n":"mapa.png","ext":"png","f":3},{"n":"final_final_opravdu.docx","ext":"docx","f":0},{"n":"zapis.docx","ext":"docx","f":5},{"n":"kapacity.csv","ext":"csv","f":2},{"n":"IMG_0043.jpg","ext":"jpg","f":3},{"n":"zapis_novy.docx","ext":"docx","f":5},{"n":"pokyny.pdf","ext":"pdf","f":6},{"n":"poznamky.txt","ext":"txt","f":1}],
+           "before":"Který soubor bys otevřel/a jako první? Která zpráva je aktuální? A který by neměl skončit v AI?",
+           "after":"Osm složek, každá s jasným účelem, jedna prázdná pro výstupy. Kontakty jsou zvlášť, protože obsahují osobní údaje."}
+        </script></zit-folder-story>
+        <zit-gif gif="2UCt7zbmsLoCXybx6t" caption="Stav dokumentace štábu v pondělí ráno."></zit-gif>
       </div>
+      <ol class="todo">
+        <li><div>Vytvoř složku události, třeba <code>POVODEN_ALFA_2026</code>, a v ní <b>číslované podsložky</b> podle typu informace. Jednu nech prázdnou pro výstupy.</div></li>
+        <li><div>Přesuň do nich všech 15 souborů z <code>KRIZOVY_STAB_NETRIDENO</code>. Kontakty dej zvlášť.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">každý soubor je v jedné číslované složce a složka 08_VYSTUPY je prázdná.</span><zit-done key="l1-s2"></zit-done></div>
+    </section>
 
-      <div class="callout callout-danger reveal">
-        <span class="ico">🧪</span>
-        <div class="body"><span class="title">Všechno v balíčku je smyšlené</span>
-          <p class="mb-0">Region Alfa, obce, lidé, telefony i události jsou vymyšlené pro výuku. Cvičná data do AI nahrávat můžeš. Skutečná osobní, interní nebo citlivá data ne, dnes ani nikdy jindy.</p>
+    <section class="ms-step" data-short="Pojmenuj" data-min="12">
+      <h2>Pojmenuj tak, aby to dávalo smysl</h2>
+      <p>Otevři <code>final.docx</code>, <code>final2.docx</code> a <code>final_final_opravdu.docx</code>. Která platí? Podle názvu to nepoznáš a podle data v dokumentu taky ne, protože ho někdo zapomněl změnit.</p>
+      <div class="split">
+        <div>
+          <zit-typewriter><script type="application/json">
+            {"pairs":[["final2.docx","2026-09-13_situacni-zprava_povoden-alfa_v02.docx"],["Situační zpráva (1).docx","2026-09-14_situacni-zprava_povoden-alfa_v03.docx"],["hlaseni_z_terenu.txt","2026-09-14_0750_hlaseni_sektor-a.txt"],["IMG_0042.jpg","2026-09-13_zaplavena-louka_mostkov.jpg"]]}
+          </script></zit-typewriter>
+          <pre><code>RRRR-MM-DD_tema_vXX.pripona</code></pre>
+          <p>Datum vepředu seřadí soubory podle času samo. Verze je číslo, ne slovo „final“. Bez mezer a bez diakritiky, aby název přežil i cizí systém.</p>
         </div>
+        <zit-gif gif="U7pTKYiWH9LzyjquxP" caption="Každý den nová finální verze."></zit-gif>
       </div>
+      <ol class="todo">
+        <li><div>Přejmenuj <b>tři verze zprávy</b> a <b>hlášení z terénu</b> podle konvence. Zbytek nech, o přejmenovávání všeho dnes nejde.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">čtyři soubory mají datum, téma a verzi v názvu.</span><zit-done key="l1-s3"></zit-done></div>
+    </section>
 
-      <!-- ===== 0 SCÉNÁŘ ===== -->
-      <section class="block" id="b0">
-        <div class="block-head"><span class="bn">0</span><h2>Co se stalo</h2><span class="bt">3 min</span></div>
-        <blockquote>
-          <p><b>Nastoupil/a jsi do podpůrného týmu krajského krizového štábu.</b> Po vydatných deštích se v modelovém regionu Alfa rozvodnila řeka Bystrá. Kolega, který dosud vedl dokumentaci štábu, ti ráno předal složku se všemi soubory a odjel do terénu. Bez struktury, bez vysvětlení.</p>
-          <p class="mb-0">Tvůj úkol: udělat v tom pořádek a připravit jedno bezpečné shrnutí pro vedení štábu, klidně s pomocí AI.</p>
-        </blockquote>
-        <ol class="story-line">
-          <li><time>so 12. 9. večer</time><span>Intenzivní déšť v povodí Bystré.</span></li>
-          <li class="is-open"><time>ne 13. 9. 06:40</time><span>Bystrá v Mostkově dosáhla 3. stupně povodňové aktivity.</span></li>
-          <li class="is-open"><time>ne 13. 9. 07:15</time><span>Uzavřena silnice II/305 mezi Mostkovem a Podlesím, voda na vozovce.</span></li>
-          <li class="is-open"><time>ne 13. 9. 09:00</time><span>Preventivně uzavřen most přes Bystrou v Mostkově. Statik teprve přijede.</span></li>
-          <li><time>ne 13. 9. 10:30</time><span>Otevřeno evakuační centrum v ZŠ Mostkov, odpoledne Sokolovna Podlesí.</span></li>
-          <li><time>po 14. 9. 10:00</time><span>Krajský úřad vydal Informaci pro veřejnost č. 2. Tu dnes dáš Copilotu.</span></li>
-        </ol>
-        <div class="block-foot"><zit-done key="l1-b0" label="Rozumím, jdu na to"></zit-done></div>
-      </section>
+    <section class="ms-step" data-short="Cloud" data-min="8">
+      <h2>Kde soubor vlastně je</h2>
+      <div class="grid cols-2" style="margin-bottom:1rem">
+        <div class="card card-soft"><b>🔄 Synchronizace</b> kopíruje změny mezi zařízeními. Smazání taky.</div>
+        <div class="card card-soft"><b>💾 Záloha</b> je kopie z určitého okamžiku uložená jinde. Dá se z ní vrátit.</div>
+      </div>
+      <div class="split">
+        <zit-sync-story></zit-sync-story>
+        <zit-gif gif="JTv4KEi83vjaPRemly" caption="Synchronizace po smazání souboru."></zit-gif>
+      </div>
+      <h3>Komu soubor nasdílet</h3>
+      <ol class="ladder">
+        <li><div><b>Jen já.</b> Nikdo jiný soubor nevidí.</div><span class="badge badge-ok">bezpečné</span></li>
+        <li><div><b>Konkrétní lidé.</b> Vyjmenuješ je a přístup můžeš vzít zpět.</div><span class="badge badge-blue">doporučeno</span></li>
+        <li><div><b>Lidé v organizaci.</b> Kdokoli s účtem ČVUT, kdo má odkaz.</div><span class="badge badge-warn">rozmysli si</span></li>
+        <li><div><b>Kdokoli s odkazem.</b> Odkaz se dá přeposlat komukoli na světě.</div><span class="badge badge-bad">jen veřejné</span></li>
+      </ol>
+      <div class="done-when"><span class="t">umíš říct, proč synchronizace nenahradí zálohu.</span><zit-done key="l1-s4"></zit-done></div>
+    </section>
 
-      <!-- ===== 1 CHAOS ===== -->
-      <section class="block" id="b1">
-        <div class="block-head"><span class="bn">1</span><h2>Složka, kterou ti nechal kolega</h2><span class="bt">5 min</span></div>
-        <div class="side-by-side">
-          <div>
-            <p>Patnáct souborů, tři „finální“ verze téže zprávy, fotky pojmenované z fotoaparátu a poznámky, ve kterých je i heslo. Klikni na <b>Ukliď to</b> a podívej se, kam by soubory patřily. Za chvíli to uděláš doopravdy.</p>
-            <zit-folder-story>
-              <script type="application/json">
-              {"folders":["01_ZPRAVY","02_HLASENI","03_DATA","04_MAPY_FOTO","05_KONTAKTY","06_ZAPISY","07_POKYNY","08_VYSTUPY"],
-               "files":[
-                {"n":"final.docx","ext":"docx","f":0},{"n":"IMG_0042.jpg","ext":"jpg","f":3},{"n":"seznam.xlsx","ext":"xlsx","f":2},{"n":"final2.docx","ext":"docx","f":0},
-                {"n":"kontakty.xlsx","ext":"xlsx","f":4},{"n":"zprava.pdf","ext":"pdf","f":0},{"n":"hlaseni_z_terenu.txt","ext":"txt","f":1},{"n":"mapa.png","ext":"png","f":3},
-                {"n":"final_final_opravdu.docx","ext":"docx","f":0},{"n":"zapis.docx","ext":"docx","f":5},{"n":"kapacity.csv","ext":"csv","f":2},{"n":"IMG_0043.jpg","ext":"jpg","f":3},
-                {"n":"zapis_novy.docx","ext":"docx","f":5},{"n":"pokyny.pdf","ext":"pdf","f":6},{"n":"poznamky.txt","ext":"txt","f":1}
-               ],
-               "before":"Který soubor bys otevřel/a jako první? Která zpráva je ta aktuální? A který soubor by neměl skončit ve veřejné AI?",
-               "after":"Osm složek, každá s jasným účelem, a jedna prázdná pro výstupy. Složka 05_KONTAKTY je zvlášť, protože obsahuje osobní údaje. Tohle za tebe udělá dnes Průzkumník a hlavně tvoje hlava."}
-              </script>
-            </zit-folder-story>
-          </div>
-          <zit-gif gif="2UCt7zbmsLoCXybx6t" caption="Stav dokumentace štábu v pondělí ráno."></zit-gif>
-        </div>
-        <div class="block-foot"><zit-done key="l1-b1"></zit-done></div>
-      </section>
+    <section class="ms-step" data-short="Posuď" data-min="8">
+      <h2>Posuď, než něco nahraješ</h2>
+      <p>Než cokoli pošleš do AI, zařaď to. Čtyři kategorie stačí.</p>
+      <ol class="ladder">
+        <li><div><b>VEŘEJNÉ.</b> Tisková zpráva, veřejná výstraha, mapa uzavírek.</div><span class="badge badge-ok">může do AI</span></li>
+        <li><div><b>INTERNÍ.</b> Pracovní zápisy, provozní stav, interní seznam.</div><span class="badge badge-blue">jen schválené prostředí</span></li>
+        <li><div><b>OSOBNÍ ÚDAJE.</b> Jméno s telefonem, adresa.</div><span class="badge badge-warn">anonymizuj</span></li>
+        <li><div><b>CITLIVÉ.</b> Hesla, kódy, seznamy evakuovaných, zdravotní údaje.</div><span class="badge badge-bad">nikdy do AI</span></li>
+      </ol>
+      <ol class="todo">
+        <li><div>Vyplň <a href="../../materials/01/klasifikace-informaci.pdf" target="_blank" rel="noopener">klasifikace-informaci.pdf</a> přímo v PDF: dvanáct položek, u každé jedna kategorie.</div></li>
+        <li><div>Najdi v balíčku soubory, které do AI nesmí. Nápověda: kontakty a poznámky s heslem.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">víš, že dnes do AI půjde jen <code>zprava.pdf</code>, a víš proč.</span><zit-done key="l1-s5"></zit-done></div>
+    </section>
 
-      <!-- ===== 2 FORMÁTY ===== -->
-      <section class="block" id="b2">
-        <div class="block-head"><span class="bn">2</span><h2>Co je co: přípony souborů</h2><span class="bt">7 min</span></div>
-        <p>Soubor je uložená informace. Složka je jen šuplík, který soubory drží pohromadě. Přípona za tečkou říká, co v souboru je a čím ho otevřít. Těchhle osm potkáš pořád:</p>
-        <table>
-          <thead><tr><th>Přípona</th><th>Co to je</th><th>Na co si dát pozor</th></tr></thead>
-          <tbody>
-            <tr><td><span class="fi fi-docx" style="display:inline-grid;width:30px;height:36px;font-size:.5rem">docx</span> <code>.docx</code></td><td>Textový dokument z Wordu, dá se upravovat.</td><td>Obsah se mění s každým uložením. Verze hlídej v názvu.</td></tr>
-            <tr><td><span class="fi fi-xlsx" style="display:inline-grid;width:30px;height:36px;font-size:.5rem">xlsx</span> <code>.xlsx</code></td><td>Sešit z Excelu s tabulkami a vzorci.</td><td>Umí počítat. Když ho pošleš jako obrázek, výpočty zmizí.</td></tr>
-            <tr><td><span class="fi fi-pdf" style="display:inline-grid;width:30px;height:36px;font-size:.5rem">pdf</span> <code>.pdf</code></td><td>Dokument ke čtení a posílání dál. Vypadá všude stejně.</td><td>Upravuje se špatně, a to schválně. Oprav zdroj (docx) a vyexportuj znovu.</td></tr>
-            <tr><td><span class="fi fi-csv" style="display:inline-grid;width:30px;height:36px;font-size:.5rem">csv</span> <code>.csv</code></td><td>Tabulka jako prostý text, hodnoty oddělené středníkem nebo čárkou.</td><td>Otevře ho Excel i Poznámkový blok. Bez formátování, bez vzorců.</td></tr>
-            <tr><td><span class="fi fi-txt" style="display:inline-grid;width:30px;height:36px;font-size:.5rem">txt</span> <code>.txt</code></td><td>Čistý text.</td><td>Nejodolnější formát na světě. Otevře ho cokoli, kdykoli.</td></tr>
-            <tr><td><span class="fi fi-jpg" style="display:inline-grid;width:30px;height:36px;font-size:.5rem">jpg</span> <code>.jpg</code></td><td>Fotografie.</td><td>Název z fotoaparátu (<code>IMG_0042</code>) nic neříká. Přejmenuj.</td></tr>
-            <tr><td><span class="fi fi-png" style="display:inline-grid;width:30px;height:36px;font-size:.5rem">png</span> <code>.png</code></td><td>Obrázek bez ztráty kvality: mapy, schémata, snímky obrazovky.</td><td>Větší než jpg, ale ostrý text.</td></tr>
-            <tr><td><span class="fi fi-zip" style="display:inline-grid;width:30px;height:36px;font-size:.5rem">zip</span> <code>.zip</code></td><td>Balík souborů a složek v jednom.</td><td>Nejdřív rozbal, pak pracuj. Úpravy uvnitř archivu se ztratí.</td></tr>
-          </tbody>
-        </table>
-        <div class="callout callout-info">
-          <span class="ico">🔬</span>
-          <div class="body"><span class="title">Malý pokus na cvičení</span>
-            <p class="mb-0">Otevři <code>kapacity.csv</code> nejdřív v Poznámkovém bloku a potom v Excelu. Stejná data, jednou jako řádky se středníky, podruhé jako tabulka. Soubor se otevřením v Excelu nijak nezměnil. Data jsou jedna věc, program, kterým se na ně díváš, druhá.</p>
-          </div>
-        </div>
-        <p class="small muted">Nevidíš přípony? Zapni si je, návod je na stránce <a href="../../nastroje.html">Nástroje</a>. Bez nich nerozeznáš <code>zprava.pdf</code> od <code>zprava.pdf.exe</code>.</p>
-        <div class="block-foot"><zit-done key="l1-b2"></zit-done></div>
-      </section>
+    <section class="ms-step" data-short="Copilot" data-min="15">
+      <h2>Copilot a pořádné zadání</h2>
+      <ol class="todo">
+        <li><div>Otevři <a href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener">Microsoft Copilot</a>, přihlas se školním účtem a v rohu zkontroluj své jméno.</div></li>
+        <li><div>Zadání pro AI piš jako zadání pro kolegu, v šesti částech. Níže je vyplněné, uprav si ho a zkopíruj.</div></li>
+      </ol>
+      <zit-prompt-builder key="l1"><script type="application/json">
+        {"prefill":true,"title":"Prompt pro shrnutí zprávy",
+         "fields":[{"k":"KONTEXT","hint":"kdo jsi, jaká situace, pro koho"},{"k":"ÚKOL","hint":"co přesně má AI udělat"},{"k":"VSTUP","hint":"s čím smí pracovat"},{"k":"OMEZENÍ","hint":"co nesmí"},{"k":"FORMÁT","hint":"jak má výstup vypadat"},{"k":"KONTROLA","hint":"co si má ověřit"}],
+         "example":["Pomáháš podpůrnému týmu krizového štábu ve cvičném (smyšleném) scénáři povodně v modelovém regionu Alfa. Výstup je pro vedení štábu.","Vytvoř stručné operační shrnutí přiložené zprávy „Informace pro veřejnost č. 2“.","Použij pouze informace z přiložené zprávy.","- Nevymýšlej chybějící fakta.\n- Neodhaduj čísla.\n- Odděl potvrzené a nepotvrzené informace.\n- Pokud informace chybí, napiš „neuvedeno“.","Čtyři části:\n1. Potvrzená fakta\n2. Nepotvrzené informace\n3. Chybějící informace\n4. Tři otázky k ověření","Před odpovědí ověř, že každé tvrzení má oporu ve zprávě."]}
+      </script></zit-prompt-builder>
+      <div class="done-when"><span class="t">jsi přihlášen/a školním účtem a máš prompt připravený.</span><zit-done key="l1-s6"></zit-done></div>
+    </section>
 
-      <!-- ===== 3 ÚKOL 1 ===== -->
-      <section class="block" id="b3">
-        <div class="block-head"><span class="bn">3</span><h2>Úkol 1: utřiď a pojmenuj</h2><span class="bt">20 min</span></div>
-        <ol class="steps">
-          <li><div>Stáhni <a href="../../materials/01/cviceni-01-student.zip" download>balíček</a> a <b>rozbal ho</b> do své pracovní složky (pravé tlačítko, Extrahovat vše). Ne na plochu, ne do Stažených souborů.</div></li>
-          <li><div>Vytvoř složku události, třeba <code>POVODEN_ALFA_2026</code>, a v ní <b>číslované podsložky</b> podle typu informace. Jednu nech prázdnou pro výstupy.</div></li>
-          <li><div>Přesuň do nich všech 15 souborů z <code>KRIZOVY_STAB_NETRIDENO</code>. Kontakty dej zvlášť, jsou to osobní údaje.</div></li>
-          <li><div>Otevři <code>final.docx</code>, <code>final2.docx</code> a <code>final_final_opravdu.docx</code> a zkus říct, která platí.</div></li>
-          <li><div><b>Přejmenuj 3 až 4 soubory</b> podle konvence níže: tři verze zprávy a hlášení z terénu. Zbytek nech, o přejmenovávání všeho dnes nejde.</div></li>
-        </ol>
-        <div class="side-by-side">
-          <div>
-            <h3 class="mt-0">Která verze platí?</h3>
-            <p>Podle názvu to nepoznáš. Podle data v dokumentu taky ne, protože ho někdo zapomněl změnit. A přitom se v těch souborech liší čas uzavírky, jedna verze má navíc most a jedna „nepotvrzenou“ informaci o skladu v Lužné najednou vyvrací.</p>
-            <zit-reveal label="Ukázat, v čem se verze liší">
-              <table class="diff-table mb-0">
-                <thead><tr><th></th><th>final</th><th>final2</th><th>final_final_opravdu</th></tr></thead>
-                <tbody>
-                  <tr><td>Datum v dokumentu</td><td>13. 9. 12:00</td><td class="changed">13. 9. 12:00 (nezměněno)</td><td class="changed">14. 9. 08:00</td></tr>
-                  <tr><td>Uzavření II/305</td><td>od 07:15</td><td class="changed">od 07:30</td><td class="changed">od 07:15</td></tr>
-                  <tr><td>Sokolovna Podlesí</td><td>chybí</td><td class="added">otevřena 14:00</td><td>otevřena 14:00</td></tr>
-                  <tr><td>Most 305-004</td><td>chybí</td><td>chybí</td><td class="added">preventivně uzavřen</td></tr>
-                  <tr><td>Sklad v Lužné</td><td>„nepotvrzeno, zaplaven“</td><td>„nepotvrzeno, zaplaven“</td><td class="changed">„nepotvrdilo se“</td></tr>
-                </tbody>
-              </table>
-            </zit-reveal>
-          </div>
-          <zit-gif gif="U7pTKYiWH9LzyjquxP" caption="Každý den nová finální verze."></zit-gif>
-        </div>
-        <h3>Konvence pro celý semestr</h3>
-        <pre><code>RRRR-MM-DD_tema_vXX.pripona</code></pre>
-        <zit-typewriter>
-          <script type="application/json">
-          {"pairs":[
-            ["final2.docx","2026-09-13_situacni-zprava_povoden-alfa_v02.docx"],
-            ["Situační zpráva (1).docx","2026-09-14_situacni-zprava_povoden-alfa_v03.docx"],
-            ["hlaseni_z_terenu.txt","2026-09-14_0750_hlaseni_sektor-a.txt"],
-            ["IMG_0042.jpg","2026-09-13_zaplavena-louka_mostkov.jpg"]
-          ]}
-          </script>
-        </zit-typewriter>
-        <p>Datum vepředu ve tvaru rok-měsíc-den seřadí soubory podle času samo. Téma říká, o co jde. Verze je číslo, ne slovo „final“. U hlášení, kde záleží na minutách, přidej i čas. Bez mezer a bez diakritiky, aby název přežil i cizí systém nebo příkazový řádek. Každá organizace má vlastní pravidla, ale tyhle principy platí všude.</p>
-        <div class="block-foot"><zit-done key="l1-b3" label="Složka je utříděná a přejmenovaná"></zit-done></div>
-      </section>
-
-      <!-- ===== 4 CLOUD ===== -->
-      <section class="block" id="b4">
-        <div class="block-head"><span class="bn">4</span><h2>Kde soubor vlastně je</h2><span class="bt">8 min</span></div>
-        <div class="grid grid-4" style="margin-bottom:1rem">
-          <div class="card card-soft"><h4 class="mt-0">💻 Lokálně</h4><p class="mb-0 small">Na jednom konkrétním zařízení. Když se ztratí ono, ztratí se i soubor.</p></div>
-          <div class="card card-soft"><h4 class="mt-0">☁️ V cloudu</h4><p class="mb-0 small">U online služby (OneDrive). Dostaneš se k němu odkudkoli po přihlášení.</p></div>
-          <div class="card card-soft"><h4 class="mt-0">🔄 Synchronizace</h4><p class="mb-0 small">Změny se samy kopírují mezi zařízeními. Smazání taky.</p></div>
-          <div class="card card-soft"><h4 class="mt-0">💾 Záloha</h4><p class="mb-0 small">Kopie z určitého okamžiku uložená jinde. Dá se z ní vrátit.</p></div>
-        </div>
-        <div class="side-by-side">
-          <zit-sync-story></zit-sync-story>
-          <zit-gif gif="JTv4KEi83vjaPRemly" caption="Synchronizace po smazání souboru."></zit-gif>
-        </div>
-        <h3>Komu soubor nasdílet</h3>
-        <ol class="ladder">
-          <li><div><b>Jen já.</b> Výchozí stav, nikdo jiný soubor nevidí.</div><span class="badge badge-ok">bezpečné</span></li>
-          <li><div><b>Konkrétní lidé.</b> Vyjmenuješ je a můžeš jim přístup zase vzít.</div><span class="badge badge-info">doporučeno</span></li>
-          <li><div><b>Lidé v organizaci.</b> Kdokoli s účtem ČVUT, kdo se k odkazu dostane.</div><span class="badge badge-warn">rozmysli si</span></li>
-          <li><div><b>Kdokoli s odkazem.</b> Odkaz se dá přeposlat komukoli na světě, bez přihlášení.</div><span class="badge badge-danger">jen veřejné</span></li>
-        </ol>
-        <p>Nejrychlejší volba je většinou ta poslední. Interní seznam kontaktů takhle nikdy neposílej.</p>
-        <div class="block-foot"><zit-done key="l1-b4"></zit-done></div>
-      </section>
-
-      <!-- ===== 5 POSUĎ ===== -->
-      <section class="block" id="b5">
-        <div class="block-head"><span class="bn">5</span><h2>Posuď, než něco nahraješ</h2><span class="bt">8 min</span></div>
-        <p>Než cokoli pošleš do AI, do e-mailu nebo na sdílený disk, zařaď to. Čtyři kategorie stačí. Nenahrazují předpisy ani GDPR, ale naučí tě zastavit se před tlačítkem Nahrát.</p>
-        <ol class="ladder">
-          <li><div><b>VEŘEJNÉ.</b> Tisková zpráva, veřejná výstraha, mapa uzavírek, článek z novin.</div><span class="badge badge-ok">může do AI</span></li>
-          <li><div><b>INTERNÍ.</b> Pracovní zápisy, provozní stav, interní telefonní seznam, koncepty.</div><span class="badge badge-info">jen schválené prostředí</span></li>
-          <li><div><b>OSOBNÍ ÚDAJE.</b> Jméno s telefonem, adresa, cokoli o konkrétním člověku.</div><span class="badge badge-warn">anonymizuj</span></li>
-          <li><div><b>CITLIVÉ.</b> Hesla, ověřovací kódy, seznamy evakuovaných, zdravotní údaje.</div><span class="badge badge-danger">nikdy do AI</span></li>
-        </ol>
-        <div class="grid grid-2">
-          <div class="card" style="border-left:5px solid var(--accent)">
-            <h4 class="mt-0">Pět otázek před nahráním</h4>
-            <ol class="mb-0">
-              <li>Co je to za data?</li>
-              <li>Smím je sdílet?</li>
-              <li>Potřebuji celý soubor, nebo stačí odstavec?</li>
-              <li>Můžu je anonymizovat? (<code>Jan Novák, +420…</code> → <code>[OSOBA A]</code>)</li>
-              <li>Používám určený účet a službu?</li>
-            </ol>
-          </div>
-          <div class="card card-soft">
-            <h4 class="mt-0">A v naší složce?</h4>
-            <p class="mb-0"><code>zprava.pdf</code> je informace pro veřejnost, ta do Copilotu může. <code>kontakty.xlsx</code> jsou osobní údaje. V <code>poznamky.txt</code> je heslo, takže celý soubor nikam nenahrávej. Zápisy a hlášení jsou interní. V zadání máš dvanáct dalších položek k zařazení, projdi je.</p>
-          </div>
-        </div>
-        <div class="block-foot"><zit-done key="l1-b5"></zit-done></div>
-      </section>
-
-      <!-- ===== 6 COPILOT A PROMPT ===== -->
-      <section class="block" id="b6">
-        <div class="block-head"><span class="bn">6</span><h2>Copilot a pořádné zadání</h2><span class="bt">15 min</span></div>
-        <ol class="steps">
-          <li><div>Otevři <a href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener">Microsoft Copilot</a> a přihlas se <b>školním účtem ČVUT</b>.</div></li>
-          <li><div>Zkontroluj v rohu své jméno a školu. Pokud tam je osobní účet, odhlas se a přihlas znovu.</div></li>
-          <li><div>Teprve teď cokoli zadávej. Co Copilot umí a jak se liší od Copilot Studia, ukáže vyučující na plátně.</div></li>
-        </ol>
-        <p class="small muted">Copilot je obecný asistent. Copilot Studio je dílna, ve které se z něj dá postavit asistent na míru, třeba pro krizový štáb. K tomu se vrátíme v 6. cvičení.</p>
-        <h3>Jak se ptát</h3>
-        <p>Generativní AI nehledá správnou odpověď v databázi. Skládá text, který vypadá pravděpodobně. Z toho plyne všechno ostatní: čím lepší zadání, tím lepší odpověď, a plynulá věta ještě není pravdivá věta. Zadání pro AI piš stejně jako zadání pro kolegu:</p>
-        <div class="grid grid-3" style="margin-bottom:1rem">
-          <div class="card" style="border-top:4px solid var(--danger)"><span class="badge badge-danger">Špatně</span><pre data-nocopy style="margin:.6rem 0 0"><code>Shrň to.</code></pre></div>
-          <div class="card" style="border-top:4px solid var(--warn)"><span class="badge badge-warn">Lepší</span><pre data-nocopy style="margin:.6rem 0 0"><code>Shrň tuhle zprávu pro krizový štáb.</code></pre></div>
-          <div class="card" style="border-top:4px solid var(--ok)"><span class="badge badge-ok">Pořádně</span><p class="small mb-0" style="margin-top:.6rem">Šest částí: <b>KONTEXT, ÚKOL, VSTUP, OMEZENÍ, FORMÁT, KONTROLA</b>. Níže je vyplněné, uprav si to a zkopíruj.</p></div>
-        </div>
-        <zit-prompt-builder key="l1" title="Prompt pro dnešní úkol">
-          <script type="application/json">
-          {"prefill":true,
-           "fields":[
-            {"k":"KONTEXT","hint":"kdo jsi, jaká situace, pro koho"},
-            {"k":"ÚKOL","hint":"co přesně má AI udělat"},
-            {"k":"VSTUP","hint":"s čím smí pracovat"},
-            {"k":"OMEZENÍ","hint":"co nesmí"},
-            {"k":"FORMÁT","hint":"jak má výstup vypadat"},
-            {"k":"KONTROLA","hint":"co si má ověřit, než odpoví"}
-           ],
-           "example":[
-            "Pomáháš podpůrnému týmu krizového štábu ve cvičném (smyšleném) scénáři povodně v modelovém regionu Alfa. Výstup je pro vedení štábu, které potřebuje rychlý přehled.",
-            "Vytvoř stručné operační shrnutí přiložené zprávy „Informace pro veřejnost č. 2“.",
-            "Použij pouze informace z přiložené zprávy. Žádné jiné zdroje ani obecné znalosti o povodních.",
-            "- Nevymýšlej chybějící fakta.\n- Neodhaduj čísla, která nejsou uvedena.\n- Odděl potvrzené a nepotvrzené informace.\n- Pokud informace chybí, napiš „neuvedeno“.\n- Nedávej doporučení nad rámec zdroje.",
-            "Čtyři části:\n1. Potvrzená fakta\n2. Nepotvrzené informace\n3. Chybějící informace\n4. Tři otázky, které je třeba ověřit jako první",
-            "Před odpovědí ověř, že každé tvrzení má oporu v přiložené zprávě. Pokud nemá, vynech ho nebo ho přesuň mezi chybějící informace."
+    <section class="ms-step" data-short="Zkontroluj AI" data-min="20">
+      <h2>Nech to shrnout a pak to zkontroluj</h2>
+      <p>Tohle AI napsala o naší zprávě. Většina je správně, a tím je to zákeřné.</p>
+      <div class="split">
+        <zit-ai-reveal><script type="application/json">
+          {"title":"Odpověď AI, která zní dobře","prompt":"Shrň mi zprávu o povodni v regionu Alfa.","button":"Ukázat 4 problémy",
+           "after":"Čtyři chyby v sedmi větách. Odhalíš je jen porovnáním se zdrojem.",
+           "sentences":[
+            {"t":"Na řece Bystré v Mostkově platí od 13. 9. 2026 06:40 třetí stupeň povodňové aktivity a hladina od 14. 9. ráno mírně klesá."},
+            {"t":"Celkem bylo evakuováno 147 obyvatel","bad":true,"label":"Vymyšlené číslo","why":"Zpráva říká jen „počet evakuovaných je upřesňován“."},
+            {"t":"obce Podlesí, zejména z ulic Nábřežní a Mlýnská.","bad":true,"label":"Špatné místo","why":"Nábřežní a Mlýnská jsou v Mostkově."},
+            {"t":"Silnice II/305 v úseku Mostkov–Podlesí je uzavřena, objízdná trasa vede přes Kamenici."},
+            {"t":"Most přes Bystrou v Mostkově se zřítil","bad":true,"label":"Neověřené jako fakt","why":"Zpráva: preventivně uzavřen, posouzení probíhá."},
+            {"t":"v důsledku nárazu naplavenin.","bad":true,"label":"Vymyšlená příčina","why":"Příčinu zpráva vůbec neuvádí."},
+            {"t":"V provozu jsou evakuační centra ZŠ Mostkov a Sokolovna Podlesí."}
            ]}
-          </script>
-        </zit-prompt-builder>
-        <div class="block-foot"><zit-done key="l1-b6" label="Přihlášen/a, prompt mám"></zit-done></div>
-      </section>
+        </script></zit-ai-reveal>
+        <zit-gif gif="YHIUamHQoR4YEeM2zY" caption="Zdroj? Copilot."></zit-gif>
+      </div>
+      <ol class="todo">
+        <li><div>Do Copilotu nahraj <b>jen</b> <code>zprava.pdf</code> a použij prompt z minulého kroku.</div></li>
+        <li><div>Odpověď ulož do <code>08_VYSTUPY</code>, třeba jako <code>2026-09-21_shrnuti-zpravy_copilot_v01.txt</code>.</div></li>
+        <li><div>V <a href="../../materials/01/audit-ai.xlsx" download>audit-ai.xlsx</a> porovnej aspoň pět tvrzení se zdrojem. Když byl Copilot přesný, audituj <a href="../../materials/01/ai-odpoved-problematicka.txt" target="_blank" rel="noopener">problematickou odpověď</a> z balíčku.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">shrnutí je uložené a v auditu je pět tvrzení s důkazem ze zdroje.</span><zit-done key="l1-s7"></zit-done></div>
+    </section>
 
-      <!-- ===== 7 ÚKOL 2 ===== -->
-      <section class="block" id="b7">
-        <div class="block-head"><span class="bn">7</span><h2>Úkol 2: nech to shrnout a pak to zkontroluj</h2><span class="bt">20 min</span></div>
-        <p>Nejdřív se podívej, jak vypadá odpověď, které bys uvěřil/a. Tohle AI napsala o naší zprávě. Většina je správně, a tím je to zákeřné.</p>
-        <div class="side-by-side">
-          <zit-ai-reveal>
-            <script type="application/json">
-            {"prompt":"Shrň mi zprávu o povodni v regionu Alfa.",
-             "after":"Čtyři chyby v sedmi větách. Odhalíš je jen tak, že odpověď porovnáš se zdrojem, větu po větě.",
-             "sentences":[
-              {"t":"Na řece Bystré v Mostkově platí od 13. 9. 2026 06:40 třetí stupeň povodňové aktivity a hladina od 14. 9. 2026 ráno mírně klesá."},
-              {"t":"Celkem bylo evakuováno 147 obyvatel","bad":true,"label":"Vymyšlené číslo","why":"Zpráva říká jen „počet evakuovaných je upřesňován“. Číslo 147 v ní není. Konkrétní, věrohodné, neexistující."},
-              {"t":"obce Podlesí, zejména z ulic Nábřežní a Mlýnská, a evakuace dále pokračuje.","bad":true,"label":"Špatné místo","why":"Nábřežní a Mlýnská jsou v Mostkově. Jedno zaměněné slovo a pomoc jede do jiné obce."},
-              {"t":"Silnice II/305 v úseku Mostkov–Podlesí je od 13. 9. 2026 07:15 uzavřena a objízdná trasa vede přes Kamenici."},
-              {"t":"Most přes Bystrou v Mostkově (ev. č. 305-004) se zřítil 13. 9. 2026 dopoledne","bad":true,"label":"Neověřené tvrzení jako fakt","why":"Zpráva: preventivně uzavřen, posouzení probíhá. „Zřítil se“ zní dramaticky a nikdo to neřekl."},
-              {"t":"v důsledku nárazu naplavenin, což bylo hlavní příčinou uzavření dopravy přes řeku.","bad":true,"label":"Vymyšlená příčina","why":"Příčinu zpráva vůbec neuvádí. AI si domyslela vysvětlení, které dává smysl. Dává smysl a doložené jsou dvě různé věci."},
-              {"t":"V provozu jsou evakuační centra ZŠ Mostkov a Sokolovna Podlesí, připravena jsou Kulturní dům Lužná a Tělocvična Kamenice."},
-              {"t":"Pitná voda je v Podlesí od 14. 9. 2026 09:00 zajištěna cisternou."},
-              {"t":"Informační linka krajského úřadu je +420 000 100 000 a další zpráva bude vydána 14. 9. 2026 v 16:00."}
-             ]}
-            </script>
-          </zit-ai-reveal>
-          <zit-gif gif="YHIUamHQoR4YEeM2zY" caption="Zdroj? Copilot."></zit-gif>
-        </div>
-        <p>Tomuhle se říká halucinace: tvrzení podané jako fakt, které zdroj nepodporuje. AI nelže naschvál. Skládá pravděpodobný text a pravděpodobný text je občas vymyšlený. Proto teď uděláš dvě věci: necháš AI pracovat a pak ji zkontroluješ.</p>
-        <ol class="steps">
-          <li><div><b>Posuď:</b> do Copilotu dnes jde jen <code>zprava.pdf</code>. Je veřejná, bez osobních údajů. Nic jiného z balíčku nenahrávej.</div></li>
-          <li><div><b>Zadej</b> prompt z kapitoly 6 a přilož <code>zprava.pdf</code> (nebo vlož její text).</div></li>
-          <li><div><b>Ulož odpověď</b> do složky výstupů, třeba jako <code>2026-09-21_shrnuti-zpravy_copilot_v01.txt</code> s dnešním datem.</div></li>
-          <li><div><b>Audit:</b> otevři <a href="../../materials/01/audit-ai.xlsx" download>audit-ai.xlsx</a> a porovnej <b>aspoň pět tvrzení</b> se zdrojem. Ke každému napiš, jestli ve zdroji je, jestli sedí a kde přesně to vidíš.</div></li>
-          <li><div>Když byl Copilot podezřele přesný, vezmi <a href="../../materials/01/ai-odpoved-problematicka.txt" target="_blank" rel="noopener">problematickou odpověď</a> z balíčku a zapiš do auditu její čtyři chyby i s důkazem.</div></li>
-        </ol>
-        <div class="side-by-side">
-          <div>
-            <p>Klasifikace, které v auditu používáme: <span class="badge badge-ok">Podloženo</span> <span class="badge badge-danger">Nepodloženo</span> <span class="badge badge-danger">Nesprávné</span> <span class="badge badge-warn">Nejednoznačné</span> <span class="badge badge-info">Ověřit</span></p>
-            <div class="callout callout-info mb-0">
-              <span class="ico">📶</span>
-              <div class="body"><span class="title">Copilot dnes nejede?</span>
-                <p class="mb-0">Neřeš to dvacet minut. Vezmi <a href="../../materials/01/ai-odpoved-dobra.txt" target="_blank" rel="noopener">vzorovou odpověď</a> z balíčku a audituj tu. Postup je stejný.</p>
-              </div>
-            </div>
-          </div>
-          <zit-gif gif="l378rhA6c1QhJDgbu" caption="Audit: věta po větě, se zdrojem vedle."></zit-gif>
-        </div>
-        <div class="block-foot"><zit-done key="l1-b7" label="Shrnutí uložené, audit hotový"></zit-done></div>
-      </section>
+    <section class="ms-step" data-short="Odevzdání" data-min="5">
+      <h2>Odevzdání</h2>
+      <ol class="todo">
+        <li><div>Zabal utříděnou složku do ZIPu (pravým, Komprimovat do souboru ZIP) a pojmenuj ho podle vzoru níže.</div></li>
+        <li><div>Vyplň tři otázky a otevři e-mail. ZIP do něj přetáhni.</div></li>
+      </ol>
+      <zit-exit-ticket key="l1"><script type="application/json">
+        {"title":"Odevzdání cvičení 1","subject":"ZIT C1: {Prijmeni} {Jmeno} (par. {group})",
+         "attach":["{date}_zit-c1_{prijmeni}.zip"],
+         "questions":["Jeden návyk z dnešního cvičení, který použiješ i mimo školu.","Jeden příklad informace, u které se zastavíš, než ji nahraješ do AI.","Doplň větu: „Tvrzení od AI považuji za ověřené, když…“"],
+         "footer":"Kde mi pomohla AI: "}
+      </script></zit-exit-ticket>
+      <div class="done-when"><span class="t">e-mail se ZIPem je odeslaný.</span><zit-done key="l1-s8"></zit-done></div>
+    </section>
 
-      <!-- ===== 8 ODEVZDÁNÍ ===== -->
-      <section class="block" id="b8">
-        <div class="block-head"><span class="bn">8</span><h2>Odevzdání a tři otázky na závěr</h2><span class="bt">4 min</span></div>
-        <div class="grid grid-2" style="margin-bottom:1rem">
-          <div class="card">
-            <h4 class="mt-0">Co poslat</h4>
-            <ol class="mb-0">
-              <li>Svou utříděnou složku zabalenou do ZIPu, včetně složky výstupů s odpovědí Copilotu a s <code>audit-ai.xlsx</code>.</li>
-              <li>Odpovědi na tři otázky níže, přímo v textu e-mailu.</li>
-              <li>Jednu větu o tom, kde ti AI pomohla.</li>
-            </ol>
-          </div>
-          <div class="card">
-            <h4 class="mt-0">Jak poslat</h4>
-            <p><b>Komu:</b> <a data-zit="email" href="#"></a><br><b>Předmět:</b> <code>ZIT C1: Příjmení Jméno (par. X)</code><br><b>Název ZIPu:</b> <code>2026-09-21_zit-c1_prijmeni-jmeno.zip</code> (s dnešním datem, bez diakritiky)</p>
-            <p class="mb-0 small muted">Nejpozději do konce dne, kdy máš cvičení. Ano, i název přílohy se hodnotí. Dnes ses to učil/a.</p>
-          </div>
-        </div>
-        <zit-exit-ticket key="l1">
-          <script type="application/json">
-          {"subject":"ZIT C1: {name} (par. {group})",
-           "footer":"Přílohou posílám ZIP s utříděnou složkou (včetně 08_VYSTUPY s odpovědí Copilotu a audit-ai.xlsx).\nKde mi pomohla AI: ",
-           "questions":[
-            "Jeden návyk z dnešního cvičení, který použiješ i mimo školu.",
-            "Jeden příklad informace, u které se zastavíš, než ji nahraješ do AI.",
-            "Doplň větu: „Tvrzení od AI považuji za ověřené, když…“"
-          ]}
-          </script>
-        </zit-exit-ticket>
+  </zit-mission>
 
-        <h3>Tahák</h3>
-        <div class="cheat">
-          <div class="card"><h4>Soubory</h4><ul><li>Datum vepředu, téma, verze číslem.</li><li>Číslované složky.</li><li>Synchronizace není záloha.</li></ul></div>
-          <div class="card"><h4>Před AI</h4><ul><li>Co je to za data?</li><li>Smím je sdílet?</li><li>Stačí kousek?</li><li>Jde to anonymizovat?</li><li>Správný účet?</li></ul></div>
-          <div class="card"><h4>Prompt</h4><ul><li>Kontext, úkol, vstup,</li><li>omezení, formát, kontrola.</li><li>Odpověď je koncept, dokud ji neověříš.</li></ul></div>
-        </div>
-        <div class="rules" style="margin-top:1rem">
-          <div class="rule"><span class="n">1</span><strong>Utřiď.</strong><span>Nejdřív pořádek, pak práce.</span></div>
-          <div class="rule"><span class="n">2</span><strong>Posuď.</strong><span>Než to pošleš dál, věz, co posíláš.</span></div>
-          <div class="rule"><span class="n">3</span><strong>Ověř.</strong><span>Plynulá věta není důkaz.</span></div>
-        </div>
-        <div class="callout callout-ok" style="margin-top:1.2rem">
-          <span class="ico">➡️</span>
-          <div class="body"><span class="title">Příště: Profesionální dokumenty</span>
-            <p class="mb-0">Ze surových informací uděláme dokument, za který se nemusíš stydět: Word, styly, automatický obsah, export do PDF. A AI jako editor, ne jako autor.</p>
-          </div>
-        </div>
-        <div class="block-foot"><zit-done key="l1-b8" label="Odesláno"></zit-done></div>
-      </section>
-
-      <div class="lecture-actions" data-zit="lecture-nav" style="margin-top:2rem"></div>
-    </div>
-  </div>
+  <div data-zit="prev-next" style="margin-top:2.5rem"></div>
 </main>
 
 <footer class="site-footer"><div class="wrap">
-  <div><h4>F7PBPZIT · Základy informačních technologií</h4><p>Fakulta biomedicínského inženýrství ČVUT v Praze<br>Studijní program Bezpečnost a ochrana obyvatelstva<br>Zimní semestr <span data-zit="year"></span></p></div>
+  <div><h4>F7PBPZIT · Základy informačních technologií</h4><p>Fakulta biomedicínského inženýrství ČVUT v Praze<br>Bezpečnost a ochrana obyvatelstva · <span data-zit="year"></span></p></div>
   <div><h4>Vyučující</h4><p><span data-zit="teacher"></span><br><a data-zit="email" href="#"></a></p></div>
-  <div><h4>Cvičná data</h4><p>Všechna data na tomto webu jsou smyšlená. Skutečné osobní, interní ani citlivé informace do AI nepatří.</p></div>
+  <div><h4>Cvičná data</h4><p>Region Alfa, obce, lidé i události jsou smyšlené. Skutečné osobní, interní ani citlivé informace do AI nepatří.</p></div>
 </div></footer>
 
 <script src="../../assets/js/main.js"></script>
