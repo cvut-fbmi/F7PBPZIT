@@ -36,7 +36,7 @@ window.ZIT_COURSE = {
       dates: { 1: "2026-10-05", 3: "2026-10-12", 2: "2026-10-12" }
     },
     {
-      n: 3, slug: "03-overovani-informaci", status: "soon",
+      n: 3, slug: "03-overovani-informaci", status: "published",
       title: "Ověřování informací",
       sub: "Zdroje, halucinace AI, fake news a deepfakes",
       dates: { 1: "2026-10-19", 3: "2026-10-26", 2: "2026-10-26" }
