@@ -1,0 +1,27 @@
+Odpověď AI (offline ukázka 1) · zadání: rozděl podklady na fakta, neověřené informace, konflikty a chybějící informace
+
+FAKTA (s časem a zdrojem)
+- 06:55 Habrová: evakuace ul. K Mlýnu, 14 osob; EC ZŠ Habrová otevřeno 07:00 (OH-06)
+- 07:05 Habrová: žena (82) z č. p. 112 evakuována člunem, převezena do Nemocnice Alfa, stav stabilizovaný (OH-07, nemocnice 08:00)
+- 07:35 Habrová: hladina potoka stoupá, most v ul. Školní uzavřen (OH-09); kulminace očekávána 10:00–11:00 (M-02)
+- Olšany: silnice III/3051 neprůjezdná (OH-02), výpadek elektřiny cca 300 odběrných míst (OH-05), výpadek mobilního signálu (OH-10)
+- Olšany: hráz rybníka Horní Olšanský bez poškození (OH-12, 08:15)
+- Javorník: sesuv bahna, 2 osoby vyproštěny bez zranění (OH-03)
+- EC ZŠ Habrová: deky od 08:00, jídlo v 09:00, chybí inzulin pro 2 osoby (správce 08:30)
+
+NEOVĚŘENÉ / VYVRÁCENÉ
+- „Hráz praskla“ (S-01, 08:05): vyvráceno, OH-12 v 08:15 hráz bez poškození. Doporučuji veřejně vyvrátit.
+- „V ZŠ nemají jídlo ani deky“ (S-02, 08:10): deky dovezeny 08:00, jídlo bude 09:00. Zčásti zastaralé.
+- Pohřešovaný muž (OH-08) už není aktuální: nalezen v 07:55 (OH-11).
+
+KONFLIKTY
+- Počet osob v EC ZŠ Habrová: 22 (OH-13, 08:20) vs. 31 (správce, 08:30). Nevím, které číslo je správné; doporučuji ověřit u správce EC.
+
+CHYBĚJÍCÍ INFORMACE
+- Kdy bude obnovena elektřina a signál v Olšanech?
+- Kolik domů je zaplaveno v Olšanech?
+- Kdo a odkud zajistí inzulin do 12:00?
+
+Upozornění: odpověď vychází jen z dodaných podkladů. Ověřte čísla a časy proti originálu.
+
+Cvičný soubor. Všechny osoby, organizace a údaje jsou smyšlené.

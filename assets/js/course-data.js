@@ -42,26 +42,26 @@ window.ZIT_COURSE = {
       dates: { 1: "2026-10-19", 3: "2026-10-26", 2: "2026-10-26" }
     },
     {
-      n: 4, slug: "04-test1-excel", status: "soon",
+      n: 4, slug: "04-test1-excel", status: "published",
       title: "Test 1 a Excel",
       sub: "Zápočtový test 1, pak tabulky, vzorce a filtry",
       dates: { 1: "2026-11-02", 3: "2026-11-09", 2: "2026-11-09" },
       test: "Zápočtový test 1"
     },
     {
-      n: 5, slug: "05-analyza-dat", status: "soon",
+      n: 5, slug: "05-analyza-dat", status: "published",
       title: "Analýza krizových dat",
       sub: "Čištění dat, kontingenční tabulky, grafy, dashboard",
       dates: { 1: "2026-11-16", 3: "2026-11-23", 2: "2026-11-23" }
     },
     {
-      n: 6, slug: "06-ai-krizovy-stab", status: "soon",
+      n: 6, slug: "06-ai-krizovy-stab", status: "published",
       title: "AI v krizovém štábu",
       sub: "Situační zprávy, komunikace a kontrola AI",
       dates: { 1: "2026-11-30", 3: "2026-12-07", 2: "2026-12-07" }
     },
     {
-      n: 7, slug: "07-kyberbezpecnost-test2", status: "soon",
+      n: 7, slug: "07-kyberbezpecnost-test2", status: "published",
       title: "Kyberbezpečnost a Test 2",
       sub: "Phishing, deepfakes, výpadky a zápočtový test 2",
       dates: { 1: "2026-12-14", 3: "2027-01-11", 2: "2027-01-11" },

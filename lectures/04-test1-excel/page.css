@@ -1,0 +1,47 @@
+/* Cvičení 4: test (fakta), makety Excelu (mřížka, kopírování, absolutní odkaz) */
+c4-grid, c4-fill, c4-anchor { display: block; }
+
+.test-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; margin: 0 0 1.4rem; }
+.test-facts > div { padding: .8rem .9rem; border-radius: var(--r-sm); background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--blue); }
+.test-facts > div.no { border-top-color: var(--bad); }
+.test-facts b { display: block; font: 700 1.05rem var(--font-head); color: var(--navy); }
+.test-facts span { font-size: .88rem; color: var(--ink-2); }
+@media (max-width: 680px) { .test-facts { grid-template-columns: 1fr 1fr; } }
+
+/* maketa Excelu */
+.xl-wrap { overflow-x: auto; }
+.xl { border-collapse: collapse; width: auto; min-width: 100%; margin: 0; background: #fff; color: #1b1b1b; font: 14px/1.35 Calibri, Carlito, "Segoe UI", sans-serif; }
+.xl th, .xl td { border: 1px solid #d4d4d4; padding: 0; text-transform: none; letter-spacing: 0; vertical-align: middle; }
+.xl th { background: #efefef; color: #555; font: 600 12px "Segoe UI", sans-serif; text-align: center; padding: 2px 6px; }
+.xl .rn { background: #efefef; color: #555; font: 600 12px "Segoe UI", sans-serif; text-align: center; width: 34px; padding: 2px 4px; }
+.xl tr.hdr td { background: #dde8f3; font-weight: 700; padding: 4px 8px; white-space: nowrap; }
+.xl tr.gap td { height: 10px; background: #fafafa; }
+.xl td.n { text-align: right; padding: 4px 8px; }
+.xl .cell { all: unset; display: block; box-sizing: border-box; width: 100%; padding: 4px 8px; cursor: pointer; white-space: nowrap; position: relative; }
+.xl .cell.num { text-align: right; }
+.xl .cell:hover { background: #f3f8fd; }
+.xl .cell.on, .xl .cell:focus-visible { outline: 2px solid #217346; outline-offset: -2px; background: #fff; }
+.xl .cell.txtnum::before { content: ""; position: absolute; left: 0; top: 0; border: 5px solid transparent; border-left-color: #1e8a5a; border-top-color: #1e8a5a; }
+.xl-info { margin-top: .8rem; padding: .6rem .8rem; border-radius: var(--r-sm); background: var(--surface-2); border: 1px solid var(--line); min-height: 2.6em; font-size: .95rem; }
+.xl-info .addr { display: inline-block; font: 700 .85rem var(--font-mono); background: #217346; color: #fff; padding: .05rem .45rem; border-radius: 5px; margin-right: .3rem; }
+
+/* kopírování dolů */
+.xl.fill td.k { min-width: 120px; padding: 4px 8px; text-align: right; background: #fff6cc; transition: background .3s; }
+.xl.fill td.k code { background: none; color: #185abd; padding: 0; }
+.xl.fill td.k.flash { background: #d7f0e1; }
+.fill-msg { margin-top: .8rem; }
+
+/* absolutní odkaz */
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface-2); margin-bottom: .8rem; flex-wrap: wrap; }
+.seg button { border: 0; background: none; padding: .38rem .9rem; border-radius: 999px; font: 700 .84rem var(--font-mono); color: var(--ink-2); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--blue); color: #fff; }
+.anchor-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 1rem; align-items: start; }
+@media (max-width: 640px) { .anchor-grid { grid-template-columns: 1fr; } }
+.xl td.p.hit { background: #fde2c4; outline: 2px solid #f28c1e; outline-offset: -2px; }
+.xl.res td { padding: 4px 8px; }
+.xl.res td code { display: block; background: none; color: #555; padding: 0; font-size: .74rem; }
+.xl.res td b { font-size: .9rem; }
+.xl.res td.good b { color: #1e8a5a; } .xl.res td.bad { background: #fbe7e7; } .xl.res td.bad b { color: #c53b3b; }
+.xl.res tr { cursor: default; }
+.xl.res tr:focus-visible { outline: 2px solid var(--blue); }
+.anchor-msg { margin-top: .9rem; }

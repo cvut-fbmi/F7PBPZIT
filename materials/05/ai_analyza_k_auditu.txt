@@ -1,0 +1,17 @@
+Shrnutí analýzy dat (vygenerováno AI, 16. 11. 2026, 07:40)
+Podklad: export udalosti_boure.xlsx bez úprav
+
+Hlavní zjištění:
+1. Nejvíce událostí bylo v oblasti Sever.
+2. Převažovaly spadlé stromy, tvořily zhruba 34 % všech hlášení.
+3. Bouře zasáhla všechny čtyři oblasti regionu.
+4. Nejvíce hlášení přišlo mezi 15:00 a 16:00.
+5. Celkem bylo evakuováno 208 osob.
+6. Nejdelší průměrnou dobu reakce měla oblast Západ.
+7. Pomalejší reakce na severu byla způsobena nedostatkem hasičů.
+8. Neuzavřených zůstalo 5 událostí, bouře je tedy pod kontrolou.
+9. Škody byly nejvyšší v historii regionu.
+
+Doporučení: posílit hasičské jednotky na severu a připravit se na podobnou bouři v příštím roce.
+
+Cvičný soubor. Všechny osoby, organizace a údaje jsou smyšlené.

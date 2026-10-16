@@ -13,6 +13,7 @@
    <zit-ai-reveal> + JSON            odpověď AI se vypíše, pak se odhalí chyby
    <zit-prompt-builder key="…"> + JSON
    <zit-exit-ticket key="…"> + JSON  e-mail vyučujícímu (mailto) s odpověďmi a názvy příloh
+   <zit-locked> + JSON               zašifrovaný test: stažení až po zadání hesla
    ===================================================================== */
 (function () {
   "use strict";
@@ -378,7 +379,54 @@
     }
   }
 
-  const defs = { "zit-done": ZitDone, "zit-reveal": ZitReveal, "zit-ribbon": ZitRibbon, "zit-compare": ZitCompare,
+  /* ---------- zit-locked (test ke stažení až po zadání hesla) ----------
+     Soubor na serveru je zašifrovaný (PBKDF2-SHA256 + AES-GCM), heslo na webu ani v repozitáři není.
+     Formát: "ZITENC1" | sůl 16 B | IV 12 B | šifrovaná data s tagem. Vyrábí teacher/common/zitlib.py. */
+  class ZitLocked extends HTMLElement {
+    connectedCallback() {
+      if (this._init) return; this._init = true;
+      const cfg = this.cfg = readJSON(this);
+      const id = "lk-" + slug(cfg.file || "test");
+      const body = `<form class="locked" autocomplete="off">
+          <p class="mb-0">${cfg.text || "Heslo řekne vyučující na začátku testu."}</p>
+          <div class="lk-row"><label for="${id}" class="visually-hidden">Heslo k testu</label>
+            <input id="${id}" type="password" placeholder="Heslo k testu" autocomplete="off" spellcheck="false" required>
+            <button type="submit" class="btn btn-primary btn-sm">Odemknout a stáhnout</button></div>
+          <p class="lk-msg mb-0" aria-live="polite"></p></form>`;
+      shell(this, { title: cfg.title || "Zápočtový test", kind: "zamčeno heslem", body });
+      this.querySelector("form").addEventListener("submit", e => { e.preventDefault(); this.unlock(); });
+    }
+    msg(t, cls) { const m = this.querySelector(".lk-msg"); m.innerHTML = t; m.className = "lk-msg mb-0 " + (cls || ""); }
+    async unlock() {
+      const inp = this.querySelector("input"), btn = this.querySelector("button");
+      const pw = inp.value.trim();
+      if (!pw) return;
+      if (!(window.crypto && crypto.subtle)) { this.msg("Prohlížeč neumí soubor odemknout. Otevři stránku přes https nebo si řekni vyučujícímu o kopii.", "bad"); return; }
+      btn.disabled = true; this.msg("Ověřuji heslo…");
+      try {
+        const res = await fetch(this.cfg.src, { cache: "no-store" });
+        if (!res.ok) throw new Error("soubor");
+        const raw = new Uint8Array(await res.arrayBuffer());
+        const magic = new TextEncoder().encode("ZITENC1");
+        if (!magic.every((b, i) => raw[i] === b)) throw new Error("soubor");
+        const salt = raw.slice(7, 23), iv = raw.slice(23, 35), data = raw.slice(35);
+        const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+        const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: 600000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+        let plain;
+        try { plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv, additionalData: magic }, key, data); }
+        catch (x) { this.msg("Špatné heslo. Zkontroluj velká a malá písmena a zkus to znovu.", "bad"); btn.disabled = false; inp.select(); return; }
+        const url = URL.createObjectURL(new Blob([plain], { type: "application/zip" }));
+        const a = document.createElement("a"); a.href = url; a.download = this.cfg.file || "test.zip";
+        document.body.appendChild(a); a.click(); a.remove();
+        this.msg(`Odemčeno. Stahování začalo. Když ne, <a href="${url}" download="${esc(this.cfg.file || "test.zip")}">klikni sem</a>.`, "ok");
+        btn.disabled = false;
+      } catch (e) {
+        this.msg("Soubor se nepodařilo načíst. Zkus obnovit stránku, jinak řekni vyučujícímu.", "bad"); btn.disabled = false;
+      }
+    }
+  }
+
+  const defs = { "zit-locked": ZitLocked, "zit-done": ZitDone, "zit-reveal": ZitReveal, "zit-ribbon": ZitRibbon, "zit-compare": ZitCompare,
     "zit-folder-story": ZitFolderStory, "zit-sync-story": ZitSyncStory, "zit-ai-reveal": ZitAiReveal,
     "zit-prompt-builder": ZitPromptBuilder, "zit-exit-ticket": ZitExitTicket, "zit-mission": ZitMission };
   Object.entries(defs).forEach(([n, c]) => { if (!customElements.get(n)) customElements.define(n, c); });

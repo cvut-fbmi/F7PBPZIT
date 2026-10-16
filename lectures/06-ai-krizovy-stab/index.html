@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="cs" data-root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>6. AI v krizovém štábu · Základy informačních technologií · ČVUT FBMI</title>
+  <meta name="description" content="Cvičení 6: přívalové srážky, dvacet zpráv za tři hodiny a AI jako asistent. Anonymizace, prompt v šesti dílech, situační zpráva, SMS pro obyvatele, tisková zpráva a red teaming.">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="page.css">
+  <script src="../../assets/js/course-data.js"></script>
+</head>
+<body data-page="exercise" data-lecture="6">
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../../"><span class="mark">ČVUT FBMI</span><span class="name">Základy informačních technologií<small>F7PBPZIT · Bezpečnost a ochrana obyvatelstva</small></span></a>
+  <nav class="site-nav" aria-label="Hlavní menu">
+    <a href="../../" data-nav="hub">Cvičení</a>
+    <a href="../../info.html" data-nav="info">Info o kurzu</a>
+    <button class="icon-btn" data-theme-toggle type="button" aria-label="Přepnout tmavý režim">☾</button>
+  </nav>
+</div></header>
+
+<div class="ex-head"><div class="wrap narrow">
+  <div class="kicker">Cvičení 6 · 90 minut</div>
+  <h1>AI v krizovém štábu</h1>
+  <p class="lead">Přívalové srážky, dvacet zpráv za tři hodiny a za čtvrt hodiny jednání štábu. AI ti pomůže je utřídit a napsat. Jen jí nesmíš dát, co nemá, a věřit všemu, co napíše.</p>
+  <p class="past-note" data-zit="past-note" hidden>Cvičení už proběhlo. Materiály tu zůstávají.</p>
+  <div data-zit="dates"></div>
+  <div class="row">
+    <a class="btn btn-primary" href="../../materials/06/cviceni-06-student.zip" download>⬇ Stáhnout podklady (ZIP)</a>
+    <a class="btn" data-check="../../slides/06-ai-krizovy-stab.html" data-missing="Slidy doplníme" target="_blank" rel="noopener"><span class="lbl">Slidy</span></a>
+    <a class="btn" data-check="../../slides/06-ai-krizovy-stab.pdf" target="_blank" rel="noopener" hidden>Slidy (PDF)</a>
+    <a class="btn" href="../../materials/06/tahak_ai_stab.pdf" target="_blank" rel="noopener">Tahák (PDF)</a>
+  </div>
+</div></div>
+
+<main class="wrap narrow">
+  <div class="mission-card">
+    <div><div class="lbl">Dnešní mise</div><p>S AI jako asistentem připrav podklady pro štáb v 09:15 a tři texty pro tři adresáty.</p></div>
+    <div><div class="lbl">Dostaneš</div><p>Podklady 06:10–09:00, prompt canvas, šablonu odevzdání a dvě hotové odpovědi AI.</p></div>
+    <div><div class="lbl">Odevzdáš</div><p>Vyplněnou šablonu (DOCX) e-mailem, ještě dnes.</p></div>
+  </div>
+
+  <zit-mission key="l6">
+
+    <!-- ===================== 1 ===================== -->
+    <section class="ms-step" data-short="Ráno" data-min="8">
+      <h2>Neděle, 09:00, Habrová pod vodou</h2>
+      <div class="story"><span class="clock">neděle 29. 11. 2026, 09:00</span>
+        Od šesti ráno prší jako z konve. Habrovský potok se vylil do ulice K Mlýnu, Olšany jsou bez proudu i bez signálu a v chatu sousedů někdo píše, že praskla hráz. Za tři hodiny se nasbíralo dvacet zpráv. V 09:15 zasedá štáb a ty máš na stole AI, která umí číst rychleji než ty. Jen neví, co je pravda, a nehlídá, co jí dáš.</div>
+      <div class="rules3">
+        <div><b>Nejdřív anonymizovat.</b><span>Jména a diagnózy do AI nepatří.</span></div>
+        <div><b>Zadat přesně.</b><span>Šest dílů promptu, žádné „shrň to“.</span></div>
+        <div><b>Za výstup ručíš ty.</b><span>Každé číslo ověř proti podkladům.</span></div>
+      </div>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Stáhni <a href="../../materials/06/cviceni-06-student.zip" download>podklady (ZIP)</a> a rozbal je.</div></li>
+        <li><div>Otevři <code>odevzdani_c6.docx</code> a ulož ho pod svým jménem. Sem budeš celé cvičení zapisovat.
+          <div class="path"><span>Soubor</span><span>Uložit jako</span><span>2026-11-30_ai-stab_prijmeni_v01.docx</span></div></div></li>
+        <li><div>Otevři <code>podklady_stab.docx</code> a přečti si ho. Všimni si nahoře klasifikace a přílohy na konci.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">máš šablonu odevzdání uloženou pod svým jménem a přečetl/a jsi podklady.</span><zit-done key="l6-s1"></zit-done></div>
+    </section>
+
+    <!-- ===================== 2 ===================== -->
+    <section class="ms-step" data-short="Anonymizace" data-min="10">
+      <h2>Nejdřív anonymizace</h2>
+      <p>Na konci podkladů je příloha od správce evakuačního centra: čtyři lidé se jménem, věkem, adresou, telefonem a nemocí. Zdravotní stav patří k nejcitlivějším osobním údajům. Do AI ani do situační zprávy to nepatří. Štáb ale potřebuje vědět, <b>co</b> ti lidé potřebují. Klikni na všechny údaje, které je potřeba odstranit:</p>
+      <c6-anon></c6-anon>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Ulož si kopii podkladů jako <code>podklady_anonym.docx</code>. S originálem už nepracuj.</div></li>
+        <li><div>V kopii smaž tabulku přílohy a místo ní napiš jednu anonymní větu o potřebách.</div></li>
+        <li><div>Projdi ještě operační hlášení: č. p. 112 nahraď „dům v ulici K Mlýnu“. Číslo domu a věk dohromady člověka prozradí.</div></li>
+        <li><div>Do šablony, část 1, napiš, co jsi odstranil/a a jak zní tvoje anonymní věta.</div></li>
+      </ol>
+      <div class="box box-info"><span class="title">Smí to vůbec do Copilotu?</span><p class="mb-0">Tahle data jsou smyšlená, po anonymizaci je do školního Copilotu vložit smíš. U skutečné události jsou podklady štábu INTERNÍ: patří jen do nástroje, který organizace pro takovou práci schválila.</p></div>
+      <div class="done-when"><span class="t">máš anonymizovanou kopii podkladů a v šabloně je vyplněná část 1.</span><zit-done key="l6-s2"></zit-done></div>
+    </section>
+
+    <!-- ===================== 3 ===================== -->
+    <section class="ms-step" data-short="Prompt" data-min="8">
+      <h2>Prompt v šesti dílech</h2>
+      <p>„Shrň to“ dá shrnutí. Jaké, to rozhodne AI. Když chceš výstup, se kterým jde pracovat, řekni jí totéž, co bys řekl/a novému kolegovi: kdo je, co má udělat, s čím, co nesmí, jak to má vypadat a jak si to zkontroluje. Rámec znáš z prvního cvičení. Zkus si ho:</p>
+      <zit-prompt-builder key="l6"><script type="application/json">
+        {"title":"Prompt pro úkol 1: roztřídění podkladů",
+         "fields":[
+           {"k":"KONTEXT","hint":"kdo je AI a pro koho píše","ph":"Jsi asistent krizového štábu…"},
+           {"k":"ÚKOL","hint":"jedno sloveso","ph":"Rozděl podklady na…"},
+           {"k":"VSTUP","hint":"co vkládáš","ph":"Anonymizované podklady 06:10–09:00 níže."},
+           {"k":"OMEZENÍ","hint":"co nesmí","ph":"Nic nedomýšlej, neměň čísla…"},
+           {"k":"FORMÁT","hint":"jak má výstup vypadat","ph":"Čtyři nadpisy, odrážky, u každé čas a ID zdroje."},
+           {"k":"KONTROLA","hint":"jak si to ověří","ph":"Na konci vypiš všechna čísla a časy…"}],
+         "example":["Jsi asistent krizového štábu modelového regionu Alfa. Je 29. 11. 2026, 09:00, přívalové srážky. Výstup čte štáb v 09:15.",
+           "Rozděl podklady na čtyři skupiny: fakta, neověřené informace, konflikty a chybějící informace.",
+           "Anonymizované podklady 06:10–09:00 níže: meteo, operační hlášení, sociální sítě, nemocnice, spojení, evakuační centrum.",
+           "Používej jen dodané podklady. Nic nedomýšlej. Neměň čísla, časy ani místa. Konflikty neřeš, jen je označ.",
+           "Čtyři nadpisy, pod nimi odrážky. U každé odrážky čas a ID zdroje (např. OH-06).",
+           "Na konci vypiš všechna čísla a časy, které jsi použil/a, a ke každému ID zdroje."]}
+      </script></zit-prompt-builder>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Vyplň šest polí výše vlastními slovy. Vzor máš i v souboru <code>prompt_canvas.docx</code>.</div></li>
+        <li><div>Zkopíruj hotový prompt do šablony, část 2.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">máš prompt se všemi šesti díly a je v šabloně.</span><zit-done key="l6-s3"></zit-done></div>
+    </section>
+
+    <!-- ===================== 4 ===================== -->
+    <section class="ms-step" data-short="Roztřídění" data-min="12">
+      <h2>AI třídí: fakta, fámy, konflikty</h2>
+      <p>Teď nech AI pracovat. Rychle přečte všech dvacet zpráv a seřadí je. Tvoje práce je zkontrolovat tři místa, kde se AI nejčastěji splete.</p>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Otevři <a href="https://m365.cloud.microsoft/chat" target="_blank" rel="noopener">Copilot</a>, vlož svůj prompt a pod něj anonymizované podklady.</div></li>
+        <li><div>Zkontroluj ve výstupu tři věci:
+          <ul class="mb-0">
+            <li>Počet lidí v evakuačním centru: je tam <b>konflikt 22 vs. 31</b>, nebo AI jedno číslo vybrala?</li>
+            <li>Pohřešovaný muž v Olšanech: ví AI, že se v 07:55 <b>našel</b>?</li>
+            <li>Prasklá hráz: je mezi fámami, a ne mezi fakty?</li>
+          </ul></div></li>
+        <li><div>Co AI spletla, oprav. Opravený výstup vlož do šablony, část 3.</div></li>
+      </ol>
+      <div class="box box-info"><span class="title">Copilot nejede?</span><p class="mb-0">Otevři <code>ai_odpoved_1_dobra.txt</code>. Je to odpověď na stejný úkol. Zkontroluj ji stejně, jako bys kontroloval/a tu svou.</p></div>
+      <div class="done-when"><span class="t">roztřídění je v šabloně a konflikt 22 vs. 31 je v něm označený.</span><zit-done key="l6-s4"></zit-done></div>
+    </section>
+
+    <!-- ===================== 5 ===================== -->
+    <section class="ms-step" data-short="SITREP" data-min="14">
+      <h2>Návrh situační zprávy a otázky pro štáb</h2>
+      <p>Z roztříděných podkladů je půl kroku k situační zprávě. Kostru znáš z druhého cvičení, dnes stačí kratší verze. A štáb ocení ještě jednu věc: seznam otázek, na které musí v 09:15 odpovědět.</p>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>V Copilotu pokračuj ve stejném chatu:
+<pre><code>Z roztříděných podkladů napiš návrh SITREP k 09:00 s těmito částmi:
+Současná situace, Potvrzené skutečnosti, Neověřené informace a konflikty,
+Prioritní problémy, Doporučené další kroky.
+Pravidla: jen fakta z podkladů, u čísel ID zdroje, konflikty nech otevřené.
+Maximálně jedna strana.</code></pre></div></li>
+        <li><div>Zkontroluj každé číslo a čas proti podkladům. Návrh vlož do šablony, část 4.</div></li>
+        <li><div>Pak požádej o pět nejdůležitějších otevřených otázek pro štáb. Vyber ty, se kterými souhlasíš, klidně je přepiš, a dej je do části 5.</div></li>
+      </ol>
+      <zit-reveal label="Nápověda: jaké otázky by neměly chybět">
+        <ul class="mb-0">
+          <li>Kdo a do kdy zajistí inzulin pro dvě osoby a inhalátor pro dítě?</li>
+          <li>Rozšířit evakuaci v Habrové před kulminací mezi 10 a 11 hodinou?</li>
+          <li>Jak informujeme Olšany, když nemají proud ani signál?</li>
+          <li>Kolik lidí je opravdu v evakuačním centru?</li>
+          <li>Kdo a jak vyvrátí fámu o prasklé hrázi?</li>
+        </ul>
+      </zit-reveal>
+      <div class="done-when"><span class="t">v šabloně je návrh SITREP s ověřenými čísly a pět otázek pro štáb.</span><zit-done key="l6-s5"></zit-done></div>
+    </section>
+
+    <!-- ===================== 6 ===================== -->
+    <section class="ms-step" data-short="Tři adresáti" data-min="14">
+      <h2>Jeden obsah, tři adresáti</h2>
+      <p>Štáb chce fakta a konflikty. Obyvatel Habrové chce vědět, co má dělat, a čte to na telefonu. Novinář chce celou událost v šesti větách. Stejný obsah, tři úplně jiné texty.</p>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Požádej AI o tři verze: <b>interní briefing</b> pro štáb (3 až 5 vět), <b>SMS</b> pro obyvatele Habrové (nejvýš 160 znaků) a <b>tiskovou zprávu</b> (nejvýš 6 vět, s vyvrácením fámy o hrázi).</div></li>
+        <li><div>SMS si vyzkoušej v políčku níže. Hlídá délku i to podstatné.</div></li>
+        <li><div>Všechny tři texty zkontroluj a vlož do šablony, část 6.</div></li>
+      </ol>
+      <c6-sms></c6-sms>
+      <div class="box"><span class="title">Věděl/a jsi?</span><p class="mb-0">SMS s háčky a čárkami se dělí už po 70 znacích, bez diakritiky po 160. Proto se varovné SMS často píšou bez diakritiky. Pro cvičení stačí hlídat 160 znaků.</p></div>
+      <div class="done-when"><span class="t">v šabloně jsou tři texty a SMS má nejvýš 160 znaků.</span><zit-done key="l6-s6"></zit-done></div>
+    </section>
+
+    <!-- ===================== 7 ===================== -->
+    <section class="ms-step" data-short="Red team" data-min="14">
+      <h2>Red team: napadni výstup AI</h2>
+      <p>Kolega nechal AI napsat SITREP sám, z podkladů tak, jak přišly, bez anonymizace. Výsledek vypadá jako hotová zpráva. Red teaming znamená hledat chyby schválně, jako by tvůj úkol byl dokázat, že zpráva neplatí. Přečti si ji a zkus chyby najít sám/sama, než klikneš:</p>
+      <zit-ai-reveal><script type="application/json">
+          {"title":"SITREP od AI (ai_odpoved_2_problemova.txt)","prompt":"Napiš SITREP z těchto podkladů. <i>(podklady vloženy celé, i s přílohou)</i>",
+           "button":"Ukázat, co je špatně",
+           "after":"Osm problémů v devíti větách. Žádný z nich není překlep, všechny vypadají věrohodně.",
+           "sentences":[
+            {"t":"V 06:00 byla vyhlášena evakuace obce Habrová.","bad":true,"label":"Záměna času a místa","why":"Evakuace byla v 06:55 a týkala se jen ulice K Mlýnu (14 osob), ne celé obce (OH-06)."},
+            {"t":"V evakuačním centru ZŠ Habrová je 40 osob.","bad":true,"label":"Záměna počtu osob","why":"Ve zdrojích je 22 (08:20) nebo 31 (08:30). Číslo 40 není nikde a konflikt AI zamlčela."},
+            {"t":"Při sesuvu v Javorníku byly zraněny 2 osoby.","bad":true,"label":"Záměna stavu","why":"Dvě osoby byly vyproštěny <b>bez zranění</b> (OH-03)."},
+            {"t":"V Olšanech je stále pohřešován 70letý muž.","bad":true,"label":"Zastaralá informace","why":"Muž byl v 07:55 nalezen u sousedů v pořádku (OH-11)."},
+            {"t":"Hráz rybníka nad Olšany je poškozená a hrozí protržení.","bad":true,"label":"Fáma jako fakt","why":"Převzato z příspěvku na sociální síti. Hasiči hráz v 08:15 zkontrolovali: bez poškození (OH-12)."},
+            {"t":"Výpadek elektřiny v Olšanech se týká asi 300 odběrných míst."},
+            {"t":"Paní Jiřina Mlynářová (nar. 1938) a pan Václav Potočný potřebují do 12:00 inzulin.","bad":true,"label":"Osobní a zdravotní údaje","why":"Jména, roky narození a diagnózy do SITREP nepatří. Stačí „2 osoby potřebují inzulin do 12:00“. A do AI se neměly dostat vůbec."},
+            {"t":"Srážky skončí v 10:00.","bad":true,"label":"Domněnka jako jistota","why":"Aktualizace v 08:45 říká: srážky slábnou a ustanou do 12:00."},
+            {"t":"Doporučujeme preventivně evakuovat celé Olšany.","bad":true,"label":"Doporučení bez podkladu","why":"Nic ve zdrojích to neodůvodňuje. Hráz je v pořádku, Olšanka nehrozí celé obci."}
+           ]}
+        </script></zit-ai-reveal>
+      <div class="redteam">
+        <div class="rt-h">Checklist red teamu</div>
+        <ol class="mb-0">
+          <li>Které tvrzení není ve zdrojích?</li><li>Co AI předpokládá?</li><li>Co prezentuje jako jisté?</li>
+          <li>Co chybí?</li><li>Nedošlo k záměně času, místa nebo počtu osob?</li>
+          <li>Neobsahuje doporučení, pro které nemá podklady?</li><li>Nejsou ve výstupu osobní nebo citlivé údaje?</li>
+        </ol>
+      </div>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Projdi checklistem <b>svůj</b> návrh SITREP z kroku 5. Najdeš aspoň jednu věc k opravě?</div></li>
+        <li><div>Do šablony, část 7, zapiš aspoň čtyři nálezy: větu, co je na ní špatně a podle kterého zdroje. Klidně z obou výstupů.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">tabulka red teamu má aspoň čtyři řádky s ID zdroje.</span><zit-done key="l6-s7"></zit-done></div>
+    </section>
+
+    <!-- ===================== 8 ===================== -->
+    <section class="ms-step" data-short="Odeslání" data-min="8">
+      <h2>Prohlášení a odeslání</h2>
+      <p>Dnes jsi AI použil/a hodně. Proto je prohlášení o použití AI důležitější než kdy jindy: štáb musí vědět, co psal člověk a co stroj, a jak to bylo ověřené.</p>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Vyplň v šabloně část 8:
+<pre><code>Použitý AI nástroj: Microsoft Copilot (školní účet)
+Účel použití: roztřídění podkladů, návrh SITREP, tři verze textu
+Co bylo převzato: kostra SITREP a texty, ručně opravené
+Jak byl výstup ověřen: čísla a časy porovnány s podklady, red team podle checklistu</code></pre></div></li>
+        <li><div>Ulož šablonu a pošli ji. Tlačítko níže e-mail předvyplní.</div></li>
+      </ol>
+      <zit-exit-ticket key="l6"><script type="application/json">
+          {"title":"Odevzdání cvičení 6","subject":"ZIT C6: {Prijmeni} {Jmeno} (par. {group})",
+           "attach":["{date}_ai-stab_{prijmeni}_v01.docx"],
+           "questions":["Kterou chybu AI by štáb v 09:15 nejspíš přehlédl a proč?","Co jsi před vložením do AI odstranil/a a proč?","Doplň větu: „AI ve štábu používám na…, ale nikdy na…“"],
+           "footer":"Prohlášení o použití AI je v šabloně, část 8."}
+        </script></zit-exit-ticket>
+      <div class="done-when"><span class="t">e-mail se šablonou je odeslaný.</span><zit-done key="l6-s8"></zit-done></div>
+      <div class="box box-ok" style="margin-top:1.4rem"><span class="title">Příště: Kyberbezpečnost a Test 2</span><p class="mb-0">Phishing, falešný hlas šéfa a co dělat, když nejde internet. Pak zápočtový test 2 z Excelu. Projdi si tahák Excel ze 4. cvičení a svou tabulku z bouře.</p></div>
+    </section>
+
+  </zit-mission>
+
+  <div data-zit="prev-next" style="margin-top:2.5rem"></div>
+</main>
+
+<footer class="site-footer"><div class="wrap narrow">
+  <p>F7PBPZIT · Základy informačních technologií · ČVUT FBMI</p>
+  <p><span data-zit="teacher"></span> · <a data-zit="email" href="#"></a></p>
+</div></footer>
+
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/zit.js"></script>
+<script src="page.js"></script>
+</body>
+</html>

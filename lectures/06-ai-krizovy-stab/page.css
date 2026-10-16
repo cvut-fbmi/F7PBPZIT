@@ -1,0 +1,43 @@
+/* Cvičení 6: tři pravidla, anonymizace, SMS, checklist red teamu */
+c6-anon, c6-sms { display: block; }
+
+.rules3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; margin: 0 0 1.4rem; }
+.rules3 > div { background: var(--blue); color: #fff; border-radius: var(--r); padding: .9rem 1rem; }
+.rules3 b { display: block; font: 700 1.05rem var(--font-head); margin-bottom: .15rem; }
+.rules3 span { font-size: .9rem; opacity: .92; }
+@media (max-width: 640px) { .rules3 { grid-template-columns: 1fr; } }
+
+/* anonymizace */
+.an-wrap { overflow-x: auto; }
+.an { font-size: .86rem; min-width: 640px; }
+.an td { padding: 0; }
+.an th { padding: .4em .5em; }
+.ac { all: unset; display: block; box-sizing: border-box; width: 100%; padding: .4em .5em; cursor: pointer; border-radius: 4px; }
+.ac:hover, .ac:focus-visible { background: var(--sky); outline: none; }
+.ac.gone { background: #1b2430; color: #fff; font: 700 .72rem var(--font-head); text-transform: uppercase; letter-spacing: .06em; text-align: center; }
+:root[data-theme="dark"] .ac.gone { background: #000; }
+.ac.keep { background: var(--ok-soft); color: var(--ok); font-weight: 700; }
+.an-msg { margin-top: .7rem; min-height: 1.4em; }
+.an-out { margin-top: .8rem; padding: .8rem 1rem; border-radius: var(--r-sm); background: var(--ok-soft); font-weight: 600; }
+.an-lbl { display: block; font: 700 .74rem var(--font-head); text-transform: uppercase; letter-spacing: .06em; color: var(--ok); margin-bottom: .2rem; }
+
+/* SMS */
+.phone { max-width: 380px; border: 10px solid #1b2430; border-radius: 26px; padding: .8rem; background: #f4f6f9; margin-bottom: 1rem; }
+:root[data-theme="dark"] .phone { border-color: #000; background: #1a2430; }
+.phone textarea { width: 100%; border: 0; border-radius: 16px 16px 16px 4px; background: #fff; color: #1b2430; padding: .7rem .8rem; font: .98rem/1.45 var(--font-body); resize: vertical; min-height: 110px; }
+:root[data-theme="dark"] .phone textarea { background: #253142; color: var(--ink); }
+.phone textarea:focus { outline: 2px solid var(--blue); }
+.ph-count { text-align: right; font: 700 .8rem var(--font-mono); color: var(--ink-3); margin-top: .3rem; }
+.ph-count.over { color: var(--bad); }
+.sms-checks { list-style: none; padding: 0; margin: 0; display: grid; gap: .3rem; }
+.sms-checks li { margin: 0; padding: .35rem .6rem .35rem 2rem; position: relative; border-radius: 8px; background: var(--surface-2); font-size: .92rem; }
+.sms-checks li::before { content: "○"; position: absolute; left: .65rem; color: var(--ink-3); }
+.sms-checks li.pass { background: var(--ok-soft); }
+.sms-checks li.pass::before { content: "✓"; color: var(--ok); font-weight: 700; }
+
+/* red team */
+.redteam { margin: 0 0 1.4rem; padding: 1rem 1.2rem; border-radius: var(--r); background: var(--warn-soft); }
+.rt-h { font: 700 .8rem var(--font-head); text-transform: uppercase; letter-spacing: .07em; color: var(--warn); margin-bottom: .4rem; }
+.redteam ol { columns: 2; column-gap: 2rem; }
+.redteam li { break-inside: avoid; }
+@media (max-width: 600px) { .redteam ol { columns: 1; } }

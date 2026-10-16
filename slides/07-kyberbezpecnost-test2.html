@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cvičení 7 · Kyberbezpečnost a Test 2 · slidy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Ovládání: šipky / mezerník / PageUp-PageDown, Home / End, F = celá obrazovka, N = poznámky. Tisk = 1 slide na stranu. */
+:root {
+  --blue: #0065bd; --link: #0071b3; --navy: #00568e; --sky: #e8f2fb; --sky2: #d3e6f7;
+  --bg: #f2f4f7; --surface: #ffffff; --surface2: #f7f9fb; --ink: #1b2430; --ink2: #4a5666; --ink3: #7d8896;
+  --line: #dde3ea; --line2: #c6d0db; --ok: #1e8a5a; --okSoft: #e3f4ec; --bad: #c53b3b; --badSoft: #fbe7e7;
+  --warn: #b7791f; --warnSoft: #fdf3dc; --hl: #f28c1e;
+  --head: "Quicksand", "Segoe UI", system-ui, sans-serif; --body: "Nunito Sans", "Segoe UI", system-ui, sans-serif; --mono: "JetBrains Mono", Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #dfe5ec; overflow: hidden; }
+body { font-family: var(--body); color: var(--ink); }
+.stage { position: fixed; inset: 0; display: grid; place-items: center; }
+.slide { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; margin: -540px 0 0 -960px; background: var(--surface); overflow: hidden; padding: 150px 150px 130px; display: none; transform-origin: center center; }
+.slide.on { display: block; }
+.slide .top { position: absolute; top: 52px; left: 150px; right: 150px; display: flex; justify-content: space-between; align-items: center; font: 600 26px var(--head); color: var(--ink3); }
+.slide .top .step { color: var(--blue); }
+.slide .bot { position: absolute; bottom: 46px; left: 150px; right: 150px; display: flex; justify-content: space-between; font: 500 22px var(--head); color: var(--ink3); border-top: 2px solid var(--line); padding-top: 18px; }
+aside.notes { display: none; }
+h1, h2, h3 { font-family: var(--head); color: var(--navy); margin: 0; line-height: 1.12; letter-spacing: -.01em; }
+h1 { font-size: 120px; }
+h2 { font-size: 68px; margin-bottom: 44px; }
+h3 { font-size: 40px; margin-bottom: 20px; }
+p { margin: 0 0 24px; font-size: 36px; line-height: 1.5; }
+.lead { font-size: 44px; color: var(--ink2); line-height: 1.45; }
+.kicker { font: 700 30px var(--head); letter-spacing: .08em; text-transform: uppercase; color: var(--link); margin-bottom: 28px; }
+.muted { color: var(--ink2); } .faint { color: var(--ink3); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.cols-wide { display: grid; grid-template-columns: 1.15fr .85fr; gap: 72px; align-items: start; }
+.card { background: var(--surface2); border: 2px solid var(--line); border-radius: 26px; padding: 38px 42px; }
+.card .lbl { font: 700 24px var(--head); letter-spacing: .08em; text-transform: uppercase; color: var(--link); margin-bottom: 14px; }
+.card p { font-size: 33px; margin: 0; }
+.todo { list-style: none; counter-reset: t; padding: 0; margin: 0; display: grid; gap: 26px; }
+.todo li { counter-increment: t; display: grid; grid-template-columns: 64px 1fr; gap: 26px; align-items: start; font-size: 34px; line-height: 1.42; }
+.todo li::before { content: counter(t); width: 60px; height: 60px; border-radius: 50%; background: var(--sky); color: var(--navy); display: grid; place-items: center; font: 700 30px var(--head); }
+.path { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; font: 700 28px var(--head); vertical-align: middle; }
+.path span { padding: 4px 16px; border-radius: 10px; background: var(--sky); color: var(--navy); }
+.path span + span::before { content: "›"; color: var(--ink3); margin-right: 12px; }
+.path span + span { background: none; padding-left: 0; }
+kbd { display: inline-block; font: 600 26px var(--mono); padding: 2px 14px; border: 2px solid var(--line2); border-bottom-width: 5px; border-radius: 10px; background: #fff; color: var(--ink); vertical-align: middle; }
+code { font: 600 .82em var(--mono); background: var(--sky); color: var(--navy); padding: 2px 10px; border-radius: 8px; }
+.pill { display: inline-block; font: 700 22px var(--head); letter-spacing: .06em; text-transform: uppercase; padding: 6px 18px; border-radius: 999px; }
+.pill.bad { background: var(--bad); color: #fff; } .pill.ok { background: var(--ok); color: #fff; } .pill.blue { background: var(--sky); color: var(--navy); } .pill.warn { background: var(--warnSoft); color: var(--warn); }
+.big-rule { font: 700 54px var(--head); color: var(--navy); }
+.note-line { margin-top: 40px; font-size: 32px; color: var(--ink2); }
+
+/* titulní */
+.title-wrap { display: grid; grid-template-columns: 1fr 470px; gap: 90px; align-items: center; height: 100%; }
+.title-wrap h1 { margin-bottom: 28px; }
+.qr-card { background: var(--surface2); border: 2px solid var(--line); border-radius: 30px; padding: 40px; text-align: center; }
+.qr-card svg { width: 360px; height: 360px; display: block; margin: 0 auto 24px; }
+.qr-card div { font: 600 25px var(--head); color: var(--ink2); line-height: 1.35; word-break: break-all; }
+.blue-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 26px; background: var(--blue); }
+
+/* roadmapa */
+.road { display: grid; grid-template-columns: repeat(8, 1fr); gap: 16px; margin-top: 56px; }
+.road div { background: var(--surface2); border: 2px solid var(--line); border-radius: 20px; padding: 22px 18px; font: 700 26px var(--head); color: var(--navy); line-height: 1.25; min-height: 150px; }
+.road b { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: var(--blue); color: #fff; font-size: 28px; margin-bottom: 14px; }
+
+/* ovládání */
+.ctrl { position: fixed; right: 18px; bottom: 14px; display: flex; gap: 8px; align-items: center; font: 600 14px var(--head); color: #4a5666; opacity: .25; transition: opacity .2s; z-index: 10; }
+.ctrl:hover, body.mouse .ctrl { opacity: .9; }
+.ctrl button { border: 1px solid #c6d0db; background: #fff; border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; color: inherit; }
+.notes-panel { position: fixed; left: 0; right: 0; bottom: 0; max-height: 34vh; overflow: auto; background: rgba(15, 34, 56, .96); color: #e4eef8; font: 17px/1.55 var(--body); padding: 18px 28px 26px; z-index: 20; display: none; }
+.notes-panel.on { display: block; }
+.notes-panel b { font-family: var(--head); color: #9ccaf3; }
+
+@media print {
+  @page { size: 1920px 1080px; margin: 0; }
+  html, body { overflow: visible; height: auto; background: #fff; }
+  .stage { position: static; display: block; }
+  .slide { display: block !important; position: relative; left: auto; top: auto; margin: 0; transform: none !important; page-break-after: always; break-after: page; }
+  .ctrl, .notes-panel { display: none !important; }
+}
+.road b { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 15px; background: var(--blue); color: #fff; font-size: 28px; margin-bottom: 14px; }
+.rules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; margin-bottom: 56px; }
+.rules div { background: var(--blue); color: #fff; border-radius: 28px; padding: 44px 46px; font: 700 54px/1.15 var(--head); min-height: 220px; }
+.rules small { display: block; font: 500 30px/1.4 var(--body); opacity: .9; margin-top: 18px; }
+.rules.r3 { grid-template-columns: repeat(3, 1fr); }
+.rules.r3 div { font-size: 44px; min-height: 200px; }
+.end-row { display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
+.qr-mini { display: flex; gap: 28px; align-items: center; background: var(--surface2); border: 2px solid var(--line); border-radius: 26px; padding: 22px 30px 22px 22px; }
+.qr-mini svg { width: 170px; height: 170px; flex: none; }
+.qr-mini div { font: 600 26px/1.4 var(--head); color: var(--ink2); white-space: nowrap; }
+
+/* časová osa zdrojů */
+.tl { position: relative; display: grid; grid-template-columns: repeat(9, 1fr); gap: 14px; margin-top: 40px; }
+.tl::before { content: ""; position: absolute; left: 0; right: 0; top: 74px; height: 6px; border-radius: 3px; background: var(--line); }
+.tl div { position: relative; text-align: center; }
+.tl time { display: block; font: 600 30px var(--mono); color: var(--ink2); margin-bottom: 18px; }
+.tl i { display: block; width: 34px; height: 34px; border-radius: 50%; margin: 0 auto 22px; background: var(--warn); border: 6px solid #fff; box-shadow: 0 0 0 3px var(--warn); }
+.tl .off i { background: var(--ok); box-shadow: 0 0 0 3px var(--ok); }
+.tl b { display: block; font: 700 30px var(--mono); color: var(--link); }
+.tl span { display: block; font: 600 23px/1.3 var(--head); color: var(--ink2); margin-top: 8px; }
+.gap-note { margin-top: 60px; display: flex; gap: 40px; align-items: center; }
+.gap-note .big { font: 700 120px var(--head); color: var(--bad); line-height: 1; }
+
+/* list */
+.sheet { width: 100%; border-collapse: collapse; font: 24px/1.3 Calibri, Carlito, sans-serif; background: #fff; }
+.sheet th, .sheet td { border: 2px solid #c9d3de; padding: 10px 14px; text-align: left; }
+.sheet th { background: #dde8f3; font-weight: 700; }
+.sheet td.in { background: #fff6cc; }
+.sheet td.v-ok { background: #d7f0e1; } .sheet td.v-bad { background: #f8d7d7; } .sheet td.v-mid { background: #fce9c2; }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 40px; }
+.scale div { border-radius: 18px; padding: 20px 22px; background: var(--surface2); border: 2px solid var(--line); font-size: 25px; line-height: 1.35; }
+.scale b { display: block; font: 700 54px var(--head); color: var(--navy); }
+
+/* typy */
+.five { list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; counter-reset: q; }
+.five li { counter-increment: q; display: grid; grid-template-columns: 60px 1fr; gap: 22px; align-items: center; font-size: 32px; }
+.five li::before { content: counter(q); width: 58px; height: 58px; border-radius: 50%; background: var(--sky); color: var(--navy); display: grid; place-items: center; font: 700 28px var(--head); }
+.five b { font-family: var(--head); color: var(--navy); }
+.types3 { display: grid; gap: 20px; }
+.types3 div { border-radius: 20px; padding: 24px 30px; background: var(--surface2); border: 2px solid var(--line); }
+.types3 b { font: 700 34px var(--head); color: var(--navy); display: block; margin-bottom: 6px; }
+.types3 span { font-size: 27px; color: var(--ink2); line-height: 1.4; display: block; }
+.types3 em { font-style: normal; font: 600 24px var(--mono); color: var(--link); }
+
+/* fotka */
+.photo-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.photo-pair figure { margin: 0; }
+.photo-pair img { width: 100%; height: 400px; object-fit: cover; border-radius: 14px; border: 2px solid var(--line); display: block; }
+.photo-pair figcaption { margin-top: 18px; font-size: 28px; line-height: 1.4; }
+.photo-pair .d { display: inline-block; font: 700 30px var(--mono); padding: 4px 16px; border-radius: 10px; margin-bottom: 8px; }
+.d.now { background: var(--badSoft); color: var(--bad); } .d.old { background: var(--warnSoft); color: var(--warn); }
+
+/* oznámení */
+.notice { background: #fffdf7; border: 2px solid #bbb; font: 24px/1.45 Arial, sans-serif; color: #111; }
+.notice .nh { display: flex; gap: 22px; align-items: center; padding: 26px 30px 18px; font: 700 38px Arial, sans-serif; color: #1e2a3a; }
+.notice .nh small { display: block; font: 22px Arial, sans-serif; }
+.notice .sh { width: 70px; height: 82px; background: #1e4fa0; color: #c9a227; border: 3px solid #c9a227; border-radius: 6px 6px 50% 50% / 6px 6px 40% 40%; display: grid; place-items: center; font: 700 36px Arial; flex: none; }
+.notice .bar { background: #c0262d; color: #fff; text-align: center; font: 700 38px Arial; padding: 12px; margin-bottom: 20px; }
+.notice p { margin: 0 30px 14px; font-size: 24px; line-height: 1.4; }
+.notice .lead2 { font-weight: 700; font-size: 27px; }
+.notice .sharex { text-align: center; color: #c0262d; font-weight: 700; font-size: 30px; }
+.notice .sig { text-align: right; font-weight: 700; }
+.hs { position: relative; box-shadow: 0 0 0 3px var(--bad); border-radius: 6px; background: #fbe7e7; padding: 0 4px; }
+.hs sup { position: absolute; top: -22px; right: -20px; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--bad); color: #fff; font: 700 22px var(--head); }
+.sig-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; counter-reset: s; }
+.sig-list li { counter-increment: s; display: grid; grid-template-columns: 50px 1fr; gap: 18px; font-size: 28px; line-height: 1.35; align-items: start; }
+.sig-list li::before { content: counter(s); width: 46px; height: 46px; border-radius: 50%; background: var(--bad); color: #fff; display: grid; place-items: center; font: 700 24px var(--head); }
+
+/* data */
+.crop { display: inline-block; background: #fff; padding: 14px 18px; border: 4px dashed #9aa7b6; transform: rotate(-1.5deg); }
+.dt { border-collapse: collapse; font: 26px Calibri, Carlito, sans-serif; background: #fff; }
+.dt th, .dt td { border: 2px solid #c7d0da; padding: 8px 18px; text-align: left; }
+.dt th { background: #e9eef4; }
+.dt .n { text-align: right; }
+.dt tr.err td { background: var(--badSoft); color: var(--bad); font-weight: 700; }
+.dt tr.fix td { background: var(--okSoft); }
+.dt tr.dim td { color: #8a95a3; }
+
+/* chat */
+.bubble { border-radius: 22px; padding: 26px 32px; font-size: 29px; line-height: 1.6; }
+.bubble.me { background: var(--sky); }
+.bubble.ai { background: var(--surface2); border: 2px solid var(--line); }
+.who { font: 700 22px var(--head); text-transform: uppercase; letter-spacing: .08em; color: var(--ink3); margin-bottom: 8px; }
+.err { background: var(--badSoft); box-shadow: inset 0 -4px 0 var(--bad); padding: 0 4px; border-radius: 4px; }
+.err sup { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--bad); color: #fff; font: 700 20px var(--head); margin-left: 6px; vertical-align: 6px; }
+.why { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+.why li { font-size: 27px; line-height: 1.38; background: var(--badSoft); border-radius: 16px; padding: 16px 22px; }
+.why b { color: var(--bad); }
+.code { font: 25px/1.55 var(--mono); background: #0f2238; color: #e4eef8; border-radius: 18px; padding: 30px 36px; white-space: pre-wrap; }
+.cat { display: grid; gap: 20px; }
+.cat div { border-radius: 20px; padding: 24px 28px; font-size: 29px; line-height: 1.4; }
+.cat .ok { background: var(--okSoft); } .cat .no { background: var(--badSoft); }
+.cat b { font-family: var(--head); display: block; font-size: 32px; margin-bottom: 4px; }
+
+/* hlasovka */
+.vm { background: var(--surface2); border: 2px solid var(--line); border-radius: 26px; padding: 30px 34px; }
+.vm .meta { font-size: 24px; color: var(--ink2); margin-bottom: 18px; }
+.vm .pl { display: flex; gap: 22px; align-items: center; background: #fff; border: 2px solid var(--line); border-radius: 999px; padding: 12px 30px 12px 12px; margin-bottom: 22px; }
+.vm .pl i { width: 64px; height: 64px; border-radius: 50%; background: var(--blue); color: #fff; display: grid; place-items: center; font-style: normal; font-size: 26px; flex: none; }
+.vm .wave { flex: 1; display: flex; gap: 6px; align-items: center; }
+.vm .wave s { width: 6px; background: var(--ink3); border-radius: 3px; text-decoration: none; }
+.vm .pl b { font: 700 28px var(--head); }
+.vm blockquote { margin: 0; font-size: 27px; line-height: 1.5; font-style: italic; border-left: 6px solid var(--warn); padding: 8px 0 8px 24px; }
+.trap { margin-top: 28px; background: var(--badSoft); border-radius: 20px; padding: 22px 28px; font-size: 28px; line-height: 1.4; }
+.trap b { color: var(--bad); font-family: var(--head); }
+.steps4 { list-style: none; padding: 0; margin: 0; display: grid; gap: 18px; counter-reset: s4; }
+.steps4 li { counter-increment: s4; display: grid; grid-template-columns: 58px 1fr; gap: 20px; font-size: 30px; line-height: 1.38; align-items: start; background: var(--okSoft); border-radius: 18px; padding: 18px 22px; }
+.steps4 li::before { content: counter(s4); width: 54px; height: 54px; border-radius: 50%; background: var(--ok); color: #fff; display: grid; place-items: center; font: 700 26px var(--head); }
+
+/* SITREP */
+.sr { display: grid; gap: 20px; }
+.sr div { display: grid; grid-template-columns: 420px 1fr; gap: 30px; align-items: center; padding: 26px 32px; border-radius: 20px; background: var(--surface2); border-left: 14px solid; font-size: 30px; line-height: 1.4; }
+.sr b { font: 700 34px var(--head); }
+.sr .a { border-color: var(--ok); } .sr .b { border-color: var(--warn); } .sr .c { border-color: var(--bad); }
+.brief { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 46px; }
+.brief div { background: var(--sky); border-radius: 20px; padding: 22px 24px; font: 700 28px/1.3 var(--head); color: var(--navy); }
+.brief small { display: block; font: 500 23px/1.35 var(--body); color: var(--ink2); margin-top: 8px; }
+
+/* e-mail */
+.mail { border: 2px solid var(--line2); border-radius: 18px; overflow: hidden; background: #fff; }
+.mail .r { display: grid; grid-template-columns: 170px 1fr; padding: 18px 28px; border-bottom: 2px solid var(--line); font-size: 28px; align-items: center; }
+.mail .r b { font: 700 24px var(--head); color: var(--ink3); text-transform: uppercase; letter-spacing: .06em; }
+.mail .att span { white-space: nowrap; font: 23px var(--mono); background: var(--surface2); border: 2px dashed var(--line2); border-radius: 10px; padding: 6px 14px; }
+.mail .body { padding: 22px 28px; font-size: 26px; color: var(--ink2); line-height: 1.5; }
+.test-card { background: var(--warnSoft); border-radius: 24px; padding: 30px 36px; }
+.test-card b { font: 700 36px var(--head); color: var(--warn); display: block; margin-bottom: 10px; }
+.test-card p { font-size: 29px; margin: 0; }
+
+/* žádné ligatury v kódu: >= musí zůstat >= */
+code, kbd, .code, .txt, .mono-l, .xls td.f { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
+code { white-space: nowrap; }
+
+.mail-m { border: 2px solid var(--line2); border-radius: 18px; overflow: hidden; background: #fff; }
+.mail-m .mh { background: var(--surface2); padding: 20px 26px; font-size: 24px; line-height: 1.5; border-bottom: 2px solid var(--line); word-break: break-all; }
+.mail-m .mb { padding: 24px 28px; font-size: 30px; line-height: 1.5; }
+.ten-s { list-style: none; counter-reset: t; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.ten-s li { counter-increment: t; background: var(--surface2); border: 2px solid var(--line); border-radius: 20px; padding: 22px; font: 600 28px/1.3 var(--head); color: var(--navy); min-height: 170px; }
+.ten-s li::before { content: counter(t); display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: var(--bad); color: #fff; font: 700 26px var(--head); margin-bottom: 12px; }
+.stack { display: grid; gap: 14px; max-width: 1400px; }
+.stack div { display: grid; grid-template-columns: 70px 520px 1fr; gap: 24px; align-items: center; background: var(--surface2); border: 2px solid var(--line); border-radius: 18px; padding: 16px 24px; font: 700 34px var(--head); color: var(--navy); }
+.stack b { width: 60px; height: 60px; border-radius: 50%; background: var(--blue); color: #fff; display: grid; place-items: center; font-size: 28px; }
+.stack span { font: 500 28px var(--body); color: var(--ink2); }
+</style>
+</head>
+<body>
+<div class="stage">
+<!-- 1 -->
+<section class="slide">
+  <div class="blue-bar"></div>
+  <div class="title-wrap">
+    <div>
+      <div class="kicker">Cvičení 7 · Základy informačních technologií</div>
+      <h1>Kyberbezpečnost a Test 2</h1>
+      <p class="lead">Útočník nemusí hackovat počítač, když může napálit člověka. Čtyřicet minut o tom, jak se nenechat. Pak test z Excelu.</p>
+      <p class="note-line">phishing · podvod na šéfa · MFA · falešný hlas · výpadky · test 2</p>
+    </div>
+    <div class="qr-card"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" width="360" height="360" role="img" aria-label="QR kód: stránka cvičení" shape-rendering="crispEdges"><rect width="39" height="39" fill="#fff"/><path d="M1,1h1v1h-1zM2,1h1v1h-1zM3,1h1v1h-1zM4,1h1v1h-1zM5,1h1v1h-1zM6,1h1v1h-1zM7,1h1v1h-1zM9,1h1v1h-1zM10,1h1v1h-1zM11,1h1v1h-1zM12,1h1v1h-1zM16,1h1v1h-1zM17,1h1v1h-1zM19,1h1v1h-1zM20,1h1v1h-1zM27,1h1v1h-1zM31,1h1v1h-1zM32,1h1v1h-1zM33,1h1v1h-1zM34,1h1v1h-1zM35,1h1v1h-1zM36,1h1v1h-1zM37,1h1v1h-1zM1,2h1v1h-1zM7,2h1v1h-1zM10,2h1v1h-1zM11,2h1v1h-1zM12,2h1v1h-1zM13,2h1v1h-1zM14,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM20,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM25,2h1v1h-1zM27,2h1v1h-1zM31,2h1v1h-1zM37,2h1v1h-1zM1,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM5,3h1v1h-1zM7,3h1v1h-1zM9,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM14,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM24,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM29,3h1v1h-1zM31,3h1v1h-1zM33,3h1v1h-1zM34,3h1v1h-1zM35,3h1v1h-1zM37,3h1v1h-1zM1,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM7,4h1v1h-1zM10,4h1v1h-1zM12,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM19,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM31,4h1v1h-1zM33,4h1v1h-1zM34,4h1v1h-1zM35,4h1v1h-1zM37,4h1v1h-1zM1,5h1v1h-1zM3,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM7,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM17,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM23,5h1v1h-1zM25,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM31,5h1v1h-1zM33,5h1v1h-1zM34,5h1v1h-1zM35,5h1v1h-1zM37,5h1v1h-1zM1,6h1v1h-1zM7,6h1v1h-1zM9,6h1v1h-1zM13,6h1v1h-1zM16,6h1v1h-1zM22,6h1v1h-1zM27,6h1v1h-1zM31,6h1v1h-1zM37,6h1v1h-1zM1,7h1v1h-1zM2,7h1v1h-1zM3,7h1v1h-1zM4,7h1v1h-1zM5,7h1v1h-1zM6,7h1v1h-1zM7,7h1v1h-1zM9,7h1v1h-1zM11,7h1v1h-1zM13,7h1v1h-1zM15,7h1v1h-1zM17,7h1v1h-1zM19,7h1v1h-1zM21,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM27,7h1v1h-1zM29,7h1v1h-1zM31,7h1v1h-1zM32,7h1v1h-1zM33,7h1v1h-1zM34,7h1v1h-1zM35,7h1v1h-1zM36,7h1v1h-1zM37,7h1v1h-1zM10,8h1v1h-1zM11,8h1v1h-1zM12,8h1v1h-1zM16,8h1v1h-1zM17,8h1v1h-1zM19,8h1v1h-1zM23,8h1v1h-1zM24,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM1,9h1v1h-1zM3,9h1v1h-1zM7,9h1v1h-1zM8,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM24,9h1v1h-1zM25,9h1v1h-1zM28,9h1v1h-1zM32,9h1v1h-1zM35,9h1v1h-1zM37,9h1v1h-1zM2,10h1v1h-1zM3,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM10,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM13,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM22,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM36,10h1v1h-1zM37,10h1v1h-1zM1,11h1v1h-1zM2,11h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM7,11h1v1h-1zM8,11h1v1h-1zM9,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM12,11h1v1h-1zM15,11h1v1h-1zM17,11h1v1h-1zM18,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM22,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM31,11h1v1h-1zM33,11h1v1h-1zM37,11h1v1h-1zM2,12h1v1h-1zM3,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM10,12h1v1h-1zM13,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM19,12h1v1h-1zM23,12h1v1h-1zM25,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM1,13h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM6,13h1v1h-1zM7,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM12,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM20,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM34,13h1v1h-1zM37,13h1v1h-1zM2,14h1v1h-1zM4,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM14,14h1v1h-1zM15,14h1v1h-1zM16,14h1v1h-1zM17,14h1v1h-1zM18,14h1v1h-1zM19,14h1v1h-1zM21,14h1v1h-1zM24,14h1v1h-1zM25,14h1v1h-1zM28,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM32,14h1v1h-1zM34,14h1v1h-1zM36,14h1v1h-1zM37,14h1v1h-1zM1,15h1v1h-1zM5,15h1v1h-1zM6,15h1v1h-1zM7,15h1v1h-1zM8,15h1v1h-1zM12,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM24,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM31,15h1v1h-1zM34,15h1v1h-1zM35,15h1v1h-1zM37,15h1v1h-1zM1,16h1v1h-1zM3,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM11,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM20,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM31,16h1v1h-1zM32,16h1v1h-1zM33,16h1v1h-1zM34,16h1v1h-1zM36,16h1v1h-1zM2,17h1v1h-1zM3,17h1v1h-1zM5,17h1v1h-1zM7,17h1v1h-1zM8,17h1v1h-1zM16,17h1v1h-1zM18,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM23,17h1v1h-1zM24,17h1v1h-1zM28,17h1v1h-1zM31,17h1v1h-1zM37,17h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM4,18h1v1h-1zM6,18h1v1h-1zM9,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM21,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM24,18h1v1h-1zM25,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM29,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM35,18h1v1h-1zM36,18h1v1h-1zM37,18h1v1h-1zM2,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM18,19h1v1h-1zM21,19h1v1h-1zM24,19h1v1h-1zM28,19h1v1h-1zM31,19h1v1h-1zM37,19h1v1h-1zM1,20h1v1h-1zM4,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM14,20h1v1h-1zM20,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM25,20h1v1h-1zM29,20h1v1h-1zM31,20h1v1h-1zM33,20h1v1h-1zM2,21h1v1h-1zM3,21h1v1h-1zM4,21h1v1h-1zM5,21h1v1h-1zM6,21h1v1h-1zM7,21h1v1h-1zM10,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM19,21h1v1h-1zM21,21h1v1h-1zM23,21h1v1h-1zM28,21h1v1h-1zM29,21h1v1h-1zM31,21h1v1h-1zM32,21h1v1h-1zM36,21h1v1h-1zM2,22h1v1h-1zM4,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM13,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM21,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM37,22h1v1h-1zM1,23h1v1h-1zM3,23h1v1h-1zM7,23h1v1h-1zM13,23h1v1h-1zM16,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM21,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM35,23h1v1h-1zM37,23h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM9,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM19,24h1v1h-1zM29,24h1v1h-1zM30,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM37,24h1v1h-1zM1,25h1v1h-1zM4,25h1v1h-1zM5,25h1v1h-1zM6,25h1v1h-1zM7,25h1v1h-1zM8,25h1v1h-1zM13,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM18,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM23,25h1v1h-1zM25,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM32,25h1v1h-1zM36,25h1v1h-1zM37,25h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM17,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM22,26h1v1h-1zM24,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM31,26h1v1h-1zM32,26h1v1h-1zM37,26h1v1h-1zM1,27h1v1h-1zM2,27h1v1h-1zM3,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM7,27h1v1h-1zM10,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM17,27h1v1h-1zM20,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM28,27h1v1h-1zM29,27h1v1h-1zM31,27h1v1h-1zM33,27h1v1h-1zM34,27h1v1h-1zM35,27h1v1h-1zM37,27h1v1h-1zM5,28h1v1h-1zM9,28h1v1h-1zM11,28h1v1h-1zM12,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM19,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM36,28h1v1h-1zM37,28h1v1h-1zM1,29h1v1h-1zM2,29h1v1h-1zM3,29h1v1h-1zM4,29h1v1h-1zM5,29h1v1h-1zM7,29h1v1h-1zM8,29h1v1h-1zM12,29h1v1h-1zM13,29h1v1h-1zM14,29h1v1h-1zM17,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM28,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM33,29h1v1h-1zM37,29h1v1h-1zM9,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM29,30h1v1h-1zM33,30h1v1h-1zM36,30h1v1h-1zM37,30h1v1h-1zM1,31h1v1h-1zM2,31h1v1h-1zM3,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM7,31h1v1h-1zM9,31h1v1h-1zM11,31h1v1h-1zM13,31h1v1h-1zM16,31h1v1h-1zM20,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM29,31h1v1h-1zM31,31h1v1h-1zM33,31h1v1h-1zM37,31h1v1h-1zM1,32h1v1h-1zM7,32h1v1h-1zM10,32h1v1h-1zM12,32h1v1h-1zM13,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM20,32h1v1h-1zM21,32h1v1h-1zM23,32h1v1h-1zM25,32h1v1h-1zM27,32h1v1h-1zM29,32h1v1h-1zM33,32h1v1h-1zM36,32h1v1h-1zM1,33h1v1h-1zM3,33h1v1h-1zM4,33h1v1h-1zM5,33h1v1h-1zM7,33h1v1h-1zM10,33h1v1h-1zM14,33h1v1h-1zM16,33h1v1h-1zM18,33h1v1h-1zM20,33h1v1h-1zM21,33h1v1h-1zM22,33h1v1h-1zM23,33h1v1h-1zM24,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM33,33h1v1h-1zM37,33h1v1h-1zM1,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM7,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM18,34h1v1h-1zM21,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM26,34h1v1h-1zM27,34h1v1h-1zM30,34h1v1h-1zM33,34h1v1h-1zM34,34h1v1h-1zM1,35h1v1h-1zM3,35h1v1h-1zM4,35h1v1h-1zM5,35h1v1h-1zM7,35h1v1h-1zM9,35h1v1h-1zM10,35h1v1h-1zM11,35h1v1h-1zM12,35h1v1h-1zM16,35h1v1h-1zM18,35h1v1h-1zM21,35h1v1h-1zM24,35h1v1h-1zM26,35h1v1h-1zM27,35h1v1h-1zM29,35h1v1h-1zM32,35h1v1h-1zM33,35h1v1h-1zM37,35h1v1h-1zM1,36h1v1h-1zM7,36h1v1h-1zM12,36h1v1h-1zM13,36h1v1h-1zM14,36h1v1h-1zM20,36h1v1h-1zM21,36h1v1h-1zM24,36h1v1h-1zM27,36h1v1h-1zM29,36h1v1h-1zM33,36h1v1h-1zM1,37h1v1h-1zM2,37h1v1h-1zM3,37h1v1h-1zM4,37h1v1h-1zM5,37h1v1h-1zM6,37h1v1h-1zM7,37h1v1h-1zM9,37h1v1h-1zM11,37h1v1h-1zM15,37h1v1h-1zM16,37h1v1h-1zM17,37h1v1h-1zM23,37h1v1h-1zM24,37h1v1h-1zM29,37h1v1h-1zM30,37h1v1h-1zM32,37h1v1h-1zM34,37h1v1h-1zM37,37h1v1h-1z" fill="#00568e"/></svg><div>Stránka cvičení<br>cvut-fbmi.github.io/F7PBPZIT</div></div>
+  </div>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>1</span></div>
+  <aside class="notes">Poslední cvičení. Test začíná přesně ve 40. minutě, hlídat čas.</aside>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="top"><span>Cvičení 7 · Kyberbezpečnost a Test 2</span><span>Dnes</span></div>
+  <h2>Dvě části</h2>
+  <div class="cols">
+    <div class="card"><div class="lbl">0–40 min</div><p style="font-size:40px"><b>Kyberbezpečnost</b></p><p>Phishing, účty, falešný hlas, výpadky. Nic se neodevzdává.</p></div>
+    <div class="card" style="background:var(--warnSoft)"><div class="lbl" style="color:var(--warn)">40–90 min</div><p style="font-size:40px"><b>Zápočtový test 2</b></p><p>Excel, 50 minut, 50 bodů. Odevzdáš XLSX.</p></div>
+  </div>
+  <p class="lead" style="margin-top:44px">Krize je pro podvodníky nejlepší čas. Všichni spěchají a „urgentní“ zní najednou normálně.</p>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>2</span></div>
+  <aside class="notes">Otázka: Proč zrovna v krizi? Stres, spěch, autorita, nové kanály a lidé, které neznáte.</aside>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="top"><span>Cvičení 7 · Kyberbezpečnost a Test 2</span><span>Krok 2</span></div>
+  <h2>Podvod na šéfa</h2>
+  <div class="cols" style="grid-template-columns:1.15fr .85fr">
+    <div class="mail-m">
+      <div class="mh"><b>Od:</b> Ing. Alena Bystrá &lt;alena.bystra.kraj@mail.example.invalid&gt;<br><b>Předmět:</b> Urgentní platba</div>
+      <div class="mb">Ahoj, jsem na jednání u hejtmana a nemůžu telefonovat. Potřebuju, abys <span class="err">hned zadal/a platbu</span> za pronájem generátorů. Částka 486 000 Kč je v příloze. <span class="err">Nikomu to zatím neříkej.</span></div>
+    </div>
+    <ul class="why" style="gap:14px">
+      <li><b>Odesílatel</b> soukromá adresa místo kraj-alfa.example</li>
+      <li><b>Naléhavost</b> hned, nemůže volat</li>
+      <li><b>Peníze</b> a k tomu mlčení</li>
+      <li style="background:var(--okSoft)"><b style="color:var(--ok)">Co dělat</b> zavolat na číslo, které znáš</li>
+    </ul>
+  </div>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>3</span></div>
+  <aside class="notes">Na stránce je 8 zpráv (3 v pořádku, 5 podvodů). Tahle je nejnebezpečnější, protože zneužívá autoritu a krizi. Proč nechce, abyste volali? Protože by to prasklo.</aside>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="top"><span>Cvičení 7 · Kyberbezpečnost a Test 2</span><span>Krok 2</span></div>
+  <h2>Deset otázek ke každé zprávě</h2>
+  <ol class="ten-s">
+    <li>Odesílatel: znám ho?</li><li>Doména: přesně správná?</li><li>Naléhavost?</li><li>Příloha: čekám ji? Makro?</li><li>Odkaz: kam vede?</li>
+    <li>Gramatika a tón?</li><li>Chtěl by to opravdu?</li><li>Chce heslo?</li><li>Chce ověřovací kód?</li><li>Chce peníze?</li>
+  </ol>
+  <p class="lead" style="margin-top:36px">Phishing nepoznáš podle jedné chyby, ale podle součtu signálů.</p>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>4</span></div>
+  <aside class="notes">Z3 (tisková zpráva s PDF od známé kolegyně) je v pořádku: ne každá příloha je hrozba. Z8 je leták s QR kódem: QR je jen odkaz, který nevidíte.</aside>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="top"><span>Cvičení 7 · Kyberbezpečnost a Test 2</span><span>Krok 3</span></div>
+  <h2>Tři zámky účtu</h2>
+  <div class="cols-3">
+    <div class="card"><div class="lbl">Heslo</div><p>Dlouhé, z několika slov, pro každou službu jiné. Pamatuje si ho správce hesel. Nesdílí se.</p></div>
+    <div class="card"><div class="lbl">MFA</div><p>Potvrzení v telefonu. Kód <b>nikomu, nikdy</b>. Žádost, kterou jsi nevyvolal/a: odmítni.</p></div>
+    <div class="card"><div class="lbl">Ty</div><p>Hlas i obličej jde napodobit. <b>Ověřuj kanál, ne obličej.</b> Zavolej zpět na známé číslo.</p></div>
+  </div>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>5</span></div>
+  <aside class="notes">Na stránce 5 situací: sdílení hesla, MFA žádost, videohovor „hejtmana“, veřejná Wi-Fi, aktualizace. Navazuje na hlasovku z C3.</aside>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="top"><span>Cvičení 7 · Kyberbezpečnost a Test 2</span><span>Krok 4</span></div>
+  <h2>Něco nejde. Postupuj zespodu.</h2>
+  <div class="stack">
+    <div><b>5</b>Soubor nebo účet<span>koš, historie verzí, Caps Lock</span></div>
+    <div><b>4</b>Cloudová služba<span>jde to kolegům? stavová stránka</span></div>
+    <div><b>3</b>Internet<span>jde jiná stránka? telefon ve stejné síti?</span></div>
+    <div><b>2</b>Síť: Wi-Fi, kabel, mobil<span>režim Letadlo, vidí síť i ostatní?</span></div>
+    <div><b>1</b>Napájení a počítač<span>svítí? kabel, zásuvka, baterie</span></div>
+  </div>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>6</span></div>
+  <aside class="notes">Deset kartiček ve dvojicích: kde je problém, co nejdřív, co nedělat, kdy IT. „Nejde internet“ může znamenat pět různých věcí.</aside>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="top"><span>Cvičení 7 · Kyberbezpečnost a Test 2</span><span>Krok 5</span></div>
+  <h2>Když nejde proud ani internet</h2>
+  <div class="cols-3">
+    <div class="card"><div class="lbl">Záloha</div><p>Synchronizace není záloha. Smazané se smaže všude.</p></div>
+    <div class="card"><div class="lbl">UPS a powerbanka</div><p>Minuty na uložení, hodiny pro telefon.</p></div>
+    <div class="card"><div class="lbl">Hotspot a offline kopie</div><p>Náhradní internet. Kontakty a plány i na papíře.</p></div>
+  </div>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>7</span></div>
+  <aside class="notes">Návrat k synchronizaci z prvního cvičení. Teď heslo k testu na tabuli.</aside>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="top"><span>Cvičení 7 · Kyberbezpečnost a Test 2</span><span>Test 2</span></div>
+  <h2>Zápočtový test 2</h2>
+  <div class="cols-3" style="margin-bottom:46px">
+    <div class="card"><div class="lbl">Čas a body</div><p><b>50 minut · 50 bodů</b><br>Navrhovaná hranice 60 %, tedy 30 bodů.</p></div>
+    <div class="card" style="background:var(--okSoft)"><div class="lbl" style="color:var(--ok)">Smíš</div><p>Poznámky, tahák Excel, svoje tabulky z cvičení 4 a 5.</p></div>
+    <div class="card" style="background:var(--badSoft)"><div class="lbl" style="color:var(--bad)">Nesmíš</div><p>AI, chat, pomoc souseda.</p></div>
+  </div>
+  <ol class="todo">
+    <li><span>Na stránce (krok 6) zadej heslo, stáhne se zadání a tabulka.</span></li>
+    <li><span>Ulož jako <code>RRRR-MM-DD_test2_prijmeni.xlsx</code>. Hodnotí se vzorce.</span></li>
+    <li><span>Do 50. minuty pošli. Předmět <code>ZIT TEST2: Příjmení Jméno (par. X)</code>.</span></li>
+  </ol>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>8</span></div>
+  <aside class="notes">Heslo napsat na tabuli teď. Ve 45. minutě připomenout uložení a odeslání. Po testu heslo smazat.</aside>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="top"><span>Cvičení 7 · Kyberbezpečnost a Test 2</span><span>Konec kurzu</span></div>
+  <h2>Utřiď. Posuď. Ověř.</h2>
+  <div class="rules r3">
+    <div>Utřiď.<small>Soubory, data, zprávy. Každá věc na svém místě.</small></div>
+    <div>Posuď.<small>Kdo to říká, odkud to ví, komu to smím dát.</small></div>
+    <div>Ověř.<small>Čísla, zdroje, výstupy AI. A kanál, ne obličej.</small></div>
+  </div>
+  <div class="end-row">
+    <p class="lead" style="margin:0">Díky za semestr. Výsledky testů a zápočtu přijdou e-mailem.</p>
+    <div class="qr-mini"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 39" width="170" height="170" role="img" aria-label="QR kód: stránka cvičení" shape-rendering="crispEdges"><rect width="39" height="39" fill="#fff"/><path d="M1,1h1v1h-1zM2,1h1v1h-1zM3,1h1v1h-1zM4,1h1v1h-1zM5,1h1v1h-1zM6,1h1v1h-1zM7,1h1v1h-1zM9,1h1v1h-1zM10,1h1v1h-1zM11,1h1v1h-1zM12,1h1v1h-1zM16,1h1v1h-1zM17,1h1v1h-1zM19,1h1v1h-1zM20,1h1v1h-1zM27,1h1v1h-1zM31,1h1v1h-1zM32,1h1v1h-1zM33,1h1v1h-1zM34,1h1v1h-1zM35,1h1v1h-1zM36,1h1v1h-1zM37,1h1v1h-1zM1,2h1v1h-1zM7,2h1v1h-1zM10,2h1v1h-1zM11,2h1v1h-1zM12,2h1v1h-1zM13,2h1v1h-1zM14,2h1v1h-1zM17,2h1v1h-1zM18,2h1v1h-1zM20,2h1v1h-1zM22,2h1v1h-1zM23,2h1v1h-1zM25,2h1v1h-1zM27,2h1v1h-1zM31,2h1v1h-1zM37,2h1v1h-1zM1,3h1v1h-1zM3,3h1v1h-1zM4,3h1v1h-1zM5,3h1v1h-1zM7,3h1v1h-1zM9,3h1v1h-1zM10,3h1v1h-1zM11,3h1v1h-1zM12,3h1v1h-1zM14,3h1v1h-1zM18,3h1v1h-1zM19,3h1v1h-1zM22,3h1v1h-1zM23,3h1v1h-1zM24,3h1v1h-1zM26,3h1v1h-1zM28,3h1v1h-1zM29,3h1v1h-1zM31,3h1v1h-1zM33,3h1v1h-1zM34,3h1v1h-1zM35,3h1v1h-1zM37,3h1v1h-1zM1,4h1v1h-1zM3,4h1v1h-1zM4,4h1v1h-1zM5,4h1v1h-1zM7,4h1v1h-1zM10,4h1v1h-1zM12,4h1v1h-1zM16,4h1v1h-1zM17,4h1v1h-1zM19,4h1v1h-1zM20,4h1v1h-1zM21,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM31,4h1v1h-1zM33,4h1v1h-1zM34,4h1v1h-1zM35,4h1v1h-1zM37,4h1v1h-1zM1,5h1v1h-1zM3,5h1v1h-1zM4,5h1v1h-1zM5,5h1v1h-1zM7,5h1v1h-1zM10,5h1v1h-1zM11,5h1v1h-1zM12,5h1v1h-1zM14,5h1v1h-1zM15,5h1v1h-1zM17,5h1v1h-1zM18,5h1v1h-1zM19,5h1v1h-1zM20,5h1v1h-1zM22,5h1v1h-1zM23,5h1v1h-1zM25,5h1v1h-1zM26,5h1v1h-1zM27,5h1v1h-1zM31,5h1v1h-1zM33,5h1v1h-1zM34,5h1v1h-1zM35,5h1v1h-1zM37,5h1v1h-1zM1,6h1v1h-1zM7,6h1v1h-1zM9,6h1v1h-1zM13,6h1v1h-1zM16,6h1v1h-1zM22,6h1v1h-1zM27,6h1v1h-1zM31,6h1v1h-1zM37,6h1v1h-1zM1,7h1v1h-1zM2,7h1v1h-1zM3,7h1v1h-1zM4,7h1v1h-1zM5,7h1v1h-1zM6,7h1v1h-1zM7,7h1v1h-1zM9,7h1v1h-1zM11,7h1v1h-1zM13,7h1v1h-1zM15,7h1v1h-1zM17,7h1v1h-1zM19,7h1v1h-1zM21,7h1v1h-1zM23,7h1v1h-1zM25,7h1v1h-1zM27,7h1v1h-1zM29,7h1v1h-1zM31,7h1v1h-1zM32,7h1v1h-1zM33,7h1v1h-1zM34,7h1v1h-1zM35,7h1v1h-1zM36,7h1v1h-1zM37,7h1v1h-1zM10,8h1v1h-1zM11,8h1v1h-1zM12,8h1v1h-1zM16,8h1v1h-1zM17,8h1v1h-1zM19,8h1v1h-1zM23,8h1v1h-1zM24,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM1,9h1v1h-1zM3,9h1v1h-1zM7,9h1v1h-1zM8,9h1v1h-1zM16,9h1v1h-1zM17,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM20,9h1v1h-1zM24,9h1v1h-1zM25,9h1v1h-1zM28,9h1v1h-1zM32,9h1v1h-1zM35,9h1v1h-1zM37,9h1v1h-1zM2,10h1v1h-1zM3,10h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM10,10h1v1h-1zM11,10h1v1h-1zM12,10h1v1h-1zM13,10h1v1h-1zM17,10h1v1h-1zM18,10h1v1h-1zM19,10h1v1h-1zM22,10h1v1h-1zM23,10h1v1h-1zM24,10h1v1h-1zM25,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM29,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM36,10h1v1h-1zM37,10h1v1h-1zM1,11h1v1h-1zM2,11h1v1h-1zM4,11h1v1h-1zM5,11h1v1h-1zM7,11h1v1h-1zM8,11h1v1h-1zM9,11h1v1h-1zM10,11h1v1h-1zM11,11h1v1h-1zM12,11h1v1h-1zM15,11h1v1h-1zM17,11h1v1h-1zM18,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM22,11h1v1h-1zM23,11h1v1h-1zM24,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM27,11h1v1h-1zM28,11h1v1h-1zM29,11h1v1h-1zM30,11h1v1h-1zM31,11h1v1h-1zM33,11h1v1h-1zM37,11h1v1h-1zM2,12h1v1h-1zM3,12h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM10,12h1v1h-1zM13,12h1v1h-1zM16,12h1v1h-1zM17,12h1v1h-1zM19,12h1v1h-1zM23,12h1v1h-1zM25,12h1v1h-1zM27,12h1v1h-1zM28,12h1v1h-1zM30,12h1v1h-1zM31,12h1v1h-1zM33,12h1v1h-1zM1,13h1v1h-1zM2,13h1v1h-1zM3,13h1v1h-1zM6,13h1v1h-1zM7,13h1v1h-1zM9,13h1v1h-1zM10,13h1v1h-1zM12,13h1v1h-1zM14,13h1v1h-1zM15,13h1v1h-1zM18,13h1v1h-1zM20,13h1v1h-1zM24,13h1v1h-1zM25,13h1v1h-1zM27,13h1v1h-1zM29,13h1v1h-1zM31,13h1v1h-1zM32,13h1v1h-1zM34,13h1v1h-1zM37,13h1v1h-1zM2,14h1v1h-1zM4,14h1v1h-1zM5,14h1v1h-1zM6,14h1v1h-1zM10,14h1v1h-1zM11,14h1v1h-1zM14,14h1v1h-1zM15,14h1v1h-1zM16,14h1v1h-1zM17,14h1v1h-1zM18,14h1v1h-1zM19,14h1v1h-1zM21,14h1v1h-1zM24,14h1v1h-1zM25,14h1v1h-1zM28,14h1v1h-1zM29,14h1v1h-1zM30,14h1v1h-1zM31,14h1v1h-1zM32,14h1v1h-1zM34,14h1v1h-1zM36,14h1v1h-1zM37,14h1v1h-1zM1,15h1v1h-1zM5,15h1v1h-1zM6,15h1v1h-1zM7,15h1v1h-1zM8,15h1v1h-1zM12,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM24,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM29,15h1v1h-1zM30,15h1v1h-1zM31,15h1v1h-1zM34,15h1v1h-1zM35,15h1v1h-1zM37,15h1v1h-1zM1,16h1v1h-1zM3,16h1v1h-1zM5,16h1v1h-1zM8,16h1v1h-1zM10,16h1v1h-1zM11,16h1v1h-1zM12,16h1v1h-1zM13,16h1v1h-1zM15,16h1v1h-1zM17,16h1v1h-1zM18,16h1v1h-1zM20,16h1v1h-1zM25,16h1v1h-1zM27,16h1v1h-1zM28,16h1v1h-1zM29,16h1v1h-1zM31,16h1v1h-1zM32,16h1v1h-1zM33,16h1v1h-1zM34,16h1v1h-1zM36,16h1v1h-1zM2,17h1v1h-1zM3,17h1v1h-1zM5,17h1v1h-1zM7,17h1v1h-1zM8,17h1v1h-1zM16,17h1v1h-1zM18,17h1v1h-1zM20,17h1v1h-1zM21,17h1v1h-1zM23,17h1v1h-1zM24,17h1v1h-1zM28,17h1v1h-1zM31,17h1v1h-1zM37,17h1v1h-1zM2,18h1v1h-1zM3,18h1v1h-1zM4,18h1v1h-1zM6,18h1v1h-1zM9,18h1v1h-1zM12,18h1v1h-1zM14,18h1v1h-1zM15,18h1v1h-1zM21,18h1v1h-1zM22,18h1v1h-1zM23,18h1v1h-1zM24,18h1v1h-1zM25,18h1v1h-1zM26,18h1v1h-1zM28,18h1v1h-1zM29,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM34,18h1v1h-1zM35,18h1v1h-1zM36,18h1v1h-1zM37,18h1v1h-1zM2,19h1v1h-1zM4,19h1v1h-1zM5,19h1v1h-1zM7,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM14,19h1v1h-1zM15,19h1v1h-1zM16,19h1v1h-1zM18,19h1v1h-1zM21,19h1v1h-1zM24,19h1v1h-1zM28,19h1v1h-1zM31,19h1v1h-1zM37,19h1v1h-1zM1,20h1v1h-1zM4,20h1v1h-1zM5,20h1v1h-1zM6,20h1v1h-1zM8,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM12,20h1v1h-1zM14,20h1v1h-1zM20,20h1v1h-1zM21,20h1v1h-1zM23,20h1v1h-1zM25,20h1v1h-1zM29,20h1v1h-1zM31,20h1v1h-1zM33,20h1v1h-1zM2,21h1v1h-1zM3,21h1v1h-1zM4,21h1v1h-1zM5,21h1v1h-1zM6,21h1v1h-1zM7,21h1v1h-1zM10,21h1v1h-1zM14,21h1v1h-1zM16,21h1v1h-1zM19,21h1v1h-1zM21,21h1v1h-1zM23,21h1v1h-1zM28,21h1v1h-1zM29,21h1v1h-1zM31,21h1v1h-1zM32,21h1v1h-1zM36,21h1v1h-1zM2,22h1v1h-1zM4,22h1v1h-1zM6,22h1v1h-1zM8,22h1v1h-1zM13,22h1v1h-1zM16,22h1v1h-1zM17,22h1v1h-1zM21,22h1v1h-1zM24,22h1v1h-1zM25,22h1v1h-1zM26,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM37,22h1v1h-1zM1,23h1v1h-1zM3,23h1v1h-1zM7,23h1v1h-1zM13,23h1v1h-1zM16,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM20,23h1v1h-1zM21,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM34,23h1v1h-1zM35,23h1v1h-1zM37,23h1v1h-1zM5,24h1v1h-1zM6,24h1v1h-1zM9,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM12,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM16,24h1v1h-1zM19,24h1v1h-1zM29,24h1v1h-1zM30,24h1v1h-1zM32,24h1v1h-1zM33,24h1v1h-1zM34,24h1v1h-1zM37,24h1v1h-1zM1,25h1v1h-1zM4,25h1v1h-1zM5,25h1v1h-1zM6,25h1v1h-1zM7,25h1v1h-1zM8,25h1v1h-1zM13,25h1v1h-1zM16,25h1v1h-1zM17,25h1v1h-1zM18,25h1v1h-1zM19,25h1v1h-1zM20,25h1v1h-1zM23,25h1v1h-1zM25,25h1v1h-1zM29,25h1v1h-1zM31,25h1v1h-1zM32,25h1v1h-1zM36,25h1v1h-1zM37,25h1v1h-1zM2,26h1v1h-1zM3,26h1v1h-1zM4,26h1v1h-1zM14,26h1v1h-1zM15,26h1v1h-1zM17,26h1v1h-1zM18,26h1v1h-1zM19,26h1v1h-1zM22,26h1v1h-1zM24,26h1v1h-1zM28,26h1v1h-1zM29,26h1v1h-1zM30,26h1v1h-1zM31,26h1v1h-1zM32,26h1v1h-1zM37,26h1v1h-1zM1,27h1v1h-1zM2,27h1v1h-1zM3,27h1v1h-1zM4,27h1v1h-1zM5,27h1v1h-1zM6,27h1v1h-1zM7,27h1v1h-1zM10,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM17,27h1v1h-1zM20,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM28,27h1v1h-1zM29,27h1v1h-1zM31,27h1v1h-1zM33,27h1v1h-1zM34,27h1v1h-1zM35,27h1v1h-1zM37,27h1v1h-1zM5,28h1v1h-1zM9,28h1v1h-1zM11,28h1v1h-1zM12,28h1v1h-1zM14,28h1v1h-1zM16,28h1v1h-1zM17,28h1v1h-1zM19,28h1v1h-1zM23,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM30,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM36,28h1v1h-1zM37,28h1v1h-1zM1,29h1v1h-1zM2,29h1v1h-1zM3,29h1v1h-1zM4,29h1v1h-1zM5,29h1v1h-1zM7,29h1v1h-1zM8,29h1v1h-1zM12,29h1v1h-1zM13,29h1v1h-1zM14,29h1v1h-1zM17,29h1v1h-1zM20,29h1v1h-1zM22,29h1v1h-1zM24,29h1v1h-1zM25,29h1v1h-1zM28,29h1v1h-1zM29,29h1v1h-1zM30,29h1v1h-1zM31,29h1v1h-1zM32,29h1v1h-1zM33,29h1v1h-1zM37,29h1v1h-1zM9,30h1v1h-1zM10,30h1v1h-1zM11,30h1v1h-1zM12,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM17,30h1v1h-1zM18,30h1v1h-1zM21,30h1v1h-1zM22,30h1v1h-1zM24,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM29,30h1v1h-1zM33,30h1v1h-1zM36,30h1v1h-1zM37,30h1v1h-1zM1,31h1v1h-1zM2,31h1v1h-1zM3,31h1v1h-1zM4,31h1v1h-1zM5,31h1v1h-1zM6,31h1v1h-1zM7,31h1v1h-1zM9,31h1v1h-1zM11,31h1v1h-1zM13,31h1v1h-1zM16,31h1v1h-1zM20,31h1v1h-1zM24,31h1v1h-1zM25,31h1v1h-1zM29,31h1v1h-1zM31,31h1v1h-1zM33,31h1v1h-1zM37,31h1v1h-1zM1,32h1v1h-1zM7,32h1v1h-1zM10,32h1v1h-1zM12,32h1v1h-1zM13,32h1v1h-1zM14,32h1v1h-1zM15,32h1v1h-1zM17,32h1v1h-1zM18,32h1v1h-1zM20,32h1v1h-1zM21,32h1v1h-1zM23,32h1v1h-1zM25,32h1v1h-1zM27,32h1v1h-1zM29,32h1v1h-1zM33,32h1v1h-1zM36,32h1v1h-1zM1,33h1v1h-1zM3,33h1v1h-1zM4,33h1v1h-1zM5,33h1v1h-1zM7,33h1v1h-1zM10,33h1v1h-1zM14,33h1v1h-1zM16,33h1v1h-1zM18,33h1v1h-1zM20,33h1v1h-1zM21,33h1v1h-1zM22,33h1v1h-1zM23,33h1v1h-1zM24,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM30,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM33,33h1v1h-1zM37,33h1v1h-1zM1,34h1v1h-1zM3,34h1v1h-1zM4,34h1v1h-1zM5,34h1v1h-1zM7,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM13,34h1v1h-1zM14,34h1v1h-1zM15,34h1v1h-1zM18,34h1v1h-1zM21,34h1v1h-1zM24,34h1v1h-1zM25,34h1v1h-1zM26,34h1v1h-1zM27,34h1v1h-1zM30,34h1v1h-1zM33,34h1v1h-1zM34,34h1v1h-1zM1,35h1v1h-1zM3,35h1v1h-1zM4,35h1v1h-1zM5,35h1v1h-1zM7,35h1v1h-1zM9,35h1v1h-1zM10,35h1v1h-1zM11,35h1v1h-1zM12,35h1v1h-1zM16,35h1v1h-1zM18,35h1v1h-1zM21,35h1v1h-1zM24,35h1v1h-1zM26,35h1v1h-1zM27,35h1v1h-1zM29,35h1v1h-1zM32,35h1v1h-1zM33,35h1v1h-1zM37,35h1v1h-1zM1,36h1v1h-1zM7,36h1v1h-1zM12,36h1v1h-1zM13,36h1v1h-1zM14,36h1v1h-1zM20,36h1v1h-1zM21,36h1v1h-1zM24,36h1v1h-1zM27,36h1v1h-1zM29,36h1v1h-1zM33,36h1v1h-1zM1,37h1v1h-1zM2,37h1v1h-1zM3,37h1v1h-1zM4,37h1v1h-1zM5,37h1v1h-1zM6,37h1v1h-1zM7,37h1v1h-1zM9,37h1v1h-1zM11,37h1v1h-1zM15,37h1v1h-1zM16,37h1v1h-1zM17,37h1v1h-1zM23,37h1v1h-1zM24,37h1v1h-1zM29,37h1v1h-1zM30,37h1v1h-1zM32,37h1v1h-1zM34,37h1v1h-1zM37,37h1v1h-1z" fill="#00568e"/></svg><div>Stránka cvičení 7<br>cvut-fbmi.github.io/F7PBPZIT</div></div>
+  </div>
+  <div class="bot"><span>ČVUT FBMI · Základy informačních technologií</span><span>9</span></div>
+  <aside class="notes">Shrnutí celého kurzu ve třech slovech z prvního cvičení.</aside>
+</section>
+
+</div>
+<div class="ctrl" aria-label="Ovládání"><button type="button" data-go="-1" aria-label="Předchozí">‹</button><span class="pos"></span><button type="button" data-go="1" aria-label="Další">›</button><button type="button" data-notes aria-label="Poznámky">N</button><button type="button" data-fs aria-label="Celá obrazovka">⛶</button></div>
+<div class="notes-panel" aria-live="polite"></div>
+<script>
+(function () {
+  const slides = [...document.querySelectorAll(".slide")];
+  const pos = document.querySelector(".ctrl .pos"), notes = document.querySelector(".notes-panel");
+  let i = 0;
+  function fit() {
+    const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+    slides.forEach(el => el.style.transform = "scale(" + s + ")");
+  }
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((el, k) => el.classList.toggle("on", k === i));
+    pos.textContent = (i + 1) + " / " + slides.length;
+    const a = slides[i].querySelector("aside.notes");
+    notes.innerHTML = "<b>Slide " + (i + 1) + "</b> · " + (a ? a.innerHTML : "");
+    if (history.replaceState) history.replaceState(null, "", "#" + (i + 1));
+  }
+  addEventListener("resize", fit);
+  addEventListener("keydown", e => {
+    if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    else if (e.key === "Home") show(0);
+    else if (e.key === "End") show(slides.length - 1);
+    else if (e.key === "n" || e.key === "N") notes.classList.toggle("on");
+    else if (e.key === "f" || e.key === "F") { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+  });
+  document.querySelector(".ctrl").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.go) show(i + Number(b.dataset.go));
+    if (b.hasAttribute("data-notes")) notes.classList.toggle("on");
+    if (b.hasAttribute("data-fs")) { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+  });
+  let t; addEventListener("mousemove", () => { document.body.classList.add("mouse"); clearTimeout(t); t = setTimeout(() => document.body.classList.remove("mouse"), 1500); });
+  fit(); show((parseInt(location.hash.slice(1), 10) || 1) - 1);
+})();
+</script>
+</body>
+</html>

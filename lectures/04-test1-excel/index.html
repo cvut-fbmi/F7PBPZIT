@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="cs" data-root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>4. Test 1 a Excel · Základy informačních technologií · ČVUT FBMI</title>
+  <meta name="description" content="Cvičení 4: zápočtový test 1 (formátování dokumentu ve Wordu) a první kroky v Excelu. Vzorce, relativní a absolutní odkaz, KDYŽ, COUNTIF, filtr a podmíněné formátování na síti evakuačních center.">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="page.css">
+  <script src="../../assets/js/course-data.js"></script>
+</head>
+<body data-page="exercise" data-lecture="4">
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../../"><span class="mark">ČVUT FBMI</span><span class="name">Základy informačních technologií<small>F7PBPZIT · Bezpečnost a ochrana obyvatelstva</small></span></a>
+  <nav class="site-nav" aria-label="Hlavní menu">
+    <a href="../../" data-nav="hub">Cvičení</a>
+    <a href="../../info.html" data-nav="info">Info o kurzu</a>
+    <button class="icon-btn" data-theme-toggle type="button" aria-label="Přepnout tmavý režim">☾</button>
+  </nav>
+</div></header>
+
+<div class="ex-head"><div class="wrap narrow">
+  <div class="kicker">Cvičení 4 · 90 minut · zápočtový test 1</div>
+  <h1>Test 1 a Excel</h1>
+  <p class="lead">Nejdřív 35 minut testu z Wordu. Pak Excel: z tabulky osmnácti evakuačních center uděláš přehled, který se přepočítá sám. Žádná kalkulačka.</p>
+  <p class="past-note" data-zit="past-note" hidden>Cvičení už proběhlo. Materiály tu zůstávají.</p>
+  <div data-zit="dates"></div>
+  <div class="row">
+    <a class="btn btn-primary" href="../../materials/04/cviceni-04-student.zip" download>⬇ Podklady k Excelu (ZIP)</a>
+    <a class="btn" data-check="../../slides/04-test1-excel.html" data-missing="Slidy doplníme" target="_blank" rel="noopener"><span class="lbl">Slidy</span></a>
+    <a class="btn" data-check="../../slides/04-test1-excel.pdf" target="_blank" rel="noopener" hidden>Slidy (PDF)</a>
+    <a class="btn" href="../../materials/04/tahak_excel.pdf" target="_blank" rel="noopener">Tahák Excel (PDF)</a>
+  </div>
+</div></div>
+
+<main class="wrap narrow">
+  <div class="mission-card">
+    <div><div class="lbl">Dnešní mise</div><p>Napiš test 1. Pak spočítej, kolik je v síti center volných míst a která centra jsou kritická.</p></div>
+    <div><div class="lbl">Dostaneš</div><p>Test v zamčeném ZIPu. K Excelu tabulku 18 center a tahák.</p></div>
+    <div><div class="lbl">Odevzdáš</div><p>Test (DOCX a PDF) do 35. minuty. Tabulku (XLSX) ještě dnes.</p></div>
+  </div>
+
+  <zit-mission key="l4">
+
+    <!-- ===================== 1 ===================== -->
+    <section class="ms-step" data-short="Test 1" data-min="35">
+      <h2>Zápočtový test 1</h2>
+      <p>Prvních 35 minut patří testu. Dostaneš koncept letáku obce Podlesí a dvanáct úkolů, jak ho naformátovat. Je to přesně to, co jsi dělal/a ve druhém cvičení: styly, seznamy, tabulka, obsah, záhlaví a PDF.</p>
+      <div class="test-facts">
+        <div><b>35 minut</b><span>čas na celý test</span></div>
+        <div><b>40 bodů</b><span>navrhovaná hranice 60 %, tedy 24 bodů</span></div>
+        <div><b>Smíš</b><span>svoje poznámky a tahák Word z 2. cvičení</span></div>
+        <div class="no"><b>Nesmíš</b><span>AI, chat ani pomoc souseda</span></div>
+      </div>
+      <zit-locked><script type="application/json">
+        {"title":"Zápočtový test 1: Word","src":"../../materials/04/test1.zitenc","file":"test1.zip",
+         "text":"Heslo řekne vyučující, až začne test. Po zadání se stáhne ZIP se dvěma soubory."}
+      </script></zit-locked>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Zadej heslo a stáhni test. Rozbal ZIP.</div></li>
+        <li><div>Otevři <code>test1_zadani.pdf</code> a <code>test1_dokument.docx</code>. Dokument hned ulož jako <code>RRRR-MM-DD_test1_prijmeni.docx</code>. Už to je první úkol.</div></li>
+        <li><div>Plň úkoly ze zadání. U každého vidíš, kolik je za něj bodů.</div></li>
+        <li><div>Vyexportuj PDF a pošli oba soubory. Tlačítko níže e-mail předvyplní, přílohy do něj přetáhneš. Nejpozději v 35. minutě.</div></li>
+      </ol>
+      <div class="box box-info"><span class="title">Rada na cestu</span><p class="mb-0">Začni styly (titulek, nadpisy, text), pak seznamy a tabulku. Obsah vlož až nakonec a aktualizuj ho klávesou <kbd>F9</kbd>. A průběžně ukládej, <kbd>Ctrl</kbd>+<kbd>S</kbd>.</p></div>
+      <zit-exit-ticket key="t1"><script type="application/json">
+          {"title":"Odevzdání testu 1","subject":"ZIT TEST1: {Prijmeni} {Jmeno} (par. {group})",
+           "attach":["{date}_test1_{prijmeni}.docx","{date}_test1_{prijmeni}.pdf"],
+           "questions":[],
+           "footer":"Odevzdávám zápočtový test 1. Pracoval/a jsem samostatně."}
+        </script></zit-exit-ticket>
+      <div class="done-when"><span class="t">e-mail s DOCX a PDF testu je odeslaný.</span><zit-done key="l4-s1"></zit-done></div>
+    </section>
+
+    <!-- ===================== 2 ===================== -->
+    <section class="ms-step" data-short="Tabulka" data-min="7">
+      <h2>Osmnáct center, žádná kalkulačka</h2>
+      <div class="story"><span class="clock">pondělí 2. 11. 2026, 08:00</span>
+        Krajský úřad chce každé ráno vědět, kolik je v síti evakuačních center volných míst, která centra jsou skoro plná a kde chybí lidi. Zatím to kolega počítá na kalkulačce a každé ráno se splete jinde. Za hodinu to budeš mít ve vzorcích, které se přepočítají samy.</div>
+      <p>Tabulka se skládá z buněk. Každá má adresu: písmeno sloupce a číslo řádku. A každá v sobě má jiný druh dat. Klikni na buňky a uvidíš:</p>
+      <c4-grid></c4-grid>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Stáhni <a href="../../materials/04/cviceni-04-student.zip" download>podklady (ZIP)</a> a rozbal je.</div></li>
+        <li><div>Otevři <code>evakuacni_centra.xlsx</code> a ulož ho pod svým jménem.
+          <div class="path"><span>Soubor</span><span>Uložit jako</span><span>2026-11-02_centra_prijmeni_v01.xlsx</span></div></div></li>
+        <li><div>Prohlédni si tři listy dole: <b>CENTRA</b> (data), <b>PARAMETRY</b> (pevné hodnoty) a <b>SOUHRN</b> (sem přijdou výsledky).</div></li>
+        <li><div>Jedna kapacita v listu CENTRA je uložená jako text. Pozná se podle zeleného trojúhelníku a zarovnání vlevo. Najdi ji, klikni na vykřičník vedle ní a zvol <b>Převést na číslo</b>.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">soubor je uložený pod tvým jménem a všechny kapacity jsou zarovnané vpravo.</span><zit-done key="l4-s2"></zit-done></div>
+    </section>
+
+    <!-- ===================== 3 ===================== -->
+    <section class="ms-step" data-short="Volno" data-min="8">
+      <h2>První vzorec: kolik je volno</h2>
+      <p>Volná místa jsou kapacita minus obsazeno. U osmnácti center to ručně nepočítej. Napiš jeden vzorec a nech Excel, ať ho zkopíruje dolů. Podívej se, co se při tom stane s adresami:</p>
+      <c4-fill></c4-fill>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Klikni do buňky <b>K5</b> a napiš <code>=D5-E5</code>. Potvrď <kbd>Enter</kbd>.</div></li>
+        <li><div>Klikni zpátky na K5. Najeď myší na malý čtvereček v pravém dolním rohu buňky (kurzor se změní na křížek) a dvojklikni. Vzorec se zkopíruje do všech 18 řádků.</div></li>
+        <li><div>Klikni do <b>K10</b> a podívej se nahoru do řádku vzorců. Je tam <code>=D10-E10</code>. Excel adresy posunul sám. Tomu se říká <b>relativní odkaz</b>.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">sloupec Volno je vyplněný až do řádku 22 a u Sokolovny Podlesí (řádek 6) vidíš 5.</span><zit-done key="l4-s3"></zit-done></div>
+    </section>
+
+    <!-- ===================== 4 ===================== -->
+    <section class="ms-step" data-short="Procenta" data-min="6">
+      <h2>Obsazenost v procentech</h2>
+      <p>Tři volná místa v penzionu pro dvacet lidí znamenají něco jiného než tři volná místa ve sportovní hale pro sto padesát. Proto štáb chce vidět, jak plné je centrum, ne jen kolik je volno. Obsazenost je obsazeno děleno kapacitou.</p>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Do <b>L5</b> napiš <code>=E5/D5</code> a zkopíruj dvojklikem dolů.</div></li>
+        <li><div>Výsledky jsou desetinná čísla (0,59…). Označ sloupec L a zapni formát procent.
+          <div class="path"><span>Domů</span><span>Číslo</span><span>%</span></div></div></li>
+        <li><div>Přidej jedno desetinné místo, ať je vidět rozdíl mezi 85 % a 85,4 %.
+          <div class="path"><span>Domů</span><span>Číslo</span><span>Přidat desetinné místo</span></div></div></li>
+      </ol>
+      <zit-ribbon><script type="application/json">
+        {"app":"excel","file":"centra.xlsx","tab":"Domů","groups":[
+          {"name":"Písmo","items":[{"t":"Tučné","i":"B"}]},
+          {"name":"Číslo","items":[{"t":"Procenta","i":"%","hl":true},{"t":"Oddělovač","i":"000"},{"t":"Přidat des. místo","i":",0"}]},
+          {"name":"Styly","items":[{"t":"Podmíněné formátování","i":"▤"}]}],
+         "path":["Domů","Číslo","%"],"keys":["Ctrl","Shift","5"]}
+      </script></zit-ribbon>
+      <div class="done-when"><span class="t">sloupec Obsazenost ukazuje procenta a Sokolovna Podlesí má 91,7 %.</span><zit-done key="l4-s4"></zit-done></div>
+    </section>
+
+    <!-- ===================== 5 ===================== -->
+    <section class="ms-step" data-short="Pevná hodnota" data-min="8">
+      <h2>Pevná hodnota: kritická obsazenost</h2>
+      <p>Centrum je kritické, když je zaplněné aspoň z 85 %. Mohl/a bys 85 % napsat rovnou do vzorce. Jenže až štáb hranici změní na 80 %, budeš přepisovat osmnáct vzorců. Proto je hranice v listu <b>PARAMETRY</b>, v buňce <b>B4</b>, a všechny vzorce se na ni jen odkážou.</p>
+      <p>Funkce <b>KDYŽ</b> rozhodne mezi dvěma možnostmi: <code>=KDYŽ(podmínka; když platí; když neplatí)</code>. Při kopírování dolů ale nastane problém. Vyzkoušej si ho:</p>
+      <c4-anchor></c4-anchor>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Do <b>M5</b> napiš:
+<pre><code>=KDYŽ(L5>=PARAMETRY!$B$4;"KRITICKÉ";"OK")</code></pre>
+          Dolary nemusíš psát: napiš <code>PARAMETRY!B4</code> a hned stiskni <kbd>F4</kbd>.</div></li>
+        <li><div>Zkopíruj vzorec dvojklikem dolů.</div></li>
+        <li><div>Zkus to: v listu PARAMETRY změň 85 % na 60 % a vrať se do listu CENTRA. Kritických center je najednou devět a nepřepsal/a jsi jediný vzorec. Pak hodnotu vrať zpátky na 85 %.</div></li>
+      </ol>
+      <div class="box box-info"><span class="title">Proč „větší nebo rovno“?</span><p class="mb-0">Penzion U Lesa má přesně 85,0 %. S podmínkou <code>&gt;</code> by vyšel jako OK, s <code>&gt;=</code> jako KRITICKÉ. U hranic se vždy zeptej, jestli do nich hraniční hodnota patří.</p></div>
+      <div class="done-when"><span class="t">sloupec Kritické? je vyplněný a KRITICKÉ je přesně u pěti center, včetně Penzionu U Lesa.</span><zit-done key="l4-s5"></zit-done></div>
+    </section>
+
+    <!-- ===================== 6 ===================== -->
+    <section class="ms-step" data-short="Souhrn" data-min="8">
+      <h2>Personál a souhrn pro štáb</h2>
+      <p>Každé centrum potřebuje minimální počet pracovníků. Kde jich je méně, štáb musí poslat posilu. A nakonec chce štáb všechno v jednom přehledu, ne v osmnácti řádcích.</p>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Do <b>N5</b> napiš <code>=KDYŽ(G5&lt;H5;"CHYBÍ";"OK")</code> a zkopíruj dolů.</div></li>
+        <li><div>Přepni na list <b>SOUHRN</b> a doplň žluté buňky. Začni třeba celkovou kapacitou: <code>=SUMA(CENTRA!D5:D22)</code>. Oblast nemusíš psát, stačí ji myší označit v listu CENTRA.</div></li>
+        <li><div>Počet kritických center spočítá funkce <b>COUNTIF</b>: kolik buněk v oblasti splňuje podmínku.
+<pre><code>=COUNTIF(CENTRA!M5:M22;"KRITICKÉ")</code></pre></div></li>
+        <li><div>Celkovou obsazenost spočítej jako celkem obsazeno děleno celkovou kapacitou, ne jako průměr procent.</div></li>
+      </ol>
+      <zit-reveal label="Nápověda: vzorce do souhrnu">
+        <table class="mb-0"><tbody>
+          <tr><td>Celková kapacita</td><td><code>=SUMA(CENTRA!D5:D22)</code></td></tr>
+          <tr><td>Celkem obsazeno</td><td><code>=SUMA(CENTRA!E5:E22)</code></td></tr>
+          <tr><td>Celkem volných míst</td><td><code>=SUMA(CENTRA!K5:K22)</code></td></tr>
+          <tr><td>Celková obsazenost</td><td><code>=B5/B4</code> (formát %)</td></tr>
+          <tr><td>Nejvyšší obsazenost</td><td><code>=MAX(CENTRA!L5:L22)</code></td></tr>
+          <tr><td>Kritická centra</td><td><code>=COUNTIF(CENTRA!M5:M22;"KRITICKÉ")</code></td></tr>
+          <tr><td>Chybí personál</td><td><code>=COUNTIF(CENTRA!N5:N22;"CHYBÍ")</code></td></tr>
+        </tbody></table>
+      </zit-reveal>
+      <div class="box"><span class="title">Vzorec od AI</span><p class="mb-0">Copilot ti vzorec napíše rád. Řekni mu, že máš <b>českou</b> verzi Excelu (jinak dostaneš IF a čárky místo KDYŽ a středníků) a popiš, ve kterých sloupcích co je. Výsledek pak vždy ověř na jednom řádku ručně. Do AI dávej popis tabulky, ne skutečná data o lidech.</p></div>
+      <div class="done-when"><span class="t">souhrn ukazuje kapacitu 1 355, pět kritických center a čtyři centra, kde chybí personál.</span><zit-done key="l4-s6"></zit-done></div>
+      <p class="small muted">Vychází ti kapacita 1 330? Pak je kapacita Hasičské zbrojnice Podlesí pořád text. SUMA text přeskočí a nic neřekne. Vrať se ke kroku 2.</p>
+    </section>
+
+    <!-- ===================== 7 ===================== -->
+    <section class="ms-step" data-short="Barvy a filtr" data-min="6">
+      <h2>Ať to svítí: barvy, filtr a řazení</h2>
+      <p>Štáb nemá čas číst osmnáct řádků. Kritická centra musí být vidět na první pohled.</p>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Označ sloupec Kritické? (M5 až M22) a nastav, ať je text KRITICKÉ červený.
+          <div class="path"><span>Domů</span><span>Podmíněné formátování</span><span>Pravidla zvýraznění buněk</span><span>Text, který obsahuje</span></div></div></li>
+        <li><div>Klikni kamkoli do tabulky a zapni filtr.
+          <div class="path"><span>Domů</span><span>Seřadit a filtrovat</span><span>Filtr</span></div></div></li>
+        <li><div>Seřaď tabulku podle obsazenosti od největší. Nahoře by měla být Tělocvična Kamenice s 95 %.</div></li>
+        <li><div>Ve sloupci Kritické? nech zaškrtnuté jen KRITICKÉ. Pak filtr zase vypni, ať odevzdáš celou tabulku.</div></li>
+      </ol>
+      <zit-ribbon><script type="application/json">
+        {"app":"excel","file":"centra.xlsx","tab":"Domů","groups":[
+          {"name":"Číslo","items":[{"t":"Procenta","i":"%"}]},
+          {"name":"Styly","items":[{"t":"Podmíněné formátování","i":"▤","hl":true},{"t":"Formátovat jako tabulku","i":"▦"}]},
+          {"name":"Úpravy","items":[{"t":"Seřadit a filtrovat","i":"⇅"}]}],
+         "path":["Domů","Podmíněné formátování","Pravidla zvýraznění buněk"]}
+      </script></zit-ribbon>
+      <div class="done-when"><span class="t">kritická centra svítí červeně a umíš je vyfiltrovat.</span><zit-done key="l4-s7"></zit-done></div>
+    </section>
+
+    <!-- ===================== 8 ===================== -->
+    <section class="ms-step" data-short="Odeslání" data-min="5">
+      <h2>Odeslání</h2>
+      <p>Ulož tabulku (<kbd>Ctrl</kbd>+<kbd>S</kbd>) a pošli ji. Tlačítko níže e-mail předvyplní, přílohu do něj přetáhneš.</p>
+      <zit-exit-ticket key="l4"><script type="application/json">
+          {"title":"Odevzdání cvičení 4","subject":"ZIT C4: {Prijmeni} {Jmeno} (par. {group})",
+           "attach":["{date}_centra_{prijmeni}_v01.xlsx"],
+           "questions":["Proč je kritická obsazenost v listu PARAMETRY, a ne přímo ve vzorci?","Co se dělo se součtem kapacit, dokud byla jedna kapacita uložená jako text?","Které centrum bys štábu doporučil/a posílit jako první a proč?"],
+           "footer":"AI jsem při práci s tabulkou nepoužil/a. (Pokud ano, napiš sem čtyři řádky prohlášení o AI.)"}
+        </script></zit-exit-ticket>
+      <div class="done-when"><span class="t">e-mail s tabulkou je odeslaný.</span><zit-done key="l4-s8"></zit-done></div>
+      <div class="box" style="margin-top:1.6rem"><span class="title">Máš hotovo dřív? Na kolik dní vystačí voda?</span>
+        <p class="mb-0">V listu PARAMETRY je spotřeba vody na osobu a den (3 litry) a minimální zásoba (2 dny). Přidej do listu CENTRA sloupec O „Voda na dní“ se vzorcem <code>=F5/(E5*PARAMETRY!$B$5)</code>. Které centrum má méně než dva dny? A proč tu musí být dolary?</p></div>
+      <div class="box box-ok" style="margin-top:1.4rem"><span class="title">Příště: Analýza krizových dat</span><p class="mb-0">Dvě stě padesát hlášení z jedné bouřlivé noci, a některá jsou špatně. Vyčistíme je, shrneme kontingenční tabulkou a nakreslíme graf, kterému štáb porozumí za deset vteřin.</p></div>
+    </section>
+
+  </zit-mission>
+
+  <div data-zit="prev-next" style="margin-top:2.5rem"></div>
+</main>
+
+<footer class="site-footer"><div class="wrap narrow">
+  <p>F7PBPZIT · Základy informačních technologií · ČVUT FBMI</p>
+  <p><span data-zit="teacher"></span> · <a data-zit="email" href="#"></a></p>
+</div></footer>
+
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/zit.js"></script>
+<script src="page.js"></script>
+</body>
+</html>

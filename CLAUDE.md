@@ -32,12 +32,14 @@ harmonogram.html nastroje.html pravidla-ai.html hodnoceni.html lectures/index.ht
 --- private ---
 plans/course_general_plan.md  teacher's master plan for the whole course
 plans/lectures/<NN>-…-plan-cz.md, plans/slides/<NN>-…-slides.md
-teacher/<NN>/                 scenar-bible.md, klic-reseni.md, checklist.md, build-package.py, package-src/, reseni/
+teacher/<NN>/                 scenar-bible.md, klic-reseni.md, checklist.md, build-package.py, build-slides.py, slides-body.html, package-src/, reseni/
+teacher/common/               zitlib.py (shared build helpers, test encryption), deck.py + deck.css (shared slide decks)
+teacher/tests/test1|test2/    build-testN.py (holds the password), klic.md, testN.zip (plain backup), reseni/
 ```
 
 Every page: `<html lang="cs" data-root="…">`, `<body data-page="hub|info|exercise" data-lecture="N">`, the same header (brand + „Cvičení“ + „Info o kurzu“ + theme toggle) and footer copied verbatim. All links relative; only `404.html` uses absolute `/F7PBPZIT/` paths.
 
-Groups: par. 1 Monday 14:00 KL:B-435; par. 3 Monday 12:00 KL:B-520 and par. 2 Monday 14:00 KL:B-435 one week later. Each exercise is planned for **90 minutes** of core work plus an optional ~15-minute extension (the master plan says 105–110; the timetable slot is 2 teaching hours). Graded tests: **Test 1 in exercise 4** (35 min, 40 b), **Test 2 in exercise 7** (50–55 min, 50 b), pass threshold proposal 60 %.
+Groups: par. 1 Monday 14:00 KL:B-435; par. 3 Monday 12:00 KL:B-520 and par. 2 Monday 14:00 KL:B-435 one week later. Each exercise is planned for **90 minutes** of core work plus an optional ~15-minute extension (the master plan says 105–110; the timetable slot is 2 teaching hours). Graded tests: **Test 1 in exercise 4** (35 min, 40 b, Word formatting only), **Test 2 in exercise 7** (50 min, 50 b, Excel only; exercise 7 has 40 min of cyber security first), pass threshold proposal 60 %. Tests download only after the password: the ZIP is AES-GCM encrypted (`materials/04/test1.zitenc`, `materials/07/test2.zitenc`, made by `teacher/tests/*/build-testN.py`) and `<zit-locked>` decrypts it in the browser. Never commit a password or a plain test ZIP.
 
 ## Exercise page anatomy
 
@@ -57,20 +59,21 @@ Building blocks inside a step: `.story` (with `.clock`), `.timeline`, `.todo-h` 
 | `<zit-ai-reveal>` | AI answer types out, button stamps the problems | `{title, prompt, button, after, sentences:[{t, bad?, label?, why?}]}` |
 | `<zit-prompt-builder key>` | 6-part prompt, copy, Copilot link | `{prefill?, fields, example}` |
 | `<zit-exit-ticket key>` | surname, name, group, questions → mailto teacher; shows exact attachment names | `{title, subject, attach:["{date}_…_{prijmeni}_v01.docx"], questions, footer}` |
+| `<zit-locked>` | password field; fetches the encrypted test, decrypts in the browser (PBKDF2 + AES-GCM), downloads the ZIP | `{title, src, file, text}` |
 | `<zit-folder-story>`, `<zit-sync-story>` | exercise 1 story pieces (run on click) | see exercise 1 |
 
-Exercise-specific components live in `lectures/<NN-slug>/page.js` (e.g. exercise 2: `c2-xray`, `c2-styles`, `c2-skeleton`, `c2-typo`, `c2-facts`).
+Exercise-specific components live in `lectures/<NN-slug>/page.js` (e.g. exercise 2: `c2-xray`, `c2-styles`, `c2-skeleton`, `c2-typo`, `c2-facts`). Exercise 7 reads its data from a generated `data.js` (`window.C7_DATA`, written by `teacher/07/build-package.py`).
 
 ## Submission
 
-E-mail to the teacher by the end of the lecture day. Subject `ZIT C<N>: Příjmení Jméno (par. X)`. Attachments named by convention `RRRR-MM-DD_tema_prijmeni_vXX.ext` (exercise 1: one ZIP; exercise 2: DOCX + PDF). Exit-ticket answers in the body. Keep `info.html#odevzdavani`, the last step of each exercise and the package's own instructions consistent.
+E-mail to the teacher by the end of the lecture day. Subject `ZIT C<N>: Příjmení Jméno (par. X)`. Attachments named by convention `RRRR-MM-DD_tema_prijmeni_vXX.ext` (exercise 1: one ZIP; 2: DOCX + PDF; 3–5: XLSX; 6: DOCX). Tests: subject `ZIT TEST1:` / `ZIT TEST2:`, attachments `RRRR-MM-DD_testN_prijmeni.ext`. Exit-ticket answers in the body. Keep `info.html#odevzdavani`, the last step of each exercise and the package's own instructions consistent.
 
 ## Adding an exercise
 
 1. Read the exercise section of `plans/course_general_plan.md` and `docs/`. Write `plans/lectures/<NN>-<slug>-plan-cz.md`: review table, minute plan (teacher / students / file / output), questions, ≥8 common mistakes, offline variant.
-2. Write `teacher/<NN>/scenar-bible.md` first. Generate downloads with `teacher/<NN>/build-package.py` → `materials/<NN>/`. Python venv with reportlab, python-docx, openpyxl, Pillow, pypdf: `%TEMP%\claude\zitvenv` (recreate with `uv venv` + `uv pip install …`). Word 16 is available via COM for field updates and DOCX → PDF. Fonts: `C:/Windows/Fonts/calibri.ttf`, `arial.ttf`. Make worksheets fillable PDFs (AcroForm).
+2. Write `teacher/<NN>/scenar-bible.md` first. Generate downloads with `teacher/<NN>/build-package.py` → `materials/<NN>/`. Python venv with reportlab, python-docx, openpyxl, Pillow, pypdf, pywin32, qrcode, cryptography (pymupdf and playwright for visual checks): `%TEMP%\claude\zitvenv` (recreate with `uv venv` + `uv pip install …`). Word 16 is available via COM for field updates and DOCX → PDF. Fonts: `C:/Windows/Fonts/calibri.ttf`, `arial.ttf`. Make worksheets fillable PDFs (AcroForm).
 3. Build the page: short scenario first, 6–8 steps, one click-driven demo per key concept, nothing decorative.
-4. Slides: either brief Claude Design via `plans/slides/<NN>-<slug>-slides.md`, or build the deck directly like `slides/02-profesionalni-dokumenty.html` (self-contained 1920×1080 HTML, one `section.slide` per slide, `aside.notes`, keys ←/→/Home/End, N notes, F fullscreen; print CSS gives one slide per page). The deck doubles as the opening tutorial: walk through every step with Word mock-ups. Export the PDF with headless Edge: `msedge --headless=new --no-pdf-header-footer --virtual-time-budget=8000 --print-to-pdf=<out.pdf> file:///<deck.html>`.
+4. Slides: either brief Claude Design via `plans/slides/<NN>-<slug>-slides.md`, or build the deck directly with `teacher/common/deck.py` (see `teacher/04/build-slides.py`; body in `slides-body.html`), like `slides/02-profesionalni-dokumenty.html` (self-contained 1920×1080 HTML, one `section.slide` per slide, `aside.notes`, keys ←/→/Home/End, N notes, F fullscreen; print CSS gives one slide per page). The deck doubles as the opening tutorial: walk through every step with Word mock-ups. Export the PDF with headless Edge: `msedge --headless=new --no-pdf-header-footer --virtual-time-budget=8000 --print-to-pdf=<out.pdf> file:///<deck.html>`.
 5. Write `teacher/<NN>/klic-reseni.md` and `checklist.md`.
 6. Set `status: "published"`, preview (`python -m http.server 8765`), check console, phone width (375 px), dark mode, then a Czech proofreading pass with rules 2 and 3.
 
@@ -81,4 +84,4 @@ E-mail to the teacher by the end of the lecture day. Subject `ZIT C<N>: Příjme
 - Information categories: VEŘEJNÉ / INTERNÍ / OSOBNÍ ÚDAJE / CITLIVÉ; five questions before uploading.
 - AI declaration (4 lines): Použitý AI nástroj / Účel použití / Co bylo převzato / Jak byl výstup ověřen.
 - Grade the verification process, never similarity to the teacher's AI output.
-- Scenario world: modelový region Alfa (river Bystrá; Kamenice, Mostkov, Podlesí, Lužná). C1–C2 flood; C3 chemical leak; C5 windstorm; C6 flash floods; Test 2 power outage (per the master plan).
+- Scenario world: modelový region Alfa (river Bystrá; Kamenice, Mostkov, Podlesí, Lužná). C1–C2 flood (Sept 2026); C3 ammonia leak in Lužná (15. 10.); C4 network of 18 evacuation centres; C5 windstorm (14.–15. 11.); C6 flash floods in Habrová and Olšany (29. 11.); C7 and Test 2 power outage (14. 12.). Test 1 is the Podlesí evacuation leaflet.

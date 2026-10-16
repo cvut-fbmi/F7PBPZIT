@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="cs" data-root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>7. Kyberbezpečnost a Test 2 · Základy informačních technologií · ČVUT FBMI</title>
+  <meta name="description" content="Cvičení 7: phishing, podvod na šéfa, MFA, falešný hlas a video, co dělat, když nejde internet. Pak zápočtový test 2 z Excelu.">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="page.css">
+  <script src="../../assets/js/course-data.js"></script>
+</head>
+<body data-page="exercise" data-lecture="7">
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="../../"><span class="mark">ČVUT FBMI</span><span class="name">Základy informačních technologií<small>F7PBPZIT · Bezpečnost a ochrana obyvatelstva</small></span></a>
+  <nav class="site-nav" aria-label="Hlavní menu">
+    <a href="../../" data-nav="hub">Cvičení</a>
+    <a href="../../info.html" data-nav="info">Info o kurzu</a>
+    <button class="icon-btn" data-theme-toggle type="button" aria-label="Přepnout tmavý režim">☾</button>
+  </nav>
+</div></header>
+
+<div class="ex-head"><div class="wrap narrow">
+  <div class="kicker">Cvičení 7 · 90 minut · zápočtový test 2</div>
+  <h1>Kyberbezpečnost a Test 2</h1>
+  <p class="lead">Útočník nemusí hackovat počítač, když může napálit člověka. Čtyřicet minut o phishingu, falešných hlasech a o tom, co dělat, když nejde internet. Pak padesát minut testu z Excelu.</p>
+  <p class="past-note" data-zit="past-note" hidden>Cvičení už proběhlo. Materiály tu zůstávají.</p>
+  <div data-zit="dates"></div>
+  <div class="row">
+    <a class="btn btn-primary" href="../../materials/07/cviceni-07-student.zip" download>⬇ Podklady ke kyberbezpečnosti (ZIP)</a>
+    <a class="btn" data-check="../../slides/07-kyberbezpecnost-test2.html" data-missing="Slidy doplníme" target="_blank" rel="noopener"><span class="lbl">Slidy</span></a>
+    <a class="btn" data-check="../../slides/07-kyberbezpecnost-test2.pdf" target="_blank" rel="noopener" hidden>Slidy (PDF)</a>
+    <a class="btn" href="../../materials/07/tahak_kyber.pdf" target="_blank" rel="noopener">Tahák (PDF)</a>
+  </div>
+</div></div>
+
+<main class="wrap narrow">
+  <div class="mission-card">
+    <div><div class="lbl">Dnešní mise</div><p>Nenech se napálit. Pak ukaž v testu, co umíš v Excelu.</p></div>
+    <div><div class="lbl">Dostaneš</div><p>Sadu osmi zpráv, deset kartiček s poruchami a test v zamčeném ZIPu.</p></div>
+    <div><div class="lbl">Odevzdáš</div><p>Test (XLSX) do 50. minuty testu.</p></div>
+  </div>
+
+  <zit-mission key="l7">
+
+    <!-- ===================== 1 ===================== -->
+    <section class="ms-step" data-short="Dnes" data-min="3">
+      <h2>Dnes ve dvou částech</h2>
+      <div class="two-parts">
+        <div><b>0–40 min</b><span>Kyberbezpečnost: phishing, účty, falešný hlas, výpadky. Nic se neodevzdává.</span></div>
+        <div class="test"><b>40–90 min</b><span>Zápočtový test 2 z Excelu. Začíná přesně ve 40. minutě.</span></div>
+      </div>
+      <div class="story"><span class="clock">pondělí 14. 12. 2026, 07:10</span>
+        Od noci je část regionu bez proudu. Do schránky ti ráno padá jedna zpráva za druhou: od IT, od kolegyně, od šéfové, od distributora. Krize je pro podvodníky nejlepší čas. Všichni spěchají, nikdo nic neověřuje a „urgentní“ zní najednou normálně.</div>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Stáhni <a href="../../materials/07/cviceni-07-student.zip" download>podklady (ZIP)</a>. Na webu je všechno i interaktivně, PDF jsou pro tisk a pro jistotu.</div></li>
+        <li><div>Otevři si v Excelu svou tabulku ze cvičení 4 nebo 5. Na test se hodí mít ji po ruce.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">víš, že test začíná ve 40. minutě, a máš podklady.</span><zit-done key="l7-s1"></zit-done></div>
+    </section>
+
+    <!-- ===================== 2 ===================== -->
+    <section class="ms-step" data-short="Phishing" data-min="14">
+      <h2>Osm zpráv, pět podvodů</h2>
+      <p>Phishing je zpráva, která se tváří jako od někoho, komu věříš, a chce, abys něco udělal/a: klikl/a, přihlásil/a se, zaplatil/a, poslal/a kód. Nepoznáš ho podle jedné chyby, ale podle součtu signálů. Rozhodni u každé zprávy, jestli je v pořádku:</p>
+      <c7-inbox></c7-inbox>
+      <div class="box"><span class="title">Deset otázek ke každé zprávě</span>
+        <ol class="ten mb-0">
+          <li>Odesílatel: znám ho?</li><li>Doména: přesně správná?</li><li>Naléhavost: tlačí na čas nebo strach?</li>
+          <li>Příloha: čekám ji? Není to makro?</li><li>Odkaz: kam doopravdy vede?</li><li>Gramatika a tón: sedí?</li>
+          <li>Chtěl by to po mně opravdu?</li><li>Chce heslo?</li><li>Chce ověřovací kód?</li><li>Chce peníze?</li>
+        </ol></div>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Otevři postupně všech osm zpráv a rozhodni.</div></li>
+        <li><div>U každé, kterou jsi označil/a špatně, si přečti proč. Který signál jsi přehlédl/a?</div></li>
+      </ol>
+      <div class="done-when"><span class="t">máš rozhodnutých všech osm zpráv a víš, proč je zpráva od „šéfové“ podvod.</span><zit-done key="l7-s2"></zit-done></div>
+    </section>
+
+    <!-- ===================== 3 ===================== -->
+    <section class="ms-step" data-short="Účet a hlas" data-min="9">
+      <h2>Heslo, ověřovací kód a falešný hlas</h2>
+      <p>Heslo se dá uhodnout nebo vylákat. Proto má účet druhý zámek: ověření v telefonu (MFA). A protože dnes jde napodobit i hlas a obličej, poslední zámek jsi ty. Co uděláš?</p>
+      <c7-cases></c7-cases>
+      <div class="box box-info"><span class="title">Správce hesel</span><p class="mb-0">Dlouhé heslo z několika slov, pro každou službu jiné, si nikdo nezapamatuje. Nemusí: pamatuje si je správce hesel a ty si pamatuješ jedno hlavní heslo. Který správce smíš používat v práci, určuje organizace.</p></div>
+      <div class="done-when"><span class="t">prošel/prošla jsi všech pět situací.</span><zit-done key="l7-s3"></zit-done></div>
+    </section>
+
+    <!-- ===================== 4 ===================== -->
+    <section class="ms-step" data-short="Kde je problém" data-min="10">
+      <h2>Něco nejde. Ale co?</h2>
+      <p>„Nejde internet“ může znamenat pět různých věcí. Kdo ví, ve které vrstvě to vázne, opraví polovinu problémů sám a u druhé poloviny řekne IT přesně, co se děje. Postupuj zespodu nahoru:</p>
+      <c7-layers></c7-layers>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Ve dvojici projděte deset kartiček. U každé nejdřív řekněte nahlas, kde je problém, a teprve pak klikněte.</div></li>
+        <li><div>Kartičky jsou i v <code>karticky_vypadek.pdf</code>, kdybyste chtěli pracovat na papíře.</div></li>
+      </ol>
+      <div class="done-when"><span class="t">u všech deseti kartiček víte, kde je problém a kdy volat IT.</span><zit-done key="l7-s4"></zit-done></div>
+    </section>
+
+    <!-- ===================== 5 ===================== -->
+    <section class="ms-step" data-short="Bez proudu" data-min="4">
+      <h2>Když nejde proud ani internet</h2>
+      <p>V krizi nejde jen o útočníky. Stačí výpadek proudu a cloud, ve kterém máš všechno, je najednou nedostupný. Co by v kanceláři štábu nemělo chybět:</p>
+      <div class="kit">
+        <div><b>Záloha</b><span>Není to synchronizace. Smazaný soubor synchronizace smaže všude. Záloha je kopie jinde, pravidelně.</span></div>
+        <div><b>UPS</b><span>Baterie pro počítač: pár minut na uložení a správné vypnutí.</span></div>
+        <div><b>Powerbanka</b><span>Telefon je v krizi telefon, mapa, svítilna i hotspot.</span></div>
+        <div><b>Hotspot</b><span>Internet z pracovního telefonu, když spadne síť v budově.</span></div>
+        <div><b>Offline kopie</b><span>Kontakty, plány a poslední SITREP i na papíře nebo USB. Bez proudu cloud neotevřeš.</span></div>
+        <div><b>Stavové ikony</b><span>Wi-Fi, baterie, synchronizace. Podívej se dřív, než začneš klikat.</span></div>
+      </div>
+      <div class="done-when"><span class="t">víš, proč synchronizace není záloha. Za minutu začíná test.</span><zit-done key="l7-s5"></zit-done></div>
+    </section>
+
+    <!-- ===================== 6 ===================== -->
+    <section class="ms-step" data-short="Test 2" data-min="50">
+      <h2>Zápočtový test 2</h2>
+      <p>Výpadek elektřiny, dvanáct objektů s lidmi na generátorech a otázka, kam poslat cisternu s palivem nejdřív. Vzorce, souhrn, graf a krátká interpretace pro štáb.</p>
+      <div class="test-facts">
+        <div><b>50 minut</b><span>čas na celý test</span></div>
+        <div><b>50 bodů</b><span>navrhovaná hranice 60 %, tedy 30 bodů</span></div>
+        <div><b>Smíš</b><span>poznámky, tahák Excel a svoje tabulky ze cvičení 4 a 5</span></div>
+        <div class="no"><b>Nesmíš</b><span>AI, chat ani pomoc souseda</span></div>
+      </div>
+      <zit-locked><script type="application/json">
+        {"title":"Zápočtový test 2: Excel","src":"../../materials/07/test2.zitenc","file":"test2.zip",
+         "text":"Heslo řekne vyučující, až začne test. Po zadání se stáhne ZIP se zadáním a tabulkou."}
+      </script></zit-locked>
+      <div class="todo-h">Udělej</div>
+      <ol class="todo">
+        <li><div>Zadej heslo a stáhni test. Rozbal ZIP.</div></li>
+        <li><div>Otevři <code>test2_zadani.pdf</code> a <code>test2_vypadek.xlsx</code>. Tabulku hned ulož jako <code>RRRR-MM-DD_test2_prijmeni.xlsx</code>.</div></li>
+        <li><div>Plň úkoly. Hodnotí se vzorce, ne ručně napsaná čísla.</div></li>
+        <li><div>Ulož a pošli tabulku tlačítkem níže. Nejpozději v 50. minutě testu.</div></li>
+      </ol>
+      <div class="box box-info"><span class="title">Rada na cestu</span><p class="mb-0">Nejdřív projdi data: není tam číslo uložené jako text? Pak sloupce zleva doprava, souhrn, a graf s interpretací nakonec. Na pevnou hodnotu z listu PARAMETRY patří dolary.</p></div>
+      <zit-exit-ticket key="t2"><script type="application/json">
+          {"title":"Odevzdání testu 2","subject":"ZIT TEST2: {Prijmeni} {Jmeno} (par. {group})",
+           "attach":["{date}_test2_{prijmeni}.xlsx"],
+           "questions":[],
+           "footer":"Odevzdávám zápočtový test 2. Pracoval/a jsem samostatně."}
+        </script></zit-exit-ticket>
+      <div class="done-when"><span class="t">e-mail s tabulkou testu je odeslaný.</span><zit-done key="l7-s6"></zit-done></div>
+      <div class="box box-ok" style="margin-top:1.4rem"><span class="title">To je konec kurzu</span><p class="mb-0">Sedm cvičení: soubory a cloud, profesionální dokumenty, ověřování informací, Excel, analýza dat, AI ve štábu a kyberbezpečnost. Výsledky testů a podmínky zápočtu ti přijdou e-mailem. Utřiď. Posuď. Ověř. A ať se ti to v praxi hodí.</p></div>
+    </section>
+
+  </zit-mission>
+
+  <div data-zit="prev-next" style="margin-top:2.5rem"></div>
+</main>
+
+<footer class="site-footer"><div class="wrap narrow">
+  <p>F7PBPZIT · Základy informačních technologií · ČVUT FBMI</p>
+  <p><span data-zit="teacher"></span> · <a data-zit="email" href="#"></a></p>
+</div></footer>
+
+<script src="../../assets/js/main.js"></script>
+<script src="../../assets/js/zit.js"></script>
+<script src="data.js"></script>
+<script src="page.js"></script>
+</body>
+</html>

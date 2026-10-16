@@ -67,7 +67,7 @@ ul, ol { margin: 0 0 1em; padding-left: 1.35em; }
 li { margin: .25em 0; }
 li::marker { color: var(--ink-3); }
 strong, b { font-weight: 700; }
-code, kbd, pre { font-family: var(--font-mono); font-size: .88em; }
+code, kbd, pre { font-family: var(--font-mono); font-size: .88em; font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
 code { background: var(--sky); color: var(--navy); padding: .08em .38em; border-radius: 6px; word-break: break-word; }
 pre { background: #0f2238; color: #e4eef8; padding: 1rem 1.1rem; border-radius: var(--r-sm); overflow: auto; line-height: 1.55; position: relative; margin: 0 0 1.2em; white-space: pre-wrap; }
 pre code { background: none; color: inherit; padding: 0; }
@@ -401,6 +401,14 @@ zit-reveal .rv-body > :last-child { margin-bottom: 0; }
 .exit textarea { min-height: 66px; resize: vertical; }
 .attach { display: grid; gap: .35rem; margin: 0 0 1rem; padding: 0; list-style: none; }
 .attach li { display: flex; gap: .55rem; align-items: center; margin: 0; font: .86rem var(--font-mono); padding: .45rem .7rem; border-radius: 8px; background: var(--surface-2); border: 1px dashed var(--line-2); word-break: break-all; }
+
+/* zamčený test */
+zit-locked { display: block; }
+.locked .lk-row { display: flex; gap: .6rem; flex-wrap: wrap; margin: .8rem 0 .4rem; }
+.locked input { flex: 1 1 200px; padding: .55rem .8rem; border-radius: 999px; border: 1.5px solid var(--line-2); background: var(--surface-2); color: var(--ink); font: 1rem var(--font-mono); }
+.locked input:focus { border-color: var(--blue); outline: none; }
+.lk-msg { font-weight: 600; min-height: 1.5em; }
+.lk-msg.ok { color: var(--ok); } .lk-msg.bad { color: var(--bad); }
 
 /* tisk */
 @media print {
