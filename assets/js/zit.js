@@ -484,7 +484,7 @@
         const ok = x.pts >= t.pass;
         h += `<p class="mb-0">${x.raw != null ? `${x.raw} z ${t.raw_max} bodů → ` : ""}<b>${x.pts} z ${t.max}</b>. ${ok ? "Splněno" : "Zatím nesplněno"} (potřeba ${t.pass} z ${t.max}).</p>`;
         if (x.relief) h += `<p class="small muted mb-0">Úkoly 6 a 7 se ti do přepočtu nepočítaly, protože by ti body ubraly. To je úleva kvůli potížím Wordu 2016 s tabulkami a číslováním.</p>`;
-        if (x.pdf) h += `<p class="small muted mb-0">Hodnoceno podle PDF, protože odevzdaný DOCX byl beze změn. Nezlomitelnou mezeru v PDF ověřit nejde.</p>`;
+        if (x.note) h += `<p class="small muted mb-0">${esc(x.note)}</p>`;
         if (x.tasks && t.tasks.length) {
           h += `<ol class="rs-tasks">` + x.tasks.map(([p, why], i) => {
             const tk = t.tasks[i], lost = p < tk.max;
