@@ -382,6 +382,25 @@
   /* ---------- zit-locked (test ke stažení až po zadání hesla) ----------
      Soubor na serveru je zašifrovaný (PBKDF2-SHA256 + AES-GCM), heslo na webu ani v repozitáři není.
      Formát: "ZITENC1" | sůl 16 B | IV 12 B | šifrovaná data s tagem. Vyrábí teacher/common/zitlib.py. */
+  async function zitDecrypt(src, pw) {
+    if (!(window.crypto && crypto.subtle)) throw new Error("crypto");
+    const res = await fetch(src, { cache: "no-store" });
+    if (!res.ok) throw new Error("soubor");
+    const raw = new Uint8Array(await res.arrayBuffer());
+    const magic = new TextEncoder().encode("ZITENC1");
+    if (!magic.every((b, i) => raw[i] === b)) throw new Error("soubor");
+    const salt = raw.slice(7, 23), iv = raw.slice(23, 35), data = raw.slice(35);
+    const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+    const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: 600000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    try { return await crypto.subtle.decrypt({ name: "AES-GCM", iv, additionalData: magic }, key, data); }
+    catch (x) { throw new Error("heslo"); }
+  }
+  const LOCK_MSG = {
+    crypto: "Prohlížeč neumí soubor odemknout. Otevři stránku přes https nebo si řekni vyučujícímu.",
+    heslo: "Špatné heslo. Zkontroluj velká a malá písmena a zkus to znovu.",
+    soubor: "Soubor se nepodařilo načíst. Zkus obnovit stránku, jinak řekni vyučujícímu."
+  };
+
   class ZitLocked extends HTMLElement {
     connectedCallback() {
       if (this._init) return; this._init = true;
@@ -401,32 +420,110 @@
       const inp = this.querySelector("input"), btn = this.querySelector("button");
       const pw = inp.value.trim();
       if (!pw) return;
-      if (!(window.crypto && crypto.subtle)) { this.msg("Prohlížeč neumí soubor odemknout. Otevři stránku přes https nebo si řekni vyučujícímu o kopii.", "bad"); return; }
       btn.disabled = true; this.msg("Ověřuji heslo…");
       try {
-        const res = await fetch(this.cfg.src, { cache: "no-store" });
-        if (!res.ok) throw new Error("soubor");
-        const raw = new Uint8Array(await res.arrayBuffer());
-        const magic = new TextEncoder().encode("ZITENC1");
-        if (!magic.every((b, i) => raw[i] === b)) throw new Error("soubor");
-        const salt = raw.slice(7, 23), iv = raw.slice(23, 35), data = raw.slice(35);
-        const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
-        const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: 600000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
-        let plain;
-        try { plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv, additionalData: magic }, key, data); }
-        catch (x) { this.msg("Špatné heslo. Zkontroluj velká a malá písmena a zkus to znovu.", "bad"); btn.disabled = false; inp.select(); return; }
+        const plain = await zitDecrypt(this.cfg.src, pw);
         const url = URL.createObjectURL(new Blob([plain], { type: "application/zip" }));
         const a = document.createElement("a"); a.href = url; a.download = this.cfg.file || "test.zip";
         document.body.appendChild(a); a.click(); a.remove();
         this.msg(`Odemčeno. Stahování začalo. Když ne, <a href="${url}" download="${esc(this.cfg.file || "test.zip")}">klikni sem</a>.`, "ok");
-        btn.disabled = false;
       } catch (e) {
-        this.msg("Soubor se nepodařilo načíst. Zkus obnovit stránku, jinak řekni vyučujícímu.", "bad"); btn.disabled = false;
+        this.msg(LOCK_MSG[e.message] || LOCK_MSG.soubor, "bad");
+        if (e.message === "heslo") inp.select();
       }
+      btn.disabled = false;
     }
   }
 
-  const defs = { "zit-locked": ZitLocked, "zit-done": ZitDone, "zit-reveal": ZitReveal, "zit-ribbon": ZitRibbon, "zit-compare": ZitCompare,
+  /* ---------- zit-results (výsledky testů po zadání hesla) ----------
+     Data jsou JSON zašifrovaný stejně jako testy (teacher/results/build-results.py).
+     Nic se neukládá: po obnovení stránky nebo po „Zamknout“ je zase zamčeno. */
+  class ZitResults extends HTMLElement {
+    connectedCallback() {
+      if (this._init) return; this._init = true;
+      this.cfg = readJSON(this);
+      this.lock();
+    }
+    lock() {
+      this.data = null;
+      const body = `<form class="locked" autocomplete="off">
+          <p class="mb-0">${this.cfg.text || "Heslo k výsledkům řekne vyučující."}</p>
+          <div class="lk-row"><label for="rs-pw" class="visually-hidden">Heslo k výsledkům</label>
+            <input id="rs-pw" type="password" placeholder="Heslo k výsledkům" autocomplete="off" spellcheck="false" required>
+            <button type="submit" class="btn btn-primary btn-sm">Zobrazit výsledky</button></div>
+          <p class="lk-msg mb-0" aria-live="polite"></p></form>`;
+      shell(this, { title: this.cfg.title || "Výsledky testů", kind: "zamčeno heslem", body });
+      this.querySelector("form").addEventListener("submit", e => { e.preventDefault(); this.unlock(); });
+    }
+    msg(t, cls) { const m = this.querySelector(".lk-msg"); m.innerHTML = t; m.className = "lk-msg mb-0 " + (cls || ""); }
+    async unlock() {
+      const inp = this.querySelector("input"), btn = this.querySelector("button");
+      const pw = inp.value.trim();
+      if (!pw) return;
+      btn.disabled = true; this.msg("Ověřuji heslo…");
+      try {
+        this.data = JSON.parse(new TextDecoder().decode(await zitDecrypt(this.cfg.src, pw)));
+      } catch (e) {
+        this.msg(LOCK_MSG[e.message] || LOCK_MSG.soubor, "bad"); btn.disabled = false;
+        if (e.message === "heslo") inp.select();
+        return;
+      }
+      const Z = window.ZIT, g = Z && Z.group.get();
+      this.render(String(g && this.data.groups[g] ? g : Object.keys(this.data.groups)[0]));
+    }
+    cell(x, t) {
+      const lab = `<span class="visually-hidden">${esc(t.name)}: </span>`;
+      if (x && "pts" in x) return `<span class="rs-pts${x.pts < t.pass ? " is-bad" : ""}">${lab}${x.pts}</span>`;
+      if (x && x.status) return `<span class="rs-st">${lab}${x.status === "missing" ? "neodevzdáno" : "doplníme"}</span>`;
+      return `<span class="rs-none">${lab}–</span>`;
+    }
+    testDetail(x, t, g) {
+      const Z = window.ZIT;
+      let h = `<h4>${esc(t.name)} · ${esc(t.sub)}</h4>`;
+      if (x && "pts" in x) {
+        const ok = x.pts >= t.pass;
+        h += `<p class="mb-0">${x.raw != null ? `${x.raw} z ${t.raw_max} bodů → ` : ""}<b>${x.pts} z ${t.max}</b>. ${ok ? "Splněno" : "Zatím nesplněno"} (potřeba ${t.pass} z ${t.max}).</p>`;
+        if (x.relief) h += `<p class="small muted mb-0">Úkoly 6 a 7 se ti do přepočtu nepočítaly, protože by ti body ubraly. To je úleva kvůli potížím Wordu 2016 s tabulkami a číslováním.</p>`;
+        if (x.pdf) h += `<p class="small muted mb-0">Hodnoceno podle PDF, protože odevzdaný DOCX byl beze změn. Nezlomitelnou mezeru v PDF ověřit nejde.</p>`;
+        if (x.tasks && t.tasks.length) {
+          h += `<ol class="rs-tasks">` + x.tasks.map(([p, why], i) => {
+            const tk = t.tasks[i], lost = p < tk.max;
+            return `<li class="${lost ? "lost" : ""}"><span class="rs-tn">${i + 1}. ${esc(tk.t)}</span><span class="rs-tp">${p} / ${tk.max}</span>${lost && why ? `<span class="rs-why">${esc(why)}</span>` : ""}</li>`;
+          }).join("") + `</ol>`;
+        }
+      } else if (x && x.status) {
+        h += `<p class="mb-0">${esc(x.text)}</p>`;
+      } else {
+        const l = Z && Z.C.lectures.find(l => String(l.n) === "7");
+        const d = l && l.dates && String(l.dates[g] || "").split("-");
+        h += `<p class="mb-0">Test 2 píšeš v 7. cvičení${d && d.length === 3 ? `, ${+d[2]}. ${+d[1]}. ${d[0]}` : ""}.</p>`;
+      }
+      return h;
+    }
+    render(g) {
+      const D = this.data, T = D.tests, Z = window.ZIT;
+      const upd = (D.updated || "").split("-");
+      const picker = Object.keys(D.groups).map(k => `<button type="button" data-g="${k}" aria-pressed="${k === g}">${esc((Z && Z.C.groups[k] && Z.C.groups[k].short) || "Par. " + k)}</button>`).join("");
+      const rows = (D.groups[g] || []).map(r => {
+        const got = T.map(t => r[t.key]).filter(x => x && "pts" in x);
+        const sum = got.length ? got.reduce((a, x) => a + x.pts, 0) : null;
+        return `<details class="rs-row"><summary><span class="rs-name"><b>${esc(r.last)}</b> ${esc(r.first)}</span>${T.map(t => this.cell(r[t.key], t)).join("")}<span class="rs-pts rs-sum"><span class="visually-hidden">Celkem: </span>${sum == null ? "–" : sum}</span></summary>
+          <div class="rs-detail">${T.map(t => this.testDetail(r[t.key], t, g)).join("")}</div></details>`;
+      }).join("");
+      const body = `<div class="rs-bar"><div class="group-picker" role="group" aria-label="Paralelka">${picker}</div>
+          <button type="button" class="btn btn-sm" data-act="lock">Zamknout</button></div>
+        <p class="small muted">Body z 20 za každý test, celkem z 40. Klikni na své jméno a uvidíš rozpis.${upd.length === 3 ? ` Aktualizováno ${+upd[2]}. ${+upd[1]}. ${upd[0]}.` : ""}</p>
+        <div class="rs-list"><div class="rs-head" aria-hidden="true"><span>Student</span>${T.map(t => `<span>${esc(t.name)}</span>`).join("")}<span>Celkem</span></div>${rows}</div>`;
+      shell(this, { title: this.cfg.title || "Výsledky testů", kind: "odemčeno", body });
+      this.querySelectorAll(".group-picker button").forEach(b => b.addEventListener("click", () => {
+        if (Z) Z.group.set(Number(b.dataset.g));
+        this.render(b.dataset.g);
+      }));
+      this.querySelector("[data-act=lock]").addEventListener("click", () => this.lock());
+    }
+  }
+
+  const defs = { "zit-locked": ZitLocked, "zit-results": ZitResults, "zit-done": ZitDone, "zit-reveal": ZitReveal, "zit-ribbon": ZitRibbon, "zit-compare": ZitCompare,
     "zit-folder-story": ZitFolderStory, "zit-sync-story": ZitSyncStory, "zit-ai-reveal": ZitAiReveal,
     "zit-prompt-builder": ZitPromptBuilder, "zit-exit-ticket": ZitExitTicket, "zit-mission": ZitMission };
   Object.entries(defs).forEach(([n, c]) => { if (!customElements.get(n)) customElements.define(n, c); });

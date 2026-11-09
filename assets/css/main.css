@@ -410,6 +410,40 @@ zit-locked { display: block; }
 .lk-msg { font-weight: 600; min-height: 1.5em; }
 .lk-msg.ok { color: var(--ok); } .lk-msg.bad { color: var(--bad); }
 
+/* výsledky testů (vysledky.html) */
+zit-results { display: block; }
+.rs-bar { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; justify-content: space-between; margin-bottom: .7rem; }
+.rs-list { border-top: 1px solid var(--line); margin-top: .4rem; }
+.rs-head, .rs-row > summary { display: grid; grid-template-columns: minmax(0, 1fr) repeat(3, 4.4rem); gap: .5rem; align-items: center; padding: .55rem .5rem; }
+.rs-head { font: 700 .74rem var(--font-head); text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); border-bottom: 1px solid var(--line); }
+.rs-head > span:not(:first-child), .rs-row > summary > span:not(.rs-name) { text-align: center; }
+.rs-row { border-bottom: 1px solid var(--line); }
+.rs-row > summary { cursor: pointer; list-style: none; border-radius: 8px; }
+.rs-row > summary::-webkit-details-marker { display: none; }
+.rs-row > summary:hover { background: var(--surface-2); }
+.rs-row[open] > summary { background: var(--sky); }
+.rs-name { min-width: 0; overflow-wrap: anywhere; }
+.rs-name::before { content: "▸"; display: inline-block; width: 1.1em; color: var(--ink-3); transition: transform .15s; }
+.rs-row[open] .rs-name::before { transform: rotate(90deg); }
+.rs-pts { font: 700 1.02rem var(--font-head); color: var(--ink); }
+.rs-pts.is-bad { color: var(--bad); }
+.rs-sum { color: var(--navy); }
+.rs-st { font: 700 .72rem var(--font-head); color: var(--ink-2); }
+.rs-none { color: var(--ink-3); }
+.rs-detail { padding: .2rem .5rem 1.2rem 1.6rem; }
+.rs-detail h4 { margin: 1rem 0 .3rem; font-size: 1rem; }
+.rs-detail p + p { margin-top: .35rem; }
+.rs-tasks { list-style: none; padding: 0; margin: .6rem 0 0; }
+.rs-tasks li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .1rem .8rem; padding: .32rem 0; border-top: 1px dashed var(--line); font-size: .93rem; }
+.rs-tp { font: 700 .9rem var(--font-head); color: var(--ink-3); white-space: nowrap; }
+.rs-tasks li.lost .rs-tp { color: var(--warn); }
+.rs-why { grid-column: 1 / -1; color: var(--ink-2); font-size: .87rem; line-height: 1.5; }
+@media (max-width: 560px) {
+  .rs-head, .rs-row > summary { grid-template-columns: minmax(0, 1fr) repeat(3, 3rem); gap: .3rem; padding-left: .3rem; padding-right: .3rem; }
+  .rs-head { font-size: .66rem; letter-spacing: .02em; }
+  .rs-detail { padding-left: .3rem; padding-right: .3rem; }
+}
+
 /* tisk */
 @media print {
   .site-header, .site-footer, .ms-nav, .ms-foot, .ms-toggle, .copy-btn, zit-done, .icon-btn { display: none !important; }

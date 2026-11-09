@@ -22,6 +22,7 @@ Course website for **F7PBPZIT – Základy informačních technologií**, ČVUT 
 ```
 index.html                    hub: next exercise + 7 cards + small links to info.html
 info.html                     #harmonogram #odevzdavani #pravidla-ai #hodnoceni #nastroje
+vysledky.html                 test results behind a password (<zit-results>, data in assets/data/vysledky.zitenc)
 lectures/<NN-slug>/index.html one page per exercise (+ page.css, page.js for exercise-specific components)
 materials/<NN>/               student downloads
 slides/<NN-slug>.html|.pdf    decks from Claude Design (teacher drops them in)
@@ -35,11 +36,12 @@ plans/lectures/<NN>-…-plan-cz.md, plans/slides/<NN>-…-slides.md
 teacher/<NN>/                 scenar-bible.md, klic-reseni.md, checklist.md, build-package.py, build-slides.py, slides-body.html, package-src/, reseni/
 teacher/common/               zitlib.py (shared build helpers, test encryption), deck.py + deck.css (shared slide decks)
 teacher/tests/test1|test2/    build-testN.py (holds the password), klic.md, testN.zip (plain backup), reseni/
+teacher/results/              build-results.py (holds the results password; reads the grading workbooks in OneDrive), vysledky.json (plain copy)
 ```
 
 Every page: `<html lang="cs" data-root="…">`, `<body data-page="hub|info|exercise" data-lecture="N">`, the same header (brand + „Cvičení“ + „Info o kurzu“ + theme toggle) and footer copied verbatim. All links relative; only `404.html` uses absolute `/F7PBPZIT/` paths.
 
-Groups: par. 1 Monday 14:00 KL:B-435; par. 3 Monday 12:00 KL:B-520 and par. 2 Monday 14:00 KL:B-435 one week later. Each exercise is planned for **90 minutes** of core work plus an optional ~15-minute extension (the master plan says 105–110; the timetable slot is 2 teaching hours). Graded tests: **Test 1 in exercise 4** (35 min, 50 b, pass ≥ 25 b = 50 %, Word formatting only), **Test 2 in exercise 7** (50 min, 50 b, Excel only; pass ≥ 30 b = 60 %; exercise 7 has 40 min of cyber security first). Test task sheets are written as instructions (imperative: „Ulož…“, „Vlož…“) and end with „pošli na marek.sokol@cvut.cz“. Tests download only after the password: the ZIP is AES-GCM encrypted (`materials/04/test1.zitenc`, `materials/07/test2.zitenc`, made by `teacher/tests/*/build-testN.py`) and `<zit-locked>` decrypts it in the browser. Never commit a password or a plain test ZIP.
+Groups: par. 1 Monday 14:00 KL:B-435; par. 3 Monday 12:00 KL:B-520 and par. 2 Monday 14:00 KL:B-435 one week later. Each exercise is planned for **90 minutes** of core work plus an optional ~15-minute extension (the master plan says 105–110; the timetable slot is 2 teaching hours). Graded tests: **Test 1 in exercise 4** (35 min, 50 b, pass ≥ 25 b = 50 %, Word formatting only), **Test 2 in exercise 7** (50 min, 50 b, Excel only; pass ≥ 30 b = 60 %; exercise 7 has 40 min of cyber security first). Test task sheets are written as instructions (imperative: „Ulož…“, „Vlož…“) and end with „pošli na marek.sokol@cvut.cz“. Tests download only after the password: the ZIP is AES-GCM encrypted (`materials/04/test1.zitenc`, `materials/07/test2.zitenc`, made by `teacher/tests/*/build-testN.py`) and `<zit-locked>` decrypts it in the browser. Never commit a password or a plain test ZIP. In the course results each test counts **at most 20 points** (raw 50 → 20, rounded to whole points; Test 1 pass ≥ 10, Test 2 pass ≥ 12). Because Word 2016 on the classroom PCs had trouble inserting tables and changing numbering, Test 1 tasks 6 and 7 count only when they help: `ROUND(20 × MAX(raw/50, (raw − t6 − t7)/36))`. Results go online in `vysledky.html`: edit the teacher's results workbook, run `teacher/results/build-results.py`, commit only `assets/data/vysledky.zitenc`. Publish names, points and per-task reasons only, never the teacher's notes (copy cases, absences).
 
 ## Exercise page anatomy
 
@@ -54,6 +56,7 @@ Building blocks inside a step: `.story` (with `.clock`), `.timeline`, `.todo-h` 
 | `<zit-mission key>` | stepper: pills, progress, ←/→ keys, `#krok-N`, remembers step, „Zobrazit všechny kroky“ | children `section.ms-step` |
 | `<zit-done key label>` | „Hotovo“ checkbox, drives pill ticks | attrs |
 | `<zit-reveal label>` | hidden content | light DOM |
+| `<zit-results>` | password field; decrypts the results JSON, table per parallel (remembers the group picker), click a name for the per-task breakdown, „Zamknout“ | `{title, src, text?}` |
 | `<zit-ribbon>` | Word/Excel ribbon mock with highlighted button and path | `{app?, tab, groups:[{name, styles?, items:[str or {t,i,hl}]}], path, keys?}` |
 | `<zit-compare start left right>` | before/after slider, first child before, second after | children |
 | `<zit-ai-reveal>` | AI answer types out, button stamps the problems | `{title, prompt, button, after, sentences:[{t, bad?, label?, why?}]}` |
